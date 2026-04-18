@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluación de Viabilidad — Punto de Conexión Digital | ICC</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;color:#1a1a1a;background:#f5f5f3;min-height:100vh;padding:2rem 1rem}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:12px;border:1px solid #e0e0dc;overflow:hidden}
+.wrap{padding:2rem}
+.hdr{border-bottom:1px solid #e0e0dc;padding-bottom:1.25rem;margin-bottom:1.5rem}
+.hdr-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.inst-tag{font-size:11px;font-weight:500;letter-spacing:.04em;color:#888;text-transform:uppercase;margin-bottom:.25rem}
+.hdr h1{font-size:20px;font-weight:500;color:#1a1a1a;line-height:1.3}
+.hdr-sub{font-size:13px;color:#666;margin-top:.3rem}
+.score-badge{background:#f5f5f3;border:1px solid #e0e0dc;border-radius:12px;padding:.75rem 1.25rem;text-align:center;min-width:140px;flex-shrink:0}
+.score-label{font-size:11px;color:#888;margin-bottom:.2rem}
+.score-num{font-size:36px;font-weight:500;color:#1a1a1a;line-height:1}
+.score-denom{font-size:13px;color:#888}
+.score-verdict{font-size:11px;margin-top:.4rem;padding:3px 10px;border-radius:4px;display:inline-block;background:#f0f0ee;color:#666}
+
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.5rem}
+.field-group{display:flex;flex-direction:column;gap:.3rem}
+.field-group label{font-size:12px;color:#666;font-weight:500}
+.field-group input,.field-group select,.field-group textarea{border:1px solid #d8d8d4;border-radius:8px;padding:.45rem .65rem;font-size:13px;font-family:inherit;color:#1a1a1a;background:#fff;width:100%}
+.field-group input:focus,.field-group select:focus{outline:none;border-color:#999}
+.field-group textarea{resize:vertical;min-height:60px}
+.full-col{grid-column:1/-1}
+
+.progress-bar{height:4px;background:#f0f0ee;border-radius:2px;margin:.75rem 0 0;overflow:hidden}
+.progress-fill{height:100%;border-radius:2px;transition:width .3s;background:#888}
+
+.section{margin-bottom:1rem;border:1px solid #e0e0dc;border-radius:12px;overflow:hidden}
+.sec-hdr{padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;cursor:pointer;user-select:none;background:#f9f9f7}
+.sec-hdr:hover{background:#f5f5f3}
+.sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sec-title{font-size:14px;font-weight:500;flex:1;color:#1a1a1a}
+.sec-pts{font-size:12px;color:#888}
+.sec-arrow{font-size:11px;color:#bbb;transition:transform .2s}
+.sec-arrow.open{transform:rotate(90deg)}
+.sec-body{padding:1rem;border-top:1px solid #e0e0dc;display:none}
+.sec-body.visible{display:block}
+
+.item{padding:.65rem 0;border-bottom:1px solid #f0f0ee;display:grid;grid-template-columns:1fr auto auto;align-items:start;gap:.75rem}
+.item:last-child{border-bottom:none;padding-bottom:0}
+.item-text{font-size:13px;color:#1a1a1a;line-height:1.45}
+.item-note{font-size:11px;color:#888;margin-top:.2rem;line-height:1.4}
+.item-pts{font-size:11px;color:#aaa;white-space:nowrap;padding-top:3px}
+.radio-group{display:flex;gap:.3rem;padding-top:2px}
+.radio-group label{display:flex;align-items:center;justify-content:center;width:38px;height:26px;border:1px solid #d8d8d4;border-radius:5px;cursor:pointer;font-size:11px;color:#666;transition:all .15s;background:#fff;font-family:inherit}
+.radio-group input[type=radio]{display:none}
+.radio-group input[type=radio][value=si]:checked+label{color:#0f6e56;border-color:#5dcaa5;background:#e1f5ee}
+.radio-group input[type=radio][value=parcial]:checked+label{color:#854f0b;border-color:#ef9f27;background:#faeeda}
+.radio-group input[type=radio][value=no]:checked+label{color:#993535;border-color:#e24b4a;background:#fcebeb}
+.obs-field{grid-column:1/-1;margin-top:.2rem}
+.obs-field input{border:1px solid #e8e8e4;border-radius:5px;padding:.3rem .5rem;font-size:12px;color:#666;background:#fafaf8;width:100%;font-family:inherit}
+.obs-field input:focus{border-color:#ccc;outline:none;background:#fff}
+
+.actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid #e0e0dc}
+.btn{padding:.5rem 1.1rem;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;border:1px solid #d8d8d4;background:#fff;color:#1a1a1a;transition:all .15s}
+.btn:hover{background:#f5f5f3}
+.btn-primary{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.btn-primary:hover{background:#333}
+.btn-danger{border-color:#e0c0c0;color:#993535}
+.btn-danger:hover{background:#fcebeb}
+
+.report{margin-top:1.5rem;border:1px solid #e0e0dc;border-radius:12px;overflow:hidden;display:none}
+.report-hdr{padding:1rem 1.25rem;background:#f9f9f7;border-bottom:1px solid #e0e0dc}
+.report-hdr h2{font-size:15px;font-weight:500;color:#1a1a1a}
+.report-hdr-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.report-body{padding:1.5rem}
+.rep-sec{margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid #f0f0ee}
+.rep-sec:last-child{border-bottom:none;margin-bottom:0}
+.rep-sec h3{font-size:13px;font-weight:500;margin-bottom:.6rem;color:#1a1a1a}
+.rep-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:.25rem 0}
+.rep-row span:first-child{color:#888}
+.rep-verdict-box{padding:1rem 1.25rem;border-radius:10px;margin-bottom:1.25rem;border:1px solid}
+.rep-verdict-box h3{font-size:14px;font-weight:500;margin-bottom:.3rem}
+.rep-verdict-box p{font-size:13px;line-height:1.6}
+.issue-list{margin-top:.5rem;padding-left:1rem}
+.issue-list li{font-size:12px;margin-bottom:.25rem;list-style:disc;line-height:1.4}
+.bar-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem}
+.bar-label{font-size:12px;color:#666;width:170px;flex-shrink:0;line-height:1.3}
+.bar-track{flex:1;height:7px;background:#f0f0ee;border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .4s}
+.bar-val{font-size:12px;color:#888;width:55px;text-align:right;flex-shrink:0}
+.footer-note{margin-top:1.25rem;padding-top:.75rem;border-top:1px solid #f0f0ee;font-size:11px;color:#aaa;line-height:1.6}
+
+@media print{
+  body{background:#fff;padding:0}
+  .page{border:none;border-radius:0;box-shadow:none}
+  .actions{display:none}
+  .report{display:block!important}
+  .sec-body{display:block!important}
+}
+@media(max-width:600px){
+  .hdr-top{flex-direction:column}
+  .score-badge{width:100%}
+  .item{grid-template-columns:1fr auto}
+  .item-pts{display:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="wrap">
+
+<div class="hdr">
+  <div class="hdr-top">
+    <div>
+      <div class="inst-tag">Instituto Consorcio Clavijero &middot; Subdirección de Tecnología Educativa</div>
+      <h1>Instrumento de evaluación de viabilidad<br>Punto de Conexión Digital</h1>
+      <div class="hdr-sub">Nodos de Aprendizaje Comunitario &middot; Línea de acción 2.2.2 &middot; Plan de Trabajo 2026</div>
+    </div>
+    <div class="score-badge">
+      <div class="score-label">Puntuación total</div>
+      <div class="score-num" id="total-score">0</div>
+      <div class="score-denom">/ 100 pts</div>
+      <div class="score-verdict" id="verdict-badge">Sin evaluar</div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+</div>
+
+<div class="info-grid">
+  <div class="field-group"><label>Nombre del espacio / institución</label><input type="text" id="f-nombre" placeholder="Ej. Biblioteca Municipal Xalapa"></div>
+  <div class="field-group"><label>Municipio</label><input type="text" id="f-municipio" placeholder="Municipio"></div>
+  <div class="field-group"><label>Estado</label><input type="text" id="f-estado" placeholder="Entidad federativa" value="Veracruz"></div>
+  <div class="field-group"><label>Tipo de espacio</label>
+    <select id="f-tipo">
+      <option value="">Seleccione...</option>
+      <option>Biblioteca pública</option>
+      <option>Telebachillerato</option>
+      <option>Casa de cultura</option>
+      <option>Centro comunitario municipal</option>
+      <option>Ayuntamiento</option>
+      <option>Otro</option>
+    </select>
+  </div>
+  <div class="field-group"><label>Evaluador/a</label><input type="text" id="f-evaluador" placeholder="Nombre completo"></div>
+  <div class="field-group"><label>Fecha de evaluación</label><input type="date" id="f-fecha"></div>
+  <div class="field-group full-col"><label>Número de puestos de trabajo existentes o proyectados</label><input type="number" id="f-puestos" placeholder="Ej. 10" min="1" max="100"></div>
+  <div class="field-group full-col"><label>Observaciones generales del espacio</label><textarea id="f-obs" placeholder="Descripción general del estado del inmueble, condiciones de acceso, etc."></textarea></div>
+</div>
+
+<div id="sections-container"></div>
+
+<div class="actions">
+  <button class="btn btn-primary" onclick="generateReport()">Generar informe de viabilidad</button>
+  <button class="btn" onclick="window.print()">Imprimir / Guardar PDF</button>
+  <button class="btn btn-danger" onclick="resetForm()">Limpiar evaluación</button>
+</div>
+
+<div class="report" id="report"></div>
+
+<div class="footer-note">
+  Idea Original por Herson Alfonso castellanos Celis — Departmaneto de Desarrollo de Masteriales Educativos — Subdirección Académica, Instituto Consorcio Clavijero. <br>
+  Instrumento elaborado para el Departamento de Tecnología Educativa e Infraestructura — Subdirección de Tecnología Educativa, Instituto Consorcio Clavijero.<br>
+  Objetivo 2 · Estrategia 2.2 · Línea de acción 2.2.2 · Meta 2.2 del Plan de Trabajo 2026.
+</div>
+
+</div>
+</div>
+
+<script>
+const SECTIONS=[
+{id:"s1",title:"Infraestructura física del espacio",color:"#1D9E75",maxPts:20,items:[
+{id:"i1_1",text:"Área mínima de 2.5 m² por puesto de trabajo disponible",note:"Para 10 puestos: mínimo 25 m² útiles de salón",pts:5},
+{id:"i1_2",text:"Altura de techo mínima de 2.5 m",note:"Necesaria para circulación de aire y paso de cableado",pts:2},
+{id:"i1_3",text:"Pisos, paredes y techo en buenas condiciones estructurales",note:"Sin humedades, grietas o riesgos de colapso",pts:3},
+{id:"i1_4",text:"Sistema de ventilación mecánica o climatización (A/C)",note:"Temperatura operativa recomendada: 18–24 °C para los equipos",pts:5},
+{id:"i1_5",text:"Iluminación artificial adecuada (mínimo 300 lux en área de trabajo)",note:"Preferentemente fluorescente o LED sin deslumbramiento en pantallas",pts:5},
+]},
+{id:"s2",title:"Sistema eléctrico",color:"#EF9F27",maxPts:20,items:[
+{id:"i2_1",text:"Circuito eléctrico independiente para el área de cómputo",note:"Aislado del circuito general del inmueble",pts:5},
+{id:"i2_2",text:"Tablero de control con protecciones (interruptores termomagnéticos)",note:"Un interruptor por ramal de 3–4 equipos como máximo",pts:5},
+{id:"i2_3",text:"Contactos dobles aterrizados (120 V CA) en todas las estaciones",note:"Mínimo un contacto por equipo más impresora/proyector",pts:5},
+{id:"i2_4",text:"Reguladores de voltaje o UPS por estación de trabajo (o sistema central)",note:"Protección contra variaciones de voltaje y cortes de energía",pts:5},
+]},
+{id:"s3",title:"Conectividad e infraestructura de red",color:"#378ADD",maxPts:25,items:[
+{id:"i3_1",text:"Proveedor de servicio de internet disponible en la localidad",note:"Verificar cobertura de al menos un ISP con enlace dedicado o residencial de alta velocidad",pts:8},
+{id:"i3_2",text:"Ancho de banda mínimo de 120 Mbps simétrico (bajada/subida)",note:"Velocidad compartida entre todos los puestos activos simultáneamente",pts:8},
+{id:"i3_3",text:"Cableado estructurado Cat 5E o superior hacia cada puesto",note:"Cat 6 recomendable para garantizar 1 Gbps hasta los equipos",pts:5},
+{id:"i3_4",text:"Switch de red 24 puertos o superior instalado o disponible",note:"Administrable recomendable para control de ancho de banda por puerto",pts:4},
+]},
+{id:"s4",title:"Equipo de cómputo",color:"#534AB7",maxPts:25,items:[
+{id:"i4_1",text:"Procesador: mínimo Dual Core 2.5 GHz 64 bits (recom. Intel Core i3 / AMD Ryzen 3 o superior)",note:"Verificar año de fabricación; chips anteriores a 2015 pueden no ser compatibles con Windows 10",pts:5},
+{id:"i4_2",text:"Memoria RAM: mínimo 4 GB (recomendable 6–8 GB)",note:"2 GB es insuficiente para Windows 10 + navegador + plataforma LMS simultáneo",pts:6},
+{id:"i4_3",text:"Almacenamiento: mínimo 256 GB SSD (recomendable 512 GB SSD)",note:"Disco duro mecánico (HDD) solo como almacenamiento secundario; SSD requerido para SO",pts:5},
+{id:"i4_4",text:"Sistema operativo: Windows 10/11 (64 bits) o Ubuntu LTS 22.04+",note:"Ubuntu 22.04 es alternativa válida de costo cero para reducir inversión",pts:4},
+{id:"i4_5",text:"Periféricos de videoconferencia: webcam (mín. 720p) y headset con micrófono por puesto",note:"Indispensables para sesiones sincrónicas con docentes en modalidad en línea",pts:5},
+]},
+{id:"s5",title:"Software y navegación",color:"#D4537E",maxPts:10,items:[
+{id:"i5_1",text:"Navegador moderno actualizado: Chrome, Firefox o Edge (versión vigente)",note:"Verificar compatibilidad con la plataforma ICC (Moodle / Canvas)",pts:3},
+{id:"i5_2",text:"Suite ofimática: MS Office 2019+, LibreOffice o Google Workspace",note:"LibreOffice es alternativa gratuita y funcional para actividades académicas",pts:3},
+{id:"i5_3",text:"Software de seguridad: antivirus activo y actualizado",note:"Windows Defender es válido en sistemas Windows 10/11",pts:2},
+{id:"i5_4",text:"Utilerías esenciales: lector de PDF, compresor de archivos, cliente de videoconferencia",note:"Zoom, Google Meet o Teams; Acrobat Reader o Foxit; 7-Zip o WinRAR",pts:2},
+]},
+];
+
+const state={scores:{},observations:{}};
+
+function getVerdict(sc){
+if(sc>=90)return{label:"Óptimo",bg:"#e1f5ee",border:"#5dcaa5",text:"#0f6e56"};
+if(sc>=75)return{label:"Viable con observaciones menores",bg:"#e6f1fb",border:"#85b7eb",text:"#185fa5"};
+if(sc>=60)return{label:"Viable con mejoras requeridas",bg:"#faeeda",border:"#ef9f27",text:"#854f0b"};
+if(sc>=40)return{label:"No viable sin inversión significativa",bg:"#fcebeb",border:"#f09595",text:"#a32d2d"};
+return{label:"No viable",bg:"#fcebeb",border:"#e24b4a",text:"#a32d2d"};
+}
+
+function calcScore(){
+let t=0;
+SECTIONS.forEach(s=>s.items.forEach(it=>{
+const v=state.scores[it.id];
+if(v==="si")t+=it.pts;
+else if(v==="parcial")t+=Math.round(it.pts*0.5);
+}));
+return Math.min(100,t);
+}
+
+function calcSecScore(si){
+let pts=0;
+SECTIONS[si].items.forEach(it=>{
+const v=state.scores[it.id];
+if(v==="si")pts+=it.pts;
+else if(v==="parcial")pts+=Math.round(it.pts*0.5);
+});
+return pts;
+}
+
+function updateUI(){
+const sc=calcScore();
+const v=getVerdict(sc);
+document.getElementById("total-score").textContent=sc;
+const vb=document.getElementById("verdict-badge");
+vb.textContent=v.label;
+vb.style.background=v.bg;
+vb.style.color=v.text;
+vb.style.border="1px solid "+v.border;
+const prog=document.getElementById("prog");
+prog.style.width=sc+"%";
+prog.style.background=v.text;
+SECTIONS.forEach((_,i)=>{
+const el=document.getElementById("spts"+i);
+if(el)el.textContent=calcSecScore(i)+" / "+SECTIONS[i].maxPts+" pts";
+});
+}
+
+function buildSections(){
+const c=document.getElementById("sections-container");
+SECTIONS.forEach((s,si)=>{
+const div=document.createElement("div");
+div.className="section";
+div.innerHTML=`
+<div class="sec-hdr" onclick="toggleSec(${si})">
+  <div class="sec-dot" style="background:${s.color}"></div>
+  <span class="sec-title">${s.title}</span>
+  <span class="sec-pts" id="spts${si}">0 / ${s.maxPts} pts</span>
+  <span class="sec-arrow open" id="arr${si}">&#9654;</span>
+</div>
+<div class="sec-body visible" id="body${si}">
+${s.items.map(it=>`
+<div class="item">
+  <div>
+    <div class="item-text">${it.text}</div>
+    <div class="item-note">${it.note}</div>
+  </div>
+  <div class="item-pts">${it.pts} pts</div>
+  <div class="radio-group">
+    <input type="radio" name="${it.id}" id="${it.id}_si" value="si" onchange="setScore('${it.id}','si')">
+    <label for="${it.id}_si">Sí</label>
+    <input type="radio" name="${it.id}" id="${it.id}_parcial" value="parcial" onchange="setScore('${it.id}','parcial')">
+    <label for="${it.id}_parcial">Parcial</label>
+    <input type="radio" name="${it.id}" id="${it.id}_no" value="no" onchange="setScore('${it.id}','no')">
+    <label for="${it.id}_no">No</label>
+  </div>
+  <div class="obs-field"><input type="text" placeholder="Observación (opcional)" oninput="state.observations['${it.id}']=this.value" id="obs_${it.id}"></div>
+</div>`).join("")}
+</div>`;
+c.appendChild(div);
+});
+}
+
+function toggleSec(si){
+const b=document.getElementById("body"+si);
+const a=document.getElementById("arr"+si);
+const isOpen=b.classList.contains("visible");
+b.classList.toggle("visible",!isOpen);
+a.classList.toggle("open",!isOpen);
+}
+
+function setScore(id,val){
+state.scores[id]=val;
+updateUI();
+}
+
+function generateReport(){
+const nombre=document.getElementById("f-nombre").value||"(No especificado)";
+const mun=document.getElementById("f-municipio").value||"";
+const edo=document.getElementById("f-estado").value||"";
+const tipo=document.getElementById("f-tipo").value||"(No especificado)";
+const eval_=document.getElementById("f-evaluador").value||"(No especificado)";
+const fecha=document.getElementById("f-fecha").value||new Date().toLocaleDateString("es-MX");
+const puestos=document.getElementById("f-puestos").value||"N/D";
+const obsGen=document.getElementById("f-obs").value||"—";
+const sc=calcScore();
+const v=getVerdict(sc);
+
+const missing=[],partial=[];
+SECTIONS.forEach(s=>s.items.forEach(it=>{
+const val=state.scores[it.id];
+const obs=state.observations[it.id]||"";
+if(!val||val==="no")missing.push({...it,sec:s.title,obs});
+else if(val==="parcial")partial.push({...it,sec:s.title,obs});
+}));
+
+const barsHtml=SECTIONS.map((s,si)=>{
+const pts=calcSecScore(si);
+const pct=Math.round((pts/s.maxPts)*100);
+return`<div class="bar-row"><span class="bar-label">${s.title}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${s.color}"></div></div><span class="bar-val">${pts}/${s.maxPts}</span></div>`;
+}).join("");
+
+const mkList=(arr,color)=>arr.length
+?`<ul class="issue-list">${arr.map(x=>`<li style="color:${color}">${x.text} <span style="color:#aaa">— ${x.sec}</span>${x.obs?` · <em style="color:#888">${x.obs}</em>`:""}</li>`).join("")}</ul>`
+:"<p style='font-size:13px;color:#888'>Ninguna</p>";
+
+const recs=[];
+const allIssues=[...missing,...partial];
+if(allIssues.some(x=>x.sec.includes("eléctrico")))recs.push("Priorizar la adecuación del sistema eléctrico, ya que representa riesgo para equipos e integridad de los usuarios.");
+if(allIssues.some(x=>x.sec.includes("Conectividad")))recs.push("Verificar con ISP de la zona disponibilidad de enlaces dedicados; considerar conectividad satelital (Starlink, Telecomm) en localidades sin cobertura de fibra óptica.");
+if(allIssues.some(x=>x.sec.includes("cómputo")))recs.push("Gestionar donaciones de equipo a través de la Subdirección de Vinculación; equipos con 4 GB RAM y SSD de 256 GB cumplen el mínimo operativo establecido.");
+if(allIssues.some(x=>x.sec.includes("física")))recs.push("Coordinar con el ayuntamiento la habilitación del espacio físico; considerar mamparas o biombos para delimitar el área de cómputo si el espacio es compartido.");
+if(sc<75)recs.push("Elaborar un plan de mejora con fechas compromiso y responsables asignados, en coordinación con la Subdirección de Vinculación y Difusión del ICC.");
+if(recs.length===0)recs.push("Mantener un plan de mantenimiento preventivo semestral para equipos de cómputo y verificación anual de la instalación eléctrica y de red.");
+
+const dictamenTexto={
+90:"El espacio cumple de manera óptima con todos los requerimientos técnicos y de infraestructura. Se dictamina procedente su habilitación como Punto de Conexión Digital sin observaciones relevantes.",
+75:"El espacio es viable para su habilitación. Se identificaron observaciones menores que deberán atenderse antes o durante la instalación, sin representar impedimento para la operación.",
+60:"El espacio es viable condicionalmente. Existen áreas de mejora que deben resolverse previo al inicio de operaciones; se requiere un plan de acción con fechas compromiso.",
+40:"El espacio presenta deficiencias significativas que comprometen la operación de los procesos de enseñanza-aprendizaje en línea. Se requiere inversión sustancial antes de considerar su habilitación.",
+0:"El espacio no reúne las condiciones mínimas necesarias. No se dictamina viable en sus condiciones actuales. Se recomienda identificar un espacio alternativo o realizar una intervención integral de infraestructura."
+};
+const dText=sc>=90?dictamenTexto[90]:sc>=75?dictamenTexto[75]:sc>=60?dictamenTexto[60]:sc>=40?dictamenTexto[40]:dictamenTexto[0];
+
+const r=document.getElementById("report");
+r.style.display="block";
+r.innerHTML=`
+<div class="report-hdr">
+  <div class="report-hdr-row">
+    <h2>Informe de viabilidad — Punto de Conexión Digital</h2>
+    <button class="btn" onclick="window.print()">Imprimir / PDF</button>
+  </div>
+</div>
+<div class="report-body">
+
+<div class="rep-verdict-box" style="background:${v.bg};border-color:${v.border};color:${v.text}">
+  <h3>Dictamen: ${v.label} — ${sc} / 100 puntos</h3>
+  <p>${dText}</p>
+</div>
+
+<div class="rep-sec">
+  <h3>Datos generales del espacio evaluado</h3>
+  <div class="rep-row"><span>Espacio / institución</span><span>${nombre}</span></div>
+  <div class="rep-row"><span>Ubicación</span><span>${[mun,edo].filter(Boolean).join(", ")||"N/D"}</span></div>
+  <div class="rep-row"><span>Tipo de espacio</span><span>${tipo}</span></div>
+  <div class="rep-row"><span>Puestos proyectados</span><span>${puestos}</span></div>
+  <div class="rep-row"><span>Evaluador/a</span><span>${eval_}</span></div>
+  <div class="rep-row"><span>Fecha de evaluación</span><span>${fecha}</span></div>
+  ${obsGen!=="—"?`<div style="margin-top:.5rem;font-size:13px;color:#666"><strong style="font-weight:500">Observaciones generales:</strong> ${obsGen}</div>`:""}
+</div>
+
+<div class="rep-sec">
+  <h3>Puntuación por dimensión</h3>
+  ${barsHtml}
+  <p style="font-size:11px;color:#aaa;margin-top:.5rem">Sí = 100% del puntaje &nbsp;|&nbsp; Parcial = 50% &nbsp;|&nbsp; No = 0%</p>
+</div>
+
+<div class="rep-sec">
+  <h3 style="color:#a32d2d">Requerimientos ausentes o no cumplidos (${missing.length})</h3>
+  ${mkList(missing,"#a32d2d")}
+</div>
+
+<div class="rep-sec">
+  <h3 style="color:#854f0b">Requerimientos cumplidos parcialmente (${partial.length})</h3>
+  ${mkList(partial,"#854f0b")}
+</div>
+
+<div class="rep-sec">
+  <h3>Recomendaciones para la habilitación</h3>
+  <ul class="issue-list">${recs.map(r=>`<li style="color:#444">${r}</li>`).join("")}</ul>
+</div>
+
+<div class="footer-note">
+  Documento generado por el Instrumento de Evaluación de Viabilidad para Puntos de Conexión Digital.<br>
+  Idea Original por Herson Alfonso castellanos Celis — Departmaneto de Desarrollo de Masteriales Educativos — Subdirección Académica, Instituto Consorcio Clavijero. 
+  Departamento de Tecnología Educativa e Infraestructura — Subdirección de Tecnología Educativa, Instituto Consorcio Clavijero.<br>
+  Objetivo 2 · Estrategia 2.2 · Línea de acción 2.2.2 · Meta 2.2 · Plan de Trabajo 2026.
+</div>
+
+</div>`;
+r.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function resetForm(){
+state.scores={};
+state.observations={};
+document.querySelectorAll("input[type=radio]").forEach(r=>r.checked=false);
+document.querySelectorAll(".obs-field input").forEach(i=>i.value="");
+document.getElementById("f-obs").value="";
+document.getElementById("report").style.display="none";
+updateUI();
+}
+
+buildSections();
+document.getElementById("f-fecha").value=new Date().toISOString().split("T")[0];
+updateUI();
+</script>
+</body>
+</html>

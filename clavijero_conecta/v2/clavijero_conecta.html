@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ICC Clavijero · Conecta</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --r:#7B1C2E;--rh:#5e1522;--r2:#b03050;
+  --g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g400:#9ca3af;--g600:#4b5563;--g700:#374151;--g900:#111827;
+  --green:#16a34a;--amber:#d97706;--blue:#2563eb;--sw:222px}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--g100);color:var(--g900);display:flex;height:100vh;overflow:hidden;font-size:14px}
+
+/* SIDEBAR */
+aside{width:var(--sw);background:linear-gradient(175deg,var(--r) 0%,#3d0d18 100%);color:#fff;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.brand{padding:20px 16px 14px;border-bottom:1px solid rgba(255,255,255,.12)}
+.brand h1{font-size:15px;font-weight:700;letter-spacing:.3px}
+.brand p{font-size:10px;opacity:.6;letter-spacing:1px;margin-top:2px}
+nav{flex:1;padding:10px 0}
+.ns{font-size:10px;letter-spacing:1.2px;opacity:.45;padding:14px 16px 4px;text-transform:uppercase}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;font-size:13px;opacity:.82;transition:background .14s}
+.ni:hover{background:rgba(255,255,255,.09);opacity:1}
+.ni.active{background:rgba(255,255,255,.17);font-weight:600;opacity:1}
+.ni svg{flex-shrink:0;width:15px;height:15px}
+.nb{margin-left:auto;background:rgba(255,255,255,.2);border-radius:20px;font-size:11px;font-weight:700;padding:1px 7px;min-width:22px;text-align:center}
+
+/* MAIN */
+main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.page{display:none;flex-direction:column;flex:1}
+.page.on{display:flex}
+.ph{padding:24px 28px 0;background:#fff;border-bottom:1px solid var(--g200)}
+.ph h2{font-size:21px;font-weight:700}
+.ph p{color:var(--g600);font-size:13px;margin-top:3px;padding-bottom:16px}
+.pb{padding:20px 28px;flex:1}
+
+/* CARDS */
+.card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.07);overflow:hidden}
+.ch{padding:12px 16px;font-weight:600;font-size:14px;border-bottom:1px solid var(--g100);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+
+/* KPI */
+.krow{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.kc{background:#fff;border-radius:10px;padding:16px 20px;flex:1;min-width:110px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.kc .num{font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--r),var(--r2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.kc .lbl{font-size:12px;color:var(--g600);margin-top:4px}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse}
+th{background:var(--g50);font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--g400);padding:9px 14px;text-align:left;white-space:nowrap}
+td{padding:10px 14px;border-top:1px solid var(--g100);vertical-align:middle}
+tr:hover td{background:var(--g50)}
+
+/* AVATAR */
+.av{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0;background:linear-gradient(135deg,var(--r),var(--r2))}
+.av-lg{width:42px;height:42px;font-size:14px}
+
+/* PILLS / TAGS */
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap}
+.p-activo{background:#dcfce7;color:#15803d}
+.p-revision{background:#fef3c7;color:#92400e}
+.p-pendiente{background:var(--g100);color:var(--g600)}
+.p-concluido{background:#e0e7ff;color:#3730a3}
+.p-verif{background:#dcfce7;color:#15803d}
+.p-valid{background:#fef3c7;color:#92400e}
+.p-proceso{background:#dbeafe;color:#1d4ed8}
+
+/* GRID 2 col */
+.g2{display:grid;grid-template-columns:1fr 290px;gap:18px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g2eq{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+/* UR list */
+.ur-item{padding:12px 16px;border-top:1px solid var(--g100)}
+.ur-item:first-child{border-top:none}
+.ur-name{font-weight:600;font-size:13px}
+.ur-meta{font-size:12px;color:var(--g600);margin-top:2px}
+
+/* FLOW */
+.flow{display:flex;overflow-x:auto;padding-bottom:4px;margin:16px 0 0}
+.step{display:flex;flex-direction:column;align-items:center;min-width:90px;flex:1;position:relative;cursor:pointer}
+.sn{width:32px;height:32px;border-radius:50%;border:2px solid var(--g200);display:flex;align-items:center;justify-content:center;font-weight:700;background:#fff;font-size:13px;z-index:1;position:relative;transition:all .2s}
+.step.done .sn,.step.cur .sn{background:linear-gradient(135deg,var(--r),var(--r2));border-color:var(--r);color:#fff}
+.step.cur .sn{box-shadow:0 0 0 4px rgba(123,28,46,.15)}
+.sl{font-size:10.5px;color:var(--g600);margin-top:5px;text-align:center;font-weight:600;line-height:1.3}
+.step.cur .sl{color:var(--r)}
+.step::before{content:'';position:absolute;top:16px;left:-50%;width:100%;height:2px;background:var(--g200);z-index:0}
+.step:first-child::before{display:none}
+.step.done::before{background:linear-gradient(90deg,var(--r),var(--r2))}
+.fbox{background:var(--g50);border-radius:8px;padding:12px;border:1px solid var(--g200)}
+.fbox.hl{background:linear-gradient(135deg,#fdf2f4,#fce7ec);border-color:#f0b8c4}
+.fbox h4{font-size:12.5px;font-weight:700;margin-bottom:4px}
+.fbox p{font-size:12px;color:var(--g600);line-height:1.5}
+
+/* PERFIL CARDS */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(256px,1fr));gap:14px}
+.pc{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.07);display:flex;flex-direction:column;gap:10px}
+.pt{display:flex;gap:11px;align-items:center}
+.pi h3{font-size:14px;font-weight:700}
+.pi p{font-size:12px;color:var(--g600)}
+.ptags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{background:var(--g100);color:var(--g700);border-radius:5px;padding:2px 7px;font-size:11px;font-weight:600}
+.pbar{height:5px;background:var(--g200);border-radius:4px;margin-top:3px}
+.pfill{height:5px;border-radius:4px;background:linear-gradient(90deg,var(--r),var(--r2))}
+
+/* CHECKLIST docs */
+.doclist{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;margin-top:6px}
+.doci{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--g600)}
+.doci.ok{color:var(--green);font-weight:600}
+.doci svg{flex-shrink:0;width:13px;height:13px}
+
+/* SEGUIMIENTO */
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.srow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--g100)}
+.sdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.barbg{height:5px;background:var(--g200);border-radius:4px}
+.barfill{height:5px;border-radius:4px}
+.al-item{padding:11px 14px;border-top:1px solid var(--g100);display:flex;gap:11px;align-items:flex-start}
+.al-item:first-child{border-top:none}
+.al-ico{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.al-ico.warn{background:var(--amber)}
+.al-ico.info{background:var(--blue)}
+.al-ico.ok{background:var(--green)}
+.al-body p{font-size:13px;font-weight:600}
+.al-body span{font-size:12px;color:var(--g600)}
+
+/* CONTROL */
+.ci{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-top:1px solid var(--g100)}
+.ci:first-child{border-top:none}
+.cn{width:32px;height:32px;background:linear-gradient(135deg,#fdf2f4,#fce7ec);color:var(--r);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0}
+.cb h4{font-size:13px;font-weight:700}
+.cb p{font-size:12px;color:var(--g600);margin-top:2px;line-height:1.4}
+.cs{margin-left:auto}
+
+/* REPORT */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.rc{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.07);cursor:pointer;transition:box-shadow .15s}
+.rc:hover{box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.ricon{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,#fdf2f4,#fce7ec);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.rc h3{font-size:13.5px;font-weight:700}
+.rc p{font-size:12px;color:var(--g600);margin-top:3px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s;font-family:inherit}
+.btn-p{background:linear-gradient(135deg,var(--r),#9b2235);color:#fff}
+.btn-p:hover{background:linear-gradient(135deg,var(--rh),var(--r))}
+.btn-s{background:var(--g100);color:var(--g700)}
+.btn-s:hover{background:var(--g200)}
+.btn-d{background:#fee2e2;color:#dc2626}
+.btn-d:hover{background:#fecaca}
+.bsm{font-size:11px;padding:4px 9px}
+
+/* FORMS */
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px}
+.frow.full{grid-template-columns:1fr}
+.frow.tri{grid-template-columns:1fr 1fr 1fr}
+label{font-size:12px;font-weight:600;color:var(--g700);display:block;margin-bottom:3px}
+input[type=text],input[type=date],input[type=number],select,textarea{
+  padding:7px 10px;border:1px solid var(--g200);border-radius:7px;font-size:13px;color:var(--g700);
+  outline:none;background:#fff;font-family:inherit;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--r)}
+textarea{resize:vertical;min-height:60px}
+.chk-row{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--g700);cursor:pointer;padding:4px 0}
+.chk-row input{width:16px;height:16px;cursor:pointer;accent-color:var(--r)}
+.fhdr{font-size:12px;font-weight:700;color:var(--g600);text-transform:uppercase;letter-spacing:.6px;margin:14px 0 8px;border-top:1px solid var(--g100);padding-top:12px}
+.fhdr:first-child{margin-top:0;border-top:none;padding-top:0}
+
+/* TOOLBAR */
+.tb{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.tbl{display:flex;gap:8px;flex-wrap:wrap}
+.tbl input[type=text]{width:190px}
+.tbl select{width:auto}
+
+/* MODAL */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:100;align-items:center;justify-content:center;padding:12px}
+.mo.on{display:flex}
+.md{background:#fff;border-radius:12px;width:560px;max-width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.22);display:flex;flex-direction:column}
+.md.lg{width:680px}
+.mh{padding:16px 20px;border-bottom:1px solid var(--g100);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1}
+.mh h3{font-size:16px;font-weight:700}
+.mx{background:none;border:none;font-size:22px;cursor:pointer;color:var(--g600);line-height:1;padding:2px 6px;border-radius:5px}
+.mx:hover{background:var(--g100)}
+.mb{padding:18px 20px;flex:1}
+.mf{padding:13px 20px;border-top:1px solid var(--g100);display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;background:#fff}
+
+/* EGR KPI */
+.ekrow{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.ekc{background:#fff;border-radius:10px;padding:14px 18px;flex:1;min-width:100px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.ekc .num{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--r),var(--r2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ekc .lbl{font-size:12px;color:var(--g600);margin-top:2px}
+
+/* TOAST */
+#toast{position:fixed;bottom:22px;right:22px;background:var(--g900);color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:300;max-width:300px}
+#toast.on{opacity:1}
+
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--g200);margin-bottom:18px}
+.tab{padding:8px 16px;font-size:13px;font-weight:600;color:var(--g600);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s}
+.tab:hover{color:var(--r)}
+.tab.active{color:var(--r);border-color:var(--r)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--g200);border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<aside>
+  <div class="brand">
+    <h1>ICC ClavIjero</h1>
+    <p>CONECTA · SISTEMA DE VINCULACIÓN</p>
+  </div>
+  <nav>
+    <div class="ns">Principal</div>
+    <div class="ni active" data-p="panel">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Panel general
+    </div>
+    <div class="ns">Actores</div>
+    <div class="ni" data-p="unidades">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Unidades receptoras <span class="nb" id="nb-u">0</span>
+    </div>
+    <div class="ni" data-p="estudiantes">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Estudiantes <span class="nb" id="nb-e">0</span>
+    </div>
+    <div class="ni" data-p="egresados">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      Egresados <span class="nb" id="nb-eg">0</span>
+    </div>
+    <div class="ns">Procesos</div>
+    <div class="ni" data-p="vinculacion">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      Vinculación activa
+    </div>
+    <div class="ni" data-p="seguimiento">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Seguimiento
+    </div>
+    <div class="ns">Administración</div>
+    <div class="ni" data-p="control">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Control y validación
+    </div>
+    <div class="ni" data-p="reportes">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Reportes
+    </div>
+  </nav>
+</aside>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<main>
+
+<!-- PANEL -->
+<div class="page on" id="p-panel">
+  <div class="ph"><h2>Panel general</h2><p>Resumen del ecosistema de vinculación · Semestre 2026-1</p></div>
+  <div class="pb">
+    <div class="krow" id="kpis"></div>
+    <div class="g2">
+      <div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="ch">Solicitudes recientes
+            <button class="btn btn-s bsm" onclick="nav('vinculacion')">Ver todas</button>
+          </div>
+          <table><thead><tr><th>Estudiante</th><th>Modalidad</th><th>Unidad</th><th>Estado</th><th></th></tr></thead>
+          <tbody id="t-sol"></tbody></table>
+        </div>
+        <div class="card">
+          <div class="ch">Flujo del proceso de vinculación</div>
+          <div style="padding:14px 16px">
+            <div class="flow">
+              <div class="step done"><div class="sn">1</div><div class="sl">Registro<br>actores</div></div>
+              <div class="step done"><div class="sn">2</div><div class="sl">Validación<br>admin.</div></div>
+              <div class="step cur"><div class="sn">3</div><div class="sl">Vinculación</div></div>
+              <div class="step"><div class="sn">4</div><div class="sl">Formalización</div></div>
+              <div class="step"><div class="sn">5</div><div class="sl">Seguimiento</div></div>
+              <div class="step"><div class="sn">6</div><div class="sl">Cierre y<br>evaluación</div></div>
+            </div>
+            <div class="g3" style="margin-top:14px">
+              <div class="fbox"><h4>S1 — Inicio</h4><p>Carta de Presentación, elaboración del Programa de Actividades y validación por Docente Digital.</p></div>
+              <div class="fbox hl"><h4>S2 — Ejecución</h4><p>Reportes parciales de actividades, supervisión de tutor/mentor/supervisor, evaluación continua.</p></div>
+              <div class="fbox"><h4>Cierre</h4><p>Reporte Final, Carta de Conclusión, Foro de Cierre en Plataforma Educativa.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="height:fit-content">
+        <div class="ch">Unidades destacadas
+          <button class="btn btn-s bsm" onclick="nav('unidades')">Ver todas</button>
+        </div>
+        <div id="ur-panel"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UNIDADES -->
+<div class="page" id="p-unidades">
+  <div class="ph"><h2>Unidades receptoras</h2><p>Organizaciones vinculadas para Servicio Social y Prácticas para la Profesionalización</p></div>
+  <div class="pb">
+    <div class="tb">
+      <div class="tbl">
+        <input type="text" id="u-q" placeholder="Buscar unidad…" oninput="rUnidades()">
+        <select id="u-sec" onchange="rUnidades()"><option value="">Todos los sectores</option><option>Público</option><option>Privado</option><option>Social</option></select>
+        <select id="u-est" onchange="rUnidades()"><option value="">Todos los estados</option><option>Verificada</option><option>En validación</option><option>En proceso</option></select>
+      </div>
+      <button class="btn btn-p" onclick="openU(null)">+ Nueva unidad</button>
+    </div>
+    <div class="card">
+      <table><thead><tr><th>Organización</th><th>Sector</th><th>Modalidad</th><th>Plazas</th><th>Convenio</th><th>Estado</th><th></th></tr></thead>
+      <tbody id="t-u"></tbody></table>
+    </div>
+    <p id="u-ct" style="margin-top:9px;font-size:12px;color:var(--g400)"></p>
+  </div>
+</div>
+
+<!-- ESTUDIANTES -->
+<div class="page" id="p-estudiantes">
+  <div class="ph"><h2>Estudiantes</h2><p>Perfiles activos en proceso de Servicio Social y Prácticas para la Profesionalización</p></div>
+  <div class="pb">
+    <div class="tb">
+      <div class="tbl">
+        <input type="text" id="e-q" placeholder="Buscar estudiante…" oninput="rEst()">
+        <select id="e-mod" onchange="rEst()"><option value="">Todas las modalidades</option><option>Servicio Social</option><option>Práctica Prof.</option></select>
+        <select id="e-est" onchange="rEst()"><option value="">Todos los estados</option><option>Activo</option><option>En revisión</option><option>Pendiente</option><option>Concluido</option></select>
+      </div>
+      <button class="btn btn-p" onclick="openE(null)">+ Registrar estudiante</button>
+    </div>
+    <div class="pgrid" id="g-est"></div>
+    <p id="e-ct" style="margin-top:12px;font-size:12px;color:var(--g400)"></p>
+  </div>
+</div>
+
+<!-- EGRESADOS -->
+<div class="page" id="p-egresados">
+  <div class="ph"><h2>Egresados</h2><p>Seguimiento de inserción laboral, trayectoria formativa y bolsa de trabajo</p></div>
+  <div class="pb">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('egr','directorio',this)">Directorio</div>
+      <div class="tab" onclick="switchTab('egr','bolsa',this)">Bolsa de trabajo</div>
+      <div class="tab" onclick="switchTab('egr','estadisticas',this)">Estadísticas</div>
+    </div>
+    <!-- DIRECTORIO -->
+    <div class="tab-content active" id="egr-directorio">
+      <div class="tb">
+        <div class="tbl">
+          <input type="text" id="eg-q" placeholder="Buscar egresado…" oninput="rEgr()">
+          <select id="eg-gen" onchange="rEgr()"><option value="">Todas las generaciones</option></select>
+          <select id="eg-sit" onchange="rEgr()"><option value="">Todas las situaciones</option><option>Empleado</option><option>Posgrado</option><option>Cap. trabajo</option><option>Educación continua</option></select>
+        </div>
+        <button class="btn btn-p" onclick="openEg(null)">+ Registrar egresado</button>
+      </div>
+      <div class="card">
+        <table><thead><tr><th>Egresado</th><th>Carrera</th><th>Generación</th><th>Situación</th><th>Empresa/Inst.</th><th>Modalidad cursada</th><th></th></tr></thead>
+        <tbody id="t-eg"></tbody></table>
+      </div>
+    </div>
+    <!-- BOLSA -->
+    <div class="tab-content" id="egr-bolsa">
+      <div class="tb">
+        <div class="tbl">
+          <input type="text" id="bq" placeholder="Buscar en bolsa…" oninput="rBolsa()">
+          <select id="bsec" onchange="rBolsa()"><option value="">Todos los sectores</option><option>Público</option><option>Privado</option><option>Social</option></select>
+        </div>
+      </div>
+      <div class="pgrid" id="g-bolsa"></div>
+    </div>
+    <!-- ESTADÍSTICAS -->
+    <div class="tab-content" id="egr-estadisticas">
+      <div class="ekrow" id="eg-kpis"></div>
+      <div class="g2eq">
+        <div class="card">
+          <div class="ch">Modalidades de egreso</div>
+          <div style="padding:14px 16px" id="eg-bars"></div>
+        </div>
+        <div class="card">
+          <div class="ch">Situación por generación</div>
+          <div style="padding:14px 16px" id="eg-gen-table"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VINCULACION -->
+<div class="page" id="p-vinculacion">
+  <div class="ph"><h2>Vinculación activa</h2><p>Estado de todas las vinculaciones vigentes · Semestre 2026-1</p></div>
+  <div class="pb">
+    <div class="tb">
+      <div class="tbl">
+        <input type="text" id="v-q" placeholder="Buscar…" oninput="rVinc()">
+        <select id="v-est" onchange="rVinc()"><option value="">Todos los estados</option><option>Activo</option><option>En revisión</option><option>Pendiente</option><option>Concluido</option></select>
+        <select id="v-mod" onchange="rVinc()"><option value="">Todas las modalidades</option><option>Servicio Social</option><option>Práctica Prof.</option></select>
+      </div>
+      <button class="btn btn-p" onclick="openE(null)">+ Nueva vinculación</button>
+    </div>
+    <div class="card">
+      <table><thead><tr><th>Estudiante</th><th>Unidad receptora</th><th>Modalidad</th><th>Etapa</th><th>Inicio</th><th>Avance</th><th>Estado</th><th></th></tr></thead>
+      <tbody id="t-vinc"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- SEGUIMIENTO -->
+<div class="page" id="p-seguimiento">
+  <div class="ph"><h2>Seguimiento</h2><p>Monitoreo continuo del proceso formativo y de inserción laboral</p></div>
+  <div class="pb">
+    <div class="seg">
+      <div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="ch">Seguimiento de egresados</div>
+          <div style="padding:14px 16px" id="seg-egr"></div>
+        </div>
+        <div class="card">
+          <div class="ch">Estado de estudiantes activos</div>
+          <div style="padding:0 0 6px" id="seg-est"></div>
+        </div>
+      </div>
+      <div class="card" style="height:fit-content">
+        <div class="ch">Alertas y notificaciones
+          <span class="nb" id="al-badge" style="background:#fee2e2;color:#dc2626;font-size:11px"></span>
+        </div>
+        <div id="al-list"></div>
+        <div style="padding:10px 14px">
+          <button class="btn btn-s bsm" onclick="addAlerta()">+ Agregar alerta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTROL -->
+<div class="page" id="p-control">
+  <div class="ph"><h2>Control y validación</h2><p>Verificación de requisitos administrativos, legales y académicos del proceso</p></div>
+  <div class="pb">
+    <div class="g2eq" style="margin-bottom:16px">
+      <div class="card">
+        <div class="ch">Requisitos — Unidades receptoras</div>
+        <div>
+          <div class="ci"><div class="cn">1</div><div class="cb"><h4>Documentación legal</h4><p>Oficio de solicitud, constitución IES, representante legal, comprobante de domicilio.</p></div><div class="cs"><span class="pill p-activo">OK</span></div></div>
+          <div class="ci"><div class="cn">2</div><div class="cb"><h4>Convenio de colaboración</h4><p>Instrumento legal–administrativo–académico firmado por ambas partes.</p></div><div class="cs"><span class="pill p-revision">Pendiente</span></div></div>
+          <div class="ci"><div class="cn">3</div><div class="cb"><h4>Condiciones operativas</h4><p>Responsable, espacio, herramientas, horarios, garantía de trato digno.</p></div><div class="cs"><span class="pill p-activo">OK</span></div></div>
+          <div class="ci"><div class="cn">4</div><div class="cb"><h4>Registro del programa</h4><p>SS o Prácticas para la Profesionalización registrado en plataforma.</p></div><div class="cs"><span class="pill p-revision">Revisión</span></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch">Requisitos — Expedientes estudiantiles</div>
+        <div>
+          <div class="ci"><div class="cn">1</div><div class="cb"><h4>Carta de Presentación</h4><p>Emitida por la unidad académica, entregada a la Unidad Receptora.</p></div><div class="cs"><span class="pill p-activo">OK</span></div></div>
+          <div class="ci"><div class="cn">2</div><div class="cb"><h4>Programa de Actividades</h4><p>Elaborado por el estudiante y validado por el Docente Digital antes del inicio.</p></div><div class="cs" id="ctrl-prog-status"><span class="pill p-pendiente">—</span></div></div>
+          <div class="ci"><div class="cn">3</div><div class="cb"><h4>Carta de Aceptación</h4><p>Emitida por la Unidad Receptora como confirmación formal del inicio.</p></div><div class="cs"><span class="pill p-revision">En proceso</span></div></div>
+          <div class="ci"><div class="cn">4</div><div class="cb"><h4>Reportes S1 y S2</h4><p>Entrega periódica de reportes de actividades en plataforma educativa.</p></div><div class="cs"><span class="pill p-activo">Activo</span></div></div>
+          <div class="ci"><div class="cn">5</div><div class="cb"><h4>Carta de Conclusión</h4><p>Reporte final + Foro de Cierre valorado por Docente Digital.</p></div><div class="cs"><span class="pill p-proceso">En cierre</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">Expedientes pendientes de atención
+        <span class="nb" id="ctrl-badge" style="background:#fee2e2;color:#dc2626;font-size:11px"></span>
+      </div>
+      <table><thead><tr><th>Estudiante</th><th>Carrera</th><th>Etapa</th><th>Documentos faltantes</th><th></th></tr></thead>
+      <tbody id="t-ctrl"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- REPORTES -->
+<div class="page" id="p-reportes">
+  <div class="ph"><h2>Reportes</h2><p>Generación y exportación de informes del ecosistema de vinculación</p></div>
+  <div class="pb">
+    <div class="rgrid" style="margin-bottom:20px">
+      <div class="rc" onclick="exportR('semestre')">
+        <div class="ricon"><svg width="18" height="18" fill="none" stroke="var(--r)" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <h3>Estado del semestre</h3><p>Vinculaciones activas, concluidas y pendientes.</p>
+        <button class="btn btn-p" style="margin-top:12px;width:100%;justify-content:center">Exportar JSON</button>
+      </div>
+      <div class="rc" onclick="exportR('unidades')">
+        <div class="ricon"><svg width="18" height="18" fill="none" stroke="var(--r)" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Unidades receptoras</h3><p>Participación por sector, plazas y convenios.</p>
+        <button class="btn btn-p" style="margin-top:12px;width:100%;justify-content:center">Exportar JSON</button>
+      </div>
+      <div class="rc" onclick="exportR('insercion')">
+        <div class="ricon"><svg width="18" height="18" fill="none" stroke="var(--r)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <h3>Inserción laboral</h3><p>Egresados empleados por carrera y generación.</p>
+        <button class="btn btn-p" style="margin-top:12px;width:100%;justify-content:center">Exportar JSON</button>
+      </div>
+      <div class="rc" onclick="exportR('expedientes')">
+        <div class="ricon"><svg width="18" height="18" fill="none" stroke="var(--r)" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <h3>Avance documental</h3><p>Expedientes: completos, incompletos y vencidos.</p>
+        <button class="btn btn-p" style="margin-top:12px;width:100%;justify-content:center">Exportar JSON</button>
+      </div>
+      <div class="rc" onclick="exportR('curricular')">
+        <div class="ricon"><svg width="18" height="18" fill="none" stroke="var(--r)" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>Retroalimentación curricular</h3><p>Datos para rediseño curricular desde campo.</p>
+        <button class="btn btn-p" style="margin-top:12px;width:100%;justify-content:center">Exportar JSON</button>
+      </div>
+      <div class="rc" onclick="exportR('full')">
+        <div class="ricon"><svg width="18" height="18" fill="none" stroke="var(--r)" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+        <h3>Base de datos completa</h3><p>Exportar todas las entidades del sistema.</p>
+        <button class="btn btn-p" style="margin-top:12px;width:100%;justify-content:center">Exportar JSON</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">Resumen de registros actuales
+        <button class="btn btn-s bsm" onclick="exportR('full')">Exportar todo</button>
+      </div>
+      <table><thead><tr><th>Entidad</th><th>Registros</th><th>Acción</th></tr></thead>
+      <tbody id="t-rep"></tbody></table>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ═══════════════════ MODAL: UNIDAD ═══════════════════ -->
+<div class="mo" id="mo-u">
+  <div class="md lg">
+    <div class="mh"><h3 id="mu-tit">Nueva unidad receptora</h3><button class="mx" onclick="closeMo('mo-u')">×</button></div>
+    <div class="mb">
+      <input type="hidden" id="mu-id">
+      <div class="fhdr">Datos generales</div>
+      <div class="frow full"><label>Nombre de la organización *</label><input type="text" id="mu-nombre" placeholder="Nombre completo de la organización"></div>
+      <div class="frow tri">
+        <div><label>Sector</label>
+          <select id="mu-sector">
+            <option>Público</option><option>Privado</option><option>Social</option>
+          </select>
+        </div>
+        <div><label>Subtipo</label>
+          <select id="mu-subtipo">
+            <option>Gobierno</option><option>Empresa</option><option>Fundación</option><option>Colectivo</option><option>Institución de salud</option><option>Organismo educativo</option>
+          </select>
+        </div>
+        <div><label>Plazas disponibles</label><input type="number" id="mu-plazas" min="0" value="1"></div>
+      </div>
+      <div class="frow">
+        <div><label>Modalidad que ofrece</label>
+          <select id="mu-modal">
+            <option>Servicio Social</option><option>Prácticas para la Profesionalización</option><option>Servicio Social y Prácticas</option>
+          </select>
+        </div>
+        <div><label>Estado de validación</label>
+          <select id="mu-estado">
+            <option>Verificada</option><option>En validación</option><option>En proceso</option>
+          </select>
+        </div>
+      </div>
+      <div class="fhdr">Representante y contacto</div>
+      <div class="frow">
+        <div><label>Representante legal</label><input type="text" id="mu-rep" placeholder="Nombre del representante"></div>
+        <div><label>Área responsable del programa</label><input type="text" id="mu-responsable" placeholder="Nombre del responsable operativo"></div>
+      </div>
+      <div class="frow full"><label>Notas / condiciones operativas</label><textarea id="mu-notas" placeholder="Horarios, espacios, herramientas disponibles, garantías…"></textarea></div>
+      <div class="fhdr">Documentación</div>
+      <div class="frow">
+        <label class="chk-row"><input type="checkbox" id="mu-convenio"> Convenio de colaboración firmado</label>
+        <label class="chk-row"><input type="checkbox" id="mu-domicilio"> Comprobante de domicilio registrado</label>
+      </div>
+      <div class="frow">
+        <label class="chk-row"><input type="checkbox" id="mu-programa"> Programa de SS/Prácticas registrado</label>
+        <label class="chk-row"><input type="checkbox" id="mu-trato"> Garantía de trato digno firmada</label>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="btn btn-s" onclick="closeMo('mo-u')">Cancelar</button>
+      <button class="btn btn-p" onclick="saveU()">Guardar unidad</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MODAL: ESTUDIANTE ═══════════════════ -->
+<div class="mo" id="mo-e">
+  <div class="md lg">
+    <div class="mh"><h3 id="me-tit">Registrar estudiante</h3><button class="mx" onclick="closeMo('mo-e')">×</button></div>
+    <div class="mb">
+      <input type="hidden" id="me-id">
+      <div class="fhdr">Datos personales y académicos</div>
+      <div class="frow">
+        <div><label>Nombre completo *</label><input type="text" id="me-nombre" placeholder="Ej. María González Pérez"></div>
+        <div><label>Iniciales (2–3 letras)</label><input type="text" id="me-ini" maxlength="3" placeholder="MG"></div>
+      </div>
+      <div class="frow tri">
+        <div><label>Matrícula</label><input type="text" id="me-mat" placeholder="Ej. UV20241234"></div>
+        <div><label>Carrera</label><input type="text" id="me-carrera" placeholder="Ej. Derecho"></div>
+        <div><label>Semestre</label><input type="number" id="me-sem" min="1" max="12" value="1"></div>
+      </div>
+      <div class="fhdr">Modalidad y vinculación</div>
+      <div class="frow">
+        <div><label>Modalidad</label>
+          <select id="me-modal">
+            <option>Servicio Social</option><option>Práctica Prof.</option>
+          </select>
+        </div>
+        <div><label>Estado</label>
+          <select id="me-estado">
+            <option>Activo</option><option>En revisión</option><option>Pendiente</option><option>Concluido</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div><label>Unidad receptora</label><select id="me-unidad"><option value="">Sin asignar</option></select></div>
+        <div><label>Etapa actual</label>
+          <select id="me-etapa">
+            <option>Registro</option><option>S1 — Inicio</option><option>Formalización</option><option>S2 — Ejecución</option><option>Cierre</option><option>Concluido</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div><label>Avance (%)</label><input type="number" id="me-av" min="0" max="100" value="0"></div>
+        <div><label>Fecha de inicio</label><input type="date" id="me-inicio"></div>
+      </div>
+      <div class="fhdr">Documentación del proceso</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 20px">
+        <label class="chk-row"><input type="checkbox" id="me-d1"> Carta de Presentación</label>
+        <label class="chk-row"><input type="checkbox" id="me-d2"> Programa de Actividades</label>
+        <label class="chk-row"><input type="checkbox" id="me-d3"> Carta de Aceptación (UR)</label>
+        <label class="chk-row"><input type="checkbox" id="me-d4"> Reporte S1</label>
+        <label class="chk-row"><input type="checkbox" id="me-d5"> Reporte S2</label>
+        <label class="chk-row"><input type="checkbox" id="me-d6"> Carta de Conclusión</label>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="btn btn-s" onclick="closeMo('mo-e')">Cancelar</button>
+      <button class="btn btn-p" onclick="saveE()">Guardar estudiante</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MODAL: EGRESADO ═══════════════════ -->
+<div class="mo" id="mo-eg">
+  <div class="md">
+    <div class="mh"><h3 id="meg-tit">Registrar egresado</h3><button class="mx" onclick="closeMo('mo-eg')">×</button></div>
+    <div class="mb">
+      <input type="hidden" id="meg-id">
+      <div class="fhdr">Datos personales</div>
+      <div class="frow">
+        <div><label>Nombre completo *</label><input type="text" id="meg-nombre" placeholder="Ej. Carlos Ríos Álvarez"></div>
+        <div><label>Iniciales</label><input type="text" id="meg-ini" maxlength="3" placeholder="CR"></div>
+      </div>
+      <div class="frow tri">
+        <div><label>Matrícula</label><input type="text" id="meg-mat" placeholder="UV…"></div>
+        <div><label>Carrera</label><input type="text" id="meg-carrera" placeholder="Ej. Derecho"></div>
+        <div><label>Generación</label><input type="text" id="meg-gen" placeholder="2025"></div>
+      </div>
+      <div class="fhdr">Trayectoria actual</div>
+      <div class="frow">
+        <div><label>Situación actual</label>
+          <select id="meg-sit">
+            <option>Empleado</option><option>Posgrado</option><option>Cap. trabajo</option><option>Educación continua</option><option>Sin datos</option>
+          </select>
+        </div>
+        <div><label>Modalidad cursada</label>
+          <select id="meg-modal">
+            <option>Servicio Social</option><option>Prácticas Prof.</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div><label>Empresa / Institución actual</label><input type="text" id="meg-emp" placeholder="Nombre de la empresa o institución"></div>
+        <div><label>Cargo / Posición</label><input type="text" id="meg-cargo" placeholder="Ej. Analista de datos"></div>
+      </div>
+      <div class="fhdr">Perfil profesional</div>
+      <div class="frow full"><label>Habilidades destacadas</label><input type="text" id="meg-habs" placeholder="Ej. Trabajo en equipo, pensamiento crítico, tecnología…"></div>
+    </div>
+    <div class="mf">
+      <button class="btn btn-s" onclick="closeMo('mo-eg')">Cancelar</button>
+      <button class="btn btn-p" onclick="saveEg()">Guardar egresado</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ALERTA -->
+<div class="mo" id="mo-al">
+  <div class="md" style="width:440px">
+    <div class="mh"><h3>Nueva alerta</h3><button class="mx" onclick="closeMo('mo-al')">×</button></div>
+    <div class="mb">
+      <div class="frow">
+        <div><label>Tipo</label>
+          <select id="al-tipo">
+            <option value="warn">Advertencia</option><option value="info">Información</option><option value="ok">Correcto</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow full"><label>Título</label><input type="text" id="al-tit" placeholder="Título breve de la alerta"></div>
+      <div class="frow full"><label>Detalle</label><input type="text" id="al-det" placeholder="Descripción o contexto adicional"></div>
+    </div>
+    <div class="mf">
+      <button class="btn btn-s" onclick="closeMo('mo-al')">Cancelar</button>
+      <button class="btn btn-p" onclick="saveAlerta()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════
+// SEED — datos de ejemplo completos
+// ═══════════════════════════════════════
+const DB_KEY = 'ccDB';
+const DB_VER = 'v5'; // incrementar para forzar reset
+
+const SEED = {
+  unidades: [
+    {id:1,  nombre:'Secretaría de Educación Veracruz',   sector:'Público', subtipo:'Gobierno',     modal:'Servicio Social y Prácticas',         plazas:6,  estado:'Verificada',   rep:'Dra. Rosa Alanís',        responsable:'Lic. Omar Fuentes',  notas:'Horario 8–15h, equipo disponible.',          convenio:true, domicilio:true, programa:true, trato:true},
+    {id:2,  nombre:'Grupo Industrial Olmeca S.A.',        sector:'Privado', subtipo:'Empresa',      modal:'Prácticas para la Profesionalización', plazas:3,  estado:'En validación',rep:'Ing. Armando Ríos',        responsable:'Lic. Perla Montes',  notas:'Apoyo económico mensual disponible.',         convenio:false,domicilio:true, programa:false,trato:true},
+    {id:3,  nombre:'Fundación Por México A.C.',           sector:'Social',  subtipo:'Fundación',    modal:'Servicio Social',                      plazas:4,  estado:'Verificada',   rep:'Mtra. Claudia Vega',      responsable:'Mtra. Tania Olvera', notas:'Trabajo comunitario en zonas urbanas.',       convenio:true, domicilio:true, programa:true, trato:true},
+    {id:4,  nombre:'DIF Municipal Xalapa',                sector:'Público', subtipo:'Gobierno',     modal:'Servicio Social',                      plazas:5,  estado:'En proceso',   rep:'Lic. Patricia Juárez',    responsable:'Lic. Hugo Castro',   notas:'Atención a familias en situación vulnerable.',convenio:true, domicilio:true, programa:false,trato:true},
+    {id:5,  nombre:'Tech Solutions de México',            sector:'Privado', subtipo:'Empresa',      modal:'Prácticas para la Profesionalización', plazas:8,  estado:'Verificada',   rep:'Ing. Roberto Luna',       responsable:'Dr. Felipe Torres',  notas:'Desarrollo de software y análisis de datos.', convenio:true, domicilio:true, programa:true, trato:true},
+    {id:6,  nombre:'Cruz Roja Veracruzana',               sector:'Social',  subtipo:'Fundación',    modal:'Servicio Social y Prácticas',          plazas:2,  estado:'Verificada',   rep:'Dr. Esteban Moreno',      responsable:'Enf. Sandra Mejía',  notas:'Actividades de salud y primeros auxilios.',   convenio:true, domicilio:true, programa:true, trato:true},
+    {id:7,  nombre:'H. Ayuntamiento de Veracruz',         sector:'Público', subtipo:'Gobierno',     modal:'Servicio Social',                      plazas:7,  estado:'En validación',rep:'Lic. Manuel Pedraza',      responsable:'C. Rosa Santana',    notas:'Apoyo administrativo a dependencias.',        convenio:false,domicilio:true, programa:false,trato:true},
+    {id:8,  nombre:'Colectivo Sembrando Futuro',          sector:'Social',  subtipo:'Colectivo',    modal:'Servicio Social',                      plazas:3,  estado:'En proceso',   rep:'Mtra. Beatriz León',      responsable:'Lic. Daniela Cruz',  notas:'Proyectos agrícolas y medioambientales.',     convenio:true, domicilio:false,programa:false,trato:true},
+    {id:9,  nombre:'PEMEX Exploración y Producción',      sector:'Privado', subtipo:'Empresa',      modal:'Prácticas para la Profesionalización', plazas:5,  estado:'Verificada',   rep:'Ing. Carlos Bermúdez',    responsable:'Ing. Paola Serrano', notas:'Prácticas en área de ingeniería y análisis.',  convenio:true, domicilio:true, programa:true, trato:true},
+    {id:10, nombre:'IMSS Clínica 11 Veracruz',            sector:'Público', subtipo:'Institución de salud', modal:'Servicio Social',              plazas:4,  estado:'Verificada',   rep:'Dr. Jorge Ramírez',       responsable:'Dr. Luz Méndez',     notas:'Actividades de promoción de la salud.',       convenio:true, domicilio:true, programa:true, trato:true},
+    {id:11, nombre:'Asociación Civil Educativa Xalapa',   sector:'Social',  subtipo:'Fundación',    modal:'Servicio Social',                      plazas:6,  estado:'En validación', rep:'Mtra. Graciela Ochoa',   responsable:'Lic. Ernesto Villa', notas:'Apoyo a programas de alfabetización.',        convenio:false,domicilio:true, programa:false,trato:false},
+    {id:12, nombre:'DigitalMX S.A. de C.V.',              sector:'Privado', subtipo:'Empresa',      modal:'Prácticas para la Profesionalización', plazas:4,  estado:'Verificada',   rep:'Lic. Adriana Flores',     responsable:'Ing. Marco Ávila',   notas:'Marketing digital y diseño UX.',              convenio:true, domicilio:true, programa:true, trato:true}
+  ],
+  estudiantes: [
+    {id:1,  ini:'MG',nombre:'María González Pérez',       mat:'UV20200148',carrera:'Derecho',        sem:8, modal:'Servicio Social', unidad:1,  etapa:'S2 — Ejecución', av:65,  estado:'Activo',      inicio:'2026-03-01', docs:{d1:true, d2:true, d3:true, d4:true, d5:false,d6:false}},
+    {id:2,  ini:'JR',nombre:'Juan Ramírez Torres',         mat:'UV20210305',carrera:'Administración',  sem:6, modal:'Práctica Prof.',  unidad:2,  etapa:'Formalización',   av:28,  estado:'En revisión', inicio:'2026-04-01', docs:{d1:true, d2:true, d3:false,d4:false,d5:false,d6:false}},
+    {id:3,  ini:'LS',nombre:'Laura Santos Domínguez',      mat:'UV20200982',carrera:'Psicología',      sem:7, modal:'Práctica Prof.',  unidad:3,  etapa:'S2 — Ejecución', av:50,  estado:'Activo',      inicio:'2026-02-01', docs:{d1:true, d2:true, d3:true, d4:true, d5:false,d6:false}},
+    {id:4,  ini:'AC',nombre:'Aldo Castro Mendívil',        mat:'UV20220471',carrera:'Contaduría',      sem:5, modal:'Práctica Prof.',  unidad:null,etapa:'Registro',        av:0,   estado:'Pendiente',   inicio:null,         docs:{d1:false,d2:false,d3:false,d4:false,d5:false,d6:false}},
+    {id:5,  ini:'PR',nombre:'Pedro Reyes Gutiérrez',       mat:'UV20181237',carrera:'Trabajo Social',  sem:9, modal:'Servicio Social', unidad:4,  etapa:'Cierre',          av:100, estado:'Concluido',   inicio:'2025-08-01', docs:{d1:true, d2:true, d3:true, d4:true, d5:true, d6:true}},
+    {id:6,  ini:'FM',nombre:'Fernanda Morales Ávila',      mat:'UV20210893',carrera:'Sistemas',        sem:6, modal:'Práctica Prof.',  unidad:5,  etapa:'S1 — Inicio',    av:15,  estado:'Activo',      inicio:'2026-05-01', docs:{d1:true, d2:false,d3:false,d4:false,d5:false,d6:false}},
+    {id:7,  ini:'RM',nombre:'Roberto Méndez Castillo',     mat:'UV20200617',carrera:'Derecho',         sem:7, modal:'Servicio Social', unidad:6,  etapa:'S2 — Ejecución', av:70,  estado:'Activo',      inicio:'2026-02-15', docs:{d1:true, d2:true, d3:true, d4:true, d5:false,d6:false}},
+    {id:8,  ini:'CV',nombre:'Carmen Vázquez Leal',         mat:'UV20201453',carrera:'Psicología',      sem:8, modal:'Práctica Prof.',  unidad:7,  etapa:'S1 — Inicio',    av:10,  estado:'Activo',      inicio:'2026-04-15', docs:{d1:true, d2:false,d3:false,d4:false,d5:false,d6:false}},
+    {id:9,  ini:'LT',nombre:'Luis Torres Herrera',         mat:'UV20220199',carrera:'Administración',  sem:5, modal:'Servicio Social', unidad:8,  etapa:'Formalización',   av:20,  estado:'En revisión', inicio:'2026-04-20', docs:{d1:true, d2:true, d3:false,d4:false,d5:false,d6:false}},
+    {id:10, ini:'SL',nombre:'Sofía Luna Montero',          mat:'UV20181088',carrera:'Derecho',         sem:9, modal:'Práctica Prof.',  unidad:9,  etapa:'S2 — Ejecución', av:80,  estado:'Activo',      inicio:'2026-01-20', docs:{d1:true, d2:true, d3:true, d4:true, d5:true, d6:false}},
+    {id:11, ini:'MF',nombre:'Miguel Ángel Flores Ruiz',    mat:'UV20220641',carrera:'Sistemas',        sem:6, modal:'Práctica Prof.',  unidad:null,etapa:'Registro',        av:5,   estado:'Pendiente',   inicio:null,         docs:{d1:false,d2:false,d3:false,d4:false,d5:false,d6:false}},
+    {id:12, ini:'IR',nombre:'Isabel Ramos Velázquez',      mat:'UV20201761',carrera:'Trabajo Social',  sem:8, modal:'Servicio Social', unidad:1,  etapa:'S2 — Ejecución', av:55,  estado:'Activo',      inicio:'2026-03-10', docs:{d1:true, d2:true, d3:true, d4:true, d5:false,d6:false}},
+    {id:13, ini:'DP',nombre:'Diana Pérez Juárez',          mat:'UV20211002',carrera:'Contaduría',      sem:7, modal:'Práctica Prof.',  unidad:12, etapa:'S1 — Inicio',    av:20,  estado:'Activo',      inicio:'2026-05-01', docs:{d1:true, d2:true, d3:false,d4:false,d5:false,d6:false}},
+    {id:14, ini:'AG',nombre:'Alejandro Guzmán Soto',       mat:'UV20200344',carrera:'Derecho',         sem:6, modal:'Servicio Social', unidad:10, etapa:'S2 — Ejecución', av:40,  estado:'Activo',      inicio:'2026-03-01', docs:{d1:true, d2:true, d3:true, d4:false,d5:false,d6:false}},
+    {id:15, ini:'VC',nombre:'Valentina Cruz Espinosa',     mat:'UV20211555',carrera:'Administración',  sem:8, modal:'Práctica Prof.',  unidad:11, etapa:'Formalización',   av:15,  estado:'En revisión', inicio:'2026-04-25', docs:{d1:true, d2:false,d3:false,d4:false,d5:false,d6:false}}
+  ],
+  egresados: [
+    {id:1,  ini:'CR',nombre:'Carlos Ríos Álvarez',        mat:'UV20161231',carrera:'Derecho',        gen:'2024',sit:'Empleado',        modal:'Servicio Social',  emp:'Consultora Jurídica RG',         cargo:'Asesor legal',           habs:'Derecho laboral, redacción jurídica'},
+    {id:2,  ini:'BH',nombre:'Brenda Hernández Ortiz',     mat:'UV20170489',carrera:'Psicología',     gen:'2024',sit:'Posgrado',        modal:'Prácticas Prof.',  emp:'Universidad Veracruzana',        cargo:'Estudiante de maestría',  habs:'Terapia cognitivo-conductual, investigación'},
+    {id:3,  ini:'TV',nombre:'Tomás Villanueva Cruz',       mat:'UV20171045',carrera:'Administración', gen:'2025',sit:'Empleado',        modal:'Servicio Social',  emp:'BBVA México',                    cargo:'Analista financiero',     habs:'Excel avanzado, análisis financiero'},
+    {id:4,  ini:'EM',nombre:'Elena Mora Santillán',        mat:'UV20180266',carrera:'Sistemas',       gen:'2025',sit:'Cap. trabajo',    modal:'Prácticas Prof.',  emp:'Colegio de Ingenieros del Estado',cargo:'Participante',           habs:'Python, redes, ciberseguridad'},
+    {id:5,  ini:'NQ',nombre:'Nancy Quiroz Reyes',          mat:'UV20171598',carrera:'Trabajo Social', gen:'2025',sit:'Empleado',        modal:'Servicio Social',  emp:'DIF Estatal Veracruz',           cargo:'Trabajadora social',      habs:'Intervención familiar, gestión de casos'},
+    {id:6,  ini:'AJ',nombre:'Alejandro Jiménez Banda',    mat:'UV20160812',carrera:'Derecho',        gen:'2024',sit:'Educación continua',modal:'Prácticas Prof.', emp:'UV — Educación continua',        cargo:'Diplomado en fiscal',     habs:'Derecho fiscal, argumentación jurídica'},
+    {id:7,  ini:'MC',nombre:'Mariana Castillo Fuentes',   mat:'UV20171734',carrera:'Contaduría',     gen:'2024',sit:'Empleado',        modal:'Servicio Social',  emp:'Deloitte México',                cargo:'Auditora junior',         habs:'SAP, NIIF, trabajo en equipo'},
+    {id:8,  ini:'RS',nombre:'Rodrigo Sánchez Peña',       mat:'UV20180399',carrera:'Sistemas',       gen:'2025',sit:'Posgrado',        modal:'Prácticas Prof.',  emp:'IPN — CIDETEC',                 cargo:'Investigador en formación', habs:'Machine learning, visión computacional'},
+    {id:9,  ini:'VL',nombre:'Verónica León Méndez',       mat:'UV20160647',carrera:'Psicología',     gen:'2024',sit:'Empleado',        modal:'Servicio Social',  emp:'Hospital Regional Veracruz',     cargo:'Psicóloga clínica',       habs:'Psicoterapia, evaluación psicológica'},
+    {id:10, ini:'DR',nombre:'Daniel Reyes Ortega',         mat:'UV20171121',carrera:'Administración', gen:'2025',sit:'Educación continua',modal:'Servicio Social', emp:'Tecnológico de Monterrey',       cargo:'Diplomado en liderazgo',  habs:'Gestión de proyectos, liderazgo'},
+    {id:11, ini:'PC',nombre:'Patricia Cruz Vargas',        mat:'UV20171387',carrera:'Trabajo Social', gen:'2025',sit:'Empleado',        modal:'Prácticas Prof.',  emp:'Cruz Roja Veracruzana',          cargo:'Coordinadora voluntariado',habs:'Gestión humanitaria, trabajo en equipo'},
+    {id:12, ini:'HM',nombre:'Héctor Morales Blanco',       mat:'UV20160933',carrera:'Derecho',        gen:'2025',sit:'Cap. trabajo',    modal:'Servicio Social',  emp:'Barra Veracruzana de Abogados',  cargo:'Abogado pasante',         habs:'Litigación, mediación'}
+  ],
+  alertas: [
+    {id:1,tipo:'warn',titulo:'Aldo Castro — documentación incompleta',    detalle:'Faltan: Carta de Presentación, Programa de Actividades',leida:false},
+    {id:2,tipo:'info',titulo:'Laura Santos — Reporte S2 vence en 5 días', detalle:'Práctica Prof. · Fundación Por México A.C.',           leida:false},
+    {id:3,tipo:'ok',  titulo:'María González — Carta de Conclusión recibida',detalle:'Serv. Social · SEV · Proceso finalizado',          leida:true},
+    {id:4,tipo:'warn',titulo:'Juan Ramírez — convenio pendiente de firma', detalle:'Práctica Prof. · Grupo Industrial Olmeca S.A.',       leida:false},
+    {id:5,tipo:'info',titulo:'3 unidades con validación pendiente',         detalle:'Olmeca, Ayuntamiento Veracruz, Asoc. Civil Xalapa',  leida:false},
+    {id:6,tipo:'warn',titulo:'Miguel Ángel Flores — sin unidad asignada',  detalle:'Práctica Prof. · Registro pendiente',                 leida:false}
+  ]
+};
+
+// ═══════════════════════════════════════
+// DB
+// ═══════════════════════════════════════
+function initDB(){
+  if(localStorage.getItem(DB_VER)!=='1'){
+    localStorage.setItem(DB_KEY,JSON.stringify(SEED));
+    localStorage.setItem(DB_VER,'1');
+  }
+  boot();
+}
+const D=()=>JSON.parse(localStorage.getItem(DB_KEY));
+const S=(d)=>localStorage.setItem(DB_KEY,JSON.stringify(d));
+const nid=(a)=>a.length?Math.max(...a.map(x=>x.id))+1:1;
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+const pillCls={
+  'Activo':'p-activo','activo':'p-activo','Empleado':'p-activo',
+  'En revisión':'p-revision','Cap. trabajo':'p-revision','En validación':'p-revision',
+  'Pendiente':'p-pendiente','Sin datos':'p-pendiente',
+  'Concluido':'p-concluido','Posgrado':'p-concluido','Educación continua':'p-concluido',
+  'Verificada':'p-verif','En proceso':'p-proceso'
+};
+const pc=(s)=>pillCls[s]||'p-pendiente';
+const tagU=(s)=>s==='Verificada'?'p-verif':s==='En validación'?'p-valid':'p-proceso';
+const av=(ini)=>`<span class="av">${ini}</span>`;
+const avL=(ini)=>`<span class="av av-lg">${ini}</span>`;
+const uNom=(id,db)=>{const u=(db||D()).unidades.find(x=>x.id===id);return u?u.nombre:'Sin asignar'};
+const fFecha=(d)=>{if(!d)return'—';const dt=new Date(d+'T12:00:00');return dt.toLocaleDateString('es-MX',{month:'short',year:'numeric'})};
+const docNom={d1:'Carta Presentación',d2:'Programa Actividades',d3:'Carta Aceptación',d4:'Reporte S1',d5:'Reporte S2',d6:'Carta Conclusión'};
+const docFaltantes=(e)=>Object.entries(e.docs).filter(([,v])=>!v).map(([k])=>docNom[k]).join(', ');
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2800);
+}
+function badges(){
+  const d=D();
+  document.getElementById('nb-u').textContent=d.unidades.length;
+  document.getElementById('nb-e').textContent=d.estudiantes.length;
+  document.getElementById('nb-eg').textContent=d.egresados.length;
+}
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+const RENDERS={panel:rPanel,unidades:rUnidades,estudiantes:rEst,egresados:rEgr,vinculacion:rVinc,seguimiento:rSeg,control:rCtrl,reportes:rRep};
+
+function nav(id){
+  document.querySelectorAll('.ni[data-p]').forEach(n=>n.classList.toggle('active',n.dataset.p===id));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id==='p-'+id));
+  RENDERS[id]?.();
+}
+document.querySelectorAll('.ni[data-p]').forEach(n=>n.addEventListener('click',()=>nav(n.dataset.p)));
+
+// TABS
+function switchTab(group,id,el){
+  document.querySelectorAll(`#p-${group} .tab-content`).forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll(`#p-${group} .tab`).forEach(t=>t.classList.remove('active'));
+  document.getElementById(`${group}-${id}`).classList.add('active');
+  el.classList.add('active');
+  if(id==='estadisticas') rEgrStats();
+  if(id==='bolsa') rBolsa();
+}
+
+// MODAL
+function openMo(id){document.getElementById(id).classList.add('on')}
+function closeMo(id){document.getElementById(id).classList.remove('on')}
+document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on')}));
+
+// ═══════════════════════════════════════
+// PANEL
+// ═══════════════════════════════════════
+function rPanel(){
+  const d=D();
+  const pend=d.estudiantes.filter(e=>e.estado==='Pendiente').length;
+  document.getElementById('kpis').innerHTML=`
+    <div class="kc"><div class="num">${d.estudiantes.length}</div><div class="lbl">Estudiantes activos</div></div>
+    <div class="kc"><div class="num">${d.unidades.length}</div><div class="lbl">Unidades receptoras</div></div>
+    <div class="kc"><div class="num">${d.egresados.length}</div><div class="lbl">Egresados registrados</div></div>
+    <div class="kc"><div class="num">${pend}</div><div class="lbl">Pendientes de validar</div></div>`;
+
+  document.getElementById('t-sol').innerHTML=d.estudiantes.slice(-5).reverse().map(e=>`
+    <tr>
+      <td><div style="display:flex;align-items:center;gap:9px">${av(e.ini)} ${e.nombre}</div></td>
+      <td>${e.modal}</td>
+      <td style="font-size:12px;color:var(--g600)">${uNom(e.unidad,d)}</td>
+      <td><span class="pill ${pc(e.estado)}">${e.estado}</span></td>
+      <td><button class="btn btn-s bsm" onclick="openE(${e.id})">Ver</button></td>
+    </tr>`).join('')||'<tr><td colspan="5" style="text-align:center;color:var(--g400);padding:18px">Sin solicitudes</td></tr>';
+
+  document.getElementById('ur-panel').innerHTML=d.unidades.slice(0,4).map(u=>`
+    <div class="ur-item">
+      <div class="ur-name">${u.nombre}</div>
+      <div class="ur-meta">${u.sector} · ${u.plazas} plazas · ${u.subtipo}</div>
+      <span class="pill ${tagU(u.estado)}" style="font-size:11px;margin-top:5px;display:inline-block">${u.estado}</span>
+    </div>
+  `).join('')+`<div class="ur-item"><button class="btn btn-s" style="width:100%;justify-content:center" onclick="nav('unidades')">Ver todas las unidades →</button></div>`;
+
+  badges();
+}
+
+// ═══════════════════════════════════════
+// UNIDADES
+// ═══════════════════════════════════════
+function rUnidades(){
+  const d=D();
+  const q=(document.getElementById('u-q')?.value||'').toLowerCase();
+  const sec=document.getElementById('u-sec')?.value||'';
+  const est=document.getElementById('u-est')?.value||'';
+  const list=d.unidades.filter(u=>
+    (!q||u.nombre.toLowerCase().includes(q)||u.rep.toLowerCase().includes(q))&&
+    (!sec||u.sector===sec)&&(!est||u.estado===est));
+  document.getElementById('t-u').innerHTML=list.map(u=>`
+    <tr>
+      <td><b>${u.nombre}</b><div style="font-size:11px;color:var(--g400);margin-top:2px">${u.subtipo} · Rep: ${u.rep}</div></td>
+      <td>${u.sector}</td>
+      <td style="font-size:12px">${u.modal}</td>
+      <td>${u.plazas}</td>
+      <td>${u.convenio?'<span class="pill p-activo">Firmado</span>':'<span class="pill p-pendiente">Pendiente</span>'}</td>
+      <td><span class="pill ${tagU(u.estado)}">${u.estado}</span></td>
+      <td style="display:flex;gap:5px">
+        <button class="btn btn-s bsm" onclick="openU(${u.id})">Editar</button>
+        <button class="btn btn-d bsm" onclick="delU(${u.id})">Eliminar</button>
+      </td>
+    </tr>`).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--g400);padding:20px">Sin resultados</td></tr>';
+  document.getElementById('u-ct').textContent=`Mostrando ${list.length} de ${d.unidades.length} unidades receptoras`;
+}
+
+function openU(id){
+  const d=D(); const u=id?d.unidades.find(x=>x.id===id):null;
+  document.getElementById('mu-tit').textContent=u?'Editar unidad receptora':'Nueva unidad receptora';
+  document.getElementById('mu-id').value=u?u.id:'';
+  document.getElementById('mu-nombre').value=u?u.nombre:'';
+  document.getElementById('mu-sector').value=u?u.sector:'Público';
+  document.getElementById('mu-subtipo').value=u?u.subtipo:'Gobierno';
+  document.getElementById('mu-plazas').value=u?u.plazas:1;
+  document.getElementById('mu-modal').value=u?u.modal:'Servicio Social';
+  document.getElementById('mu-estado').value=u?u.estado:'Verificada';
+  document.getElementById('mu-rep').value=u?u.rep:'';
+  document.getElementById('mu-responsable').value=u?u.responsable:'';
+  document.getElementById('mu-notas').value=u?u.notas:'';
+  document.getElementById('mu-convenio').checked=u?u.convenio:false;
+  document.getElementById('mu-domicilio').checked=u?u.domicilio:false;
+  document.getElementById('mu-programa').checked=u?u.programa:false;
+  document.getElementById('mu-trato').checked=u?u.trato:false;
+  openMo('mo-u');
+}
+function saveU(){
+  const d=D();
+  const id=parseInt(document.getElementById('mu-id').value)||null;
+  const nombre=document.getElementById('mu-nombre').value.trim();
+  if(!nombre){toast('El nombre es obligatorio');return}
+  const rec={
+    nombre,
+    sector:    document.getElementById('mu-sector').value,
+    subtipo:   document.getElementById('mu-subtipo').value,
+    plazas:    parseInt(document.getElementById('mu-plazas').value)||0,
+    modal:     document.getElementById('mu-modal').value,
+    estado:    document.getElementById('mu-estado').value,
+    rep:       document.getElementById('mu-rep').value.trim(),
+    responsable:document.getElementById('mu-responsable').value.trim(),
+    notas:     document.getElementById('mu-notas').value.trim(),
+    convenio:  document.getElementById('mu-convenio').checked,
+    domicilio: document.getElementById('mu-domicilio').checked,
+    programa:  document.getElementById('mu-programa').checked,
+    trato:     document.getElementById('mu-trato').checked
+  };
+  if(id){const i=d.unidades.findIndex(x=>x.id===id);d.unidades[i]={...d.unidades[i],...rec};toast('Unidad actualizada')}
+  else{d.unidades.push({id:nid(d.unidades),...rec});toast('Unidad registrada')}
+  S(d);closeMo('mo-u');rUnidades();badges();
+}
+function delU(id){
+  if(!confirm('¿Eliminar esta unidad receptora?'))return;
+  const d=D();d.unidades=d.unidades.filter(x=>x.id!==id);
+  S(d);toast('Unidad eliminada');rUnidades();badges();
+}
+
+// ═══════════════════════════════════════
+// ESTUDIANTES
+// ═══════════════════════════════════════
+function rEst(){
+  const d=D();
+  const q=(document.getElementById('e-q')?.value||'').toLowerCase();
+  const mod=document.getElementById('e-mod')?.value||'';
+  const est=document.getElementById('e-est')?.value||'';
+  const list=d.estudiantes.filter(e=>
+    (!q||e.nombre.toLowerCase().includes(q)||e.carrera.toLowerCase().includes(q)||e.mat.toLowerCase().includes(q))&&
+    (!mod||e.modal===mod)&&(!est||e.estado===est));
+
+  const dStr=(docs)=>{
+    const keys=['d1','d2','d3','d4','d5','d6'];
+    return keys.map(k=>`
+      <div class="doci${docs[k]?' ok':''}">
+        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          ${docs[k]?'<polyline points="20 6 9 17 4 12"/>':'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'}
+        </svg>${docNom[k]}
+      </div>`).join('');
+  };
+
+  document.getElementById('g-est').innerHTML=list.map(e=>`
+    <div class="pc">
+      <div class="pt">
+        ${avL(e.ini)}
+        <div class="pi"><h3>${e.nombre}</h3><p>${e.carrera} · ${e.sem}.° sem · ${e.mat}</p></div>
+        <span class="pill ${pc(e.estado)}" style="margin-left:auto;flex-shrink:0">${e.estado}</span>
+      </div>
+      <div class="ptags">
+        <span class="tag">${e.modal}</span>
+        <span class="tag">${e.etapa}</span>
+        ${e.unidad?`<span class="tag">${uNom(e.unidad,d)}</span>`:'<span class="tag" style="background:#fee2e2;color:#dc2626">Sin unidad</span>'}
+      </div>
+      <div style="font-size:12px;color:var(--g600)">Avance: ${e.av}%
+        <div class="pbar"><div class="pfill" style="width:${e.av}%"></div></div>
+      </div>
+      <div class="doclist">${dStr(e.docs)}</div>
+      <div style="display:flex;gap:6px;margin-top:2px">
+        <button class="btn btn-s bsm" style="flex:1;justify-content:center" onclick="openE(${e.id})">Editar</button>
+        <button class="btn btn-d bsm" onclick="delE(${e.id})">Eliminar</button>
+      </div>
+    </div>`).join('')||'<p style="color:var(--g400);padding:18px">Sin resultados</p>';
+  document.getElementById('e-ct').textContent=`Mostrando ${list.length} de ${d.estudiantes.length} estudiantes`;
+}
+
+function fillUSelect(selId,selVal){
+  const d=D();
+  const sel=document.getElementById(selId);
+  sel.innerHTML='<option value="">Sin asignar</option>'+
+    d.unidades.map(u=>`<option value="${u.id}"${u.id===selVal?' selected':''}>${u.nombre}</option>`).join('');
+}
+
+function openE(id){
+  const d=D(); const e=id?d.estudiantes.find(x=>x.id===id):null;
+  document.getElementById('me-tit').textContent=e?'Editar estudiante':'Registrar estudiante';
+  document.getElementById('me-id').value=e?e.id:'';
+  document.getElementById('me-nombre').value=e?e.nombre:'';
+  document.getElementById('me-ini').value=e?e.ini:'';
+  document.getElementById('me-mat').value=e?e.mat:'';
+  document.getElementById('me-carrera').value=e?e.carrera:'';
+  document.getElementById('me-sem').value=e?e.sem:1;
+  document.getElementById('me-modal').value=e?e.modal:'Servicio Social';
+  document.getElementById('me-estado').value=e?e.estado:'Activo';
+  document.getElementById('me-etapa').value=e?e.etapa:'Registro';
+  document.getElementById('me-av').value=e?e.av:0;
+  document.getElementById('me-inicio').value=e?(e.inicio||''):'';
+  fillUSelect('me-unidad',e?e.unidad:null);
+  ['d1','d2','d3','d4','d5','d6'].forEach((k,i)=>{
+    document.getElementById('me-'+(i+1<=9?'d'+(i+1):'d'+(i+1))).checked=e?e.docs[k]:false;
+  });
+  // re-map: d1→me-d1, d2→me-d2 ...
+  ['d1','d2','d3','d4','d5','d6'].forEach(k=>{
+    document.getElementById('me-'+k).checked=e?e.docs[k]:false;
+  });
+  openMo('mo-e');
+}
+function saveE(){
+  const d=D();
+  const id=parseInt(document.getElementById('me-id').value)||null;
+  const nombre=document.getElementById('me-nombre').value.trim();
+  if(!nombre){toast('El nombre es obligatorio');return}
+  const rec={
+    nombre,
+    ini:    document.getElementById('me-ini').value.trim().toUpperCase()||nombre.split(' ').map(w=>w[0]).join('').slice(0,3),
+    mat:    document.getElementById('me-mat').value.trim(),
+    carrera:document.getElementById('me-carrera').value.trim(),
+    sem:    parseInt(document.getElementById('me-sem').value)||1,
+    modal:  document.getElementById('me-modal').value,
+    estado: document.getElementById('me-estado').value,
+    etapa:  document.getElementById('me-etapa').value,
+    av:     parseInt(document.getElementById('me-av').value)||0,
+    inicio: document.getElementById('me-inicio').value||null,
+    unidad: parseInt(document.getElementById('me-unidad').value)||null,
+    docs:{
+      d1:document.getElementById('me-d1').checked,
+      d2:document.getElementById('me-d2').checked,
+      d3:document.getElementById('me-d3').checked,
+      d4:document.getElementById('me-d4').checked,
+      d5:document.getElementById('me-d5').checked,
+      d6:document.getElementById('me-d6').checked
+    }
+  };
+  if(id){const i=d.estudiantes.findIndex(x=>x.id===id);d.estudiantes[i]={...d.estudiantes[i],...rec};toast('Estudiante actualizado')}
+  else{d.estudiantes.push({id:nid(d.estudiantes),...rec});toast('Estudiante registrado')}
+  S(d);closeMo('mo-e');rEst();badges();
+}
+function delE(id){
+  if(!confirm('¿Eliminar este estudiante?'))return;
+  const d=D();d.estudiantes=d.estudiantes.filter(x=>x.id!==id);
+  S(d);toast('Estudiante eliminado');rEst();badges();
+}
+
+// ═══════════════════════════════════════
+// EGRESADOS
+// ═══════════════════════════════════════
+function rEgr(){
+  const d=D();
+  const q=(document.getElementById('eg-q')?.value||'').toLowerCase();
+  const gen=document.getElementById('eg-gen')?.value||'';
+  const sit=document.getElementById('eg-sit')?.value||'';
+  // populate gen select
+  const gsel=document.getElementById('eg-gen');
+  if(gsel&&gsel.options.length===1){
+    [...new Set(d.egresados.map(e=>e.gen))].sort().forEach(g=>{
+      const o=document.createElement('option');o.value=g;o.textContent=g;gsel.appendChild(o);
+    });
+  }
+  const list=d.egresados.filter(e=>
+    (!q||e.nombre.toLowerCase().includes(q)||e.carrera.toLowerCase().includes(q))&&
+    (!gen||e.gen===gen)&&(!sit||e.sit===sit));
+  document.getElementById('t-eg').innerHTML=list.map(e=>`
+    <tr>
+      <td><div style="display:flex;align-items:center;gap:9px">${av(e.ini)} ${e.nombre}<div style="font-size:11px;color:var(--g400)">${e.mat}</div></div></td>
+      <td>${e.carrera}</td>
+      <td>${e.gen}</td>
+      <td><span class="pill ${pc(e.sit)}">${e.sit}</span></td>
+      <td style="font-size:12px;color:var(--g600)">${e.emp||'—'}<div style="font-size:11px;color:var(--g400)">${e.cargo||''}</div></td>
+      <td>${e.modal}</td>
+      <td style="display:flex;gap:5px">
+        <button class="btn btn-s bsm" onclick="openEg(${e.id})">Editar</button>
+        <button class="btn btn-d bsm" onclick="delEg(${e.id})">Eliminar</button>
+      </td>
+    </tr>`).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--g400);padding:20px">Sin resultados</td></tr>';
+}
+
+function rEgrStats(){
+  const d=D();
+  const tot=d.egresados.length||1;
+  const pct=(sit)=>Math.round(d.egresados.filter(e=>e.sit===sit).length/tot*100);
+  const emp=pct('Empleado'),pos=pct('Posgrado'),cap=pct('Cap. trabajo'),edu=pct('Educación continua');
+  document.getElementById('eg-kpis').innerHTML=`
+    <div class="ekc"><div class="num">${emp}%</div><div class="lbl">Empleados</div></div>
+    <div class="ekc"><div class="num">${edu}%</div><div class="lbl">Educ. continua</div></div>
+    <div class="ekc"><div class="num">${cap}%</div><div class="lbl">Capacitación</div></div>
+    <div class="ekc"><div class="num">${pos}%</div><div class="lbl">Posgrado</div></div>`;
+  document.getElementById('eg-bars').innerHTML=[
+    ['Empleado',emp,'var(--r)'],['Educación continua',edu,'var(--blue)'],
+    ['Cap. trabajo',cap,'var(--amber)'],['Posgrado',pos,'var(--green)']
+  ].map(([lbl,p,col])=>`
+    <div class="srow"><span style="font-size:13px;display:flex;align-items:center;gap:7px">
+      <span class="sdot" style="background:${col}"></span>${lbl}</span>
+      <b>${p}%</b></div>
+    <div class="barbg"><div class="barfill" style="width:${p}%;background:${col}"></div></div>
+  `).join('');
+  // por generación
+  const gens=[...new Set(d.egresados.map(e=>e.gen))].sort();
+  document.getElementById('eg-gen-table').innerHTML=`
+    <table style="font-size:12px">
+      <thead><tr><th>Gen.</th><th>Empleados</th><th>Posgrado</th><th>Cap.</th><th>Educ.</th></tr></thead>
+      <tbody>${gens.map(g=>{
+        const sub=d.egresados.filter(e=>e.gen===g);const t=sub.length;
+        const c=(s)=>sub.filter(e=>e.sit===s).length;
+        return`<tr><td><b>${g}</b></td><td>${c('Empleado')}/${t}</td><td>${c('Posgrado')}/${t}</td><td>${c('Cap. trabajo')}/${t}</td><td>${c('Educación continua')}/${t}</td></tr>`;
+      }).join('')}</tbody>
+    </table>`;
+}
+
+function rBolsa(){
+  const d=D();
+  const q=(document.getElementById('bq')?.value||'').toLowerCase();
+  const sec=document.getElementById('bsec')?.value||'';
+  // Construir ofertas de las unidades verificadas
+  const ofertas=d.unidades.filter(u=>u.estado==='Verificada'&&(!sec||u.sector===sec));
+  const filt=ofertas.filter(u=>!q||u.nombre.toLowerCase().includes(q)||u.modal.toLowerCase().includes(q));
+  document.getElementById('g-bolsa').innerHTML=filt.map(u=>`
+    <div class="pc">
+      <div class="pt">
+        <div class="av av-lg" style="border-radius:8px;font-size:10px;text-align:center;line-height:1.2">${u.sector.slice(0,3).toUpperCase()}</div>
+        <div class="pi"><h3>${u.nombre}</h3><p>${u.sector} · ${u.subtipo}</p></div>
+        <span class="pill p-activo" style="margin-left:auto;flex-shrink:0">Activa</span>
+      </div>
+      <div class="ptags">
+        <span class="tag">${u.modal}</span>
+        <span class="tag">${u.plazas} plazas</span>
+      </div>
+      <div style="font-size:12px;color:var(--g600)">Responsable: ${u.responsable||'—'}</div>
+      ${u.notas?`<div style="font-size:12px;color:var(--g600);font-style:italic">${u.notas}</div>`:''}
+      <button class="btn btn-p bsm" style="width:100%;justify-content:center;margin-top:4px" onclick="openU(${u.id})">Ver / Postular</button>
+    </div>`).join('')||'<p style="color:var(--g400);padding:18px">Sin ofertas disponibles</p>';
+}
+
+function openEg(id){
+  const d=D(); const e=id?d.egresados.find(x=>x.id===id):null;
+  document.getElementById('meg-tit').textContent=e?'Editar egresado':'Registrar egresado';
+  document.getElementById('meg-id').value=e?e.id:'';
+  document.getElementById('meg-nombre').value=e?e.nombre:'';
+  document.getElementById('meg-ini').value=e?e.ini:'';
+  document.getElementById('meg-mat').value=e?e.mat:'';
+  document.getElementById('meg-carrera').value=e?e.carrera:'';
+  document.getElementById('meg-gen').value=e?e.gen:new Date().getFullYear();
+  document.getElementById('meg-sit').value=e?e.sit:'Empleado';
+  document.getElementById('meg-modal').value=e?e.modal:'Servicio Social';
+  document.getElementById('meg-emp').value=e?e.emp:'';
+  document.getElementById('meg-cargo').value=e?e.cargo:'';
+  document.getElementById('meg-habs').value=e?e.habs:'';
+  openMo('mo-eg');
+}
+function saveEg(){
+  const d=D();
+  const id=parseInt(document.getElementById('meg-id').value)||null;
+  const nombre=document.getElementById('meg-nombre').value.trim();
+  if(!nombre){toast('El nombre es obligatorio');return}
+  const rec={
+    nombre,
+    ini:  document.getElementById('meg-ini').value.trim().toUpperCase()||nombre.split(' ').map(w=>w[0]).join('').slice(0,3),
+    mat:  document.getElementById('meg-mat').value.trim(),
+    carrera:document.getElementById('meg-carrera').value.trim(),
+    gen:  document.getElementById('meg-gen').value.trim(),
+    sit:  document.getElementById('meg-sit').value,
+    modal:document.getElementById('meg-modal').value,
+    emp:  document.getElementById('meg-emp').value.trim(),
+    cargo:document.getElementById('meg-cargo').value.trim(),
+    habs: document.getElementById('meg-habs').value.trim()
+  };
+  if(id){const i=d.egresados.findIndex(x=>x.id===id);d.egresados[i]={...d.egresados[i],...rec};toast('Egresado actualizado')}
+  else{d.egresados.push({id:nid(d.egresados),...rec});toast('Egresado registrado')}
+  S(d);closeMo('mo-eg');
+  const gsel=document.getElementById('eg-gen');while(gsel.options.length>1)gsel.remove(1);
+  rEgr();badges();
+}
+function delEg(id){
+  if(!confirm('¿Eliminar este egresado?'))return;
+  const d=D();d.egresados=d.egresados.filter(x=>x.id!==id);
+  S(d);toast('Egresado eliminado');rEgr();badges();
+}
+
+// ═══════════════════════════════════════
+// VINCULACIÓN
+// ═══════════════════════════════════════
+function rVinc(){
+  const d=D();
+  const q=(document.getElementById('v-q')?.value||'').toLowerCase();
+  const est=document.getElementById('v-est')?.value||'';
+  const mod=document.getElementById('v-mod')?.value||'';
+  const list=d.estudiantes.filter(e=>
+    (!q||e.nombre.toLowerCase().includes(q)||uNom(e.unidad,d).toLowerCase().includes(q))&&
+    (!est||e.estado===est)&&(!mod||e.modal===mod));
+  document.getElementById('t-vinc').innerHTML=list.map(e=>`
+    <tr>
+      <td><div style="display:flex;align-items:center;gap:8px">${av(e.ini)} ${e.nombre}</div></td>
+      <td style="font-size:12px">${uNom(e.unidad,d)}</td>
+      <td>${e.modal}</td>
+      <td>${e.etapa}</td>
+      <td>${fFecha(e.inicio)}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px">
+          ${e.av}%
+          <div style="flex:1;height:5px;background:var(--g200);border-radius:4px;min-width:60px">
+            <div style="height:5px;border-radius:4px;background:linear-gradient(90deg,var(--r),var(--r2));width:${e.av}%"></div>
+          </div>
+        </div>
+      </td>
+      <td><span class="pill ${pc(e.estado)}">${e.estado}</span></td>
+      <td><button class="btn btn-s bsm" onclick="openE(${e.id})">Gestionar</button></td>
+    </tr>`).join('')||'<tr><td colspan="8" style="text-align:center;color:var(--g400);padding:20px">Sin resultados</td></tr>';
+}
+
+// ═══════════════════════════════════════
+// SEGUIMIENTO
+// ═══════════════════════════════════════
+function rSeg(){
+  const d=D();
+  const tot=d.egresados.length||1;
+  const pct=(s)=>Math.round(d.egresados.filter(e=>e.sit===s).length/tot*100);
+  const emp=pct('Empleado'),pos=pct('Posgrado'),cap=pct('Cap. trabajo'),edu=pct('Educación continua');
+
+  document.getElementById('seg-egr').innerHTML=`
+    <div style="display:flex;gap:22px;margin-bottom:12px">
+      <div><div style="font-size:26px;font-weight:800;background:linear-gradient(135deg,var(--r),var(--r2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">${emp}%</div><div style="font-size:12px;color:var(--g600)">Empleados</div></div>
+      <div><div style="font-size:26px;font-weight:800;color:var(--blue)">${pos}%</div><div style="font-size:12px;color:var(--g600)">Posgrado</div></div>
+    </div>
+    <p style="font-size:12px;color:var(--g400);margin-bottom:6px">Modalidades (últimas generaciones)</p>
+    ${[['Educación continua',edu,'var(--r)'],['Cap. trabajo',cap,'var(--amber)'],['Posgrado',pos,'var(--green)']].map(([l,p,c])=>`
+      <div class="srow"><span style="font-size:13px;display:flex;align-items:center;gap:7px"><span class="sdot" style="background:${c}"></span>${l}</span><b>${p}%</b></div>
+      <div class="barbg"><div class="barfill" style="width:${p}%;background:${c}"></div></div>
+    `).join('')}`;
+
+  // etapas
+  const etMap=d.estudiantes.reduce((a,e)=>{a[e.etapa]=(a[e.etapa]||0)+1;return a},{});
+  const colMap={'S2 — Ejecución':'var(--green)','Formalización':'var(--blue)','S1 — Inicio':'var(--amber)','Pendiente':'var(--g600)','Registro':'var(--g400)','Cierre':'var(--r)','Concluido':'var(--g400)'};
+  document.getElementById('seg-est').innerHTML=Object.entries(etMap).sort((a,b)=>b[1]-a[1]).map(([et,cnt])=>`
+    <div class="srow" style="padding:10px 16px">
+      <span style="font-size:13px">${et}</span>
+      <b style="color:${colMap[et]||'var(--g600)'}">${cnt}</b>
+    </div>`).join('')||'<p style="padding:14px;color:var(--g400);font-size:13px">Sin datos</p>';
+
+  // alertas
+  const unread=d.alertas.filter(a=>!a.leida).length;
+  document.getElementById('al-badge').textContent=unread||'';
+  const ico={warn:'!',info:'i',ok:'✓'};
+  document.getElementById('al-list').innerHTML=d.alertas.map(a=>`
+    <div class="al-item" style="${a.leida?'opacity:.5':''}">
+      <div class="al-ico ${a.tipo}">${ico[a.tipo]}</div>
+      <div class="al-body" style="flex:1"><p>${a.titulo}</p><span>${a.detalle}</span></div>
+      ${!a.leida?`<button class="btn btn-s bsm" onclick="markAl(${a.id})" style="flex-shrink:0">OK</button>`:''}
+    </div>`).join('')||'<p style="padding:14px;color:var(--g400);font-size:13px">Sin alertas</p>';
+}
+function markAl(id){
+  const d=D();const a=d.alertas.find(x=>x.id===id);if(a)a.leida=true;
+  S(d);rSeg();toast('Alerta marcada como leída');
+}
+function addAlerta(){openMo('mo-al')}
+function saveAlerta(){
+  const tit=document.getElementById('al-tit').value.trim();
+  if(!tit){toast('El título es obligatorio');return}
+  const d=D();
+  d.alertas.unshift({id:nid(d.alertas),tipo:document.getElementById('al-tipo').value,titulo:tit,detalle:document.getElementById('al-det').value.trim(),leida:false});
+  S(d);closeMo('mo-al');
+  document.getElementById('al-tit').value='';document.getElementById('al-det').value='';
+  rSeg();toast('Alerta registrada');
+}
+
+// ═══════════════════════════════════════
+// CONTROL
+// ═══════════════════════════════════════
+function rCtrl(){
+  const d=D();
+  const pend=d.estudiantes.filter(e=>e.estado==='Pendiente'||!e.docs.d1||!e.docs.d2);
+  document.getElementById('ctrl-badge').textContent=pend.length||'';
+  document.getElementById('ctrl-prog-status').innerHTML=`<span class="pill ${pend.length?'p-pendiente':'p-activo'}">${pend.length?pend.length+' faltantes':'Completo'}</span>`;
+  document.getElementById('t-ctrl').innerHTML=pend.map(e=>`
+    <tr>
+      <td><div style="display:flex;align-items:center;gap:8px">${av(e.ini)} ${e.nombre}</div></td>
+      <td style="font-size:12px">${e.carrera}</td>
+      <td>${e.etapa}</td>
+      <td style="font-size:12px;color:var(--amber)">${docFaltantes(e)||'—'}</td>
+      <td><button class="btn btn-p bsm" onclick="openE(${e.id})">Atender</button></td>
+    </tr>`).join('')||'<tr><td colspan="5" style="text-align:center;color:var(--green);padding:20px">Todos los expedientes están completos</td></tr>';
+}
+
+// ═══════════════════════════════════════
+// REPORTES
+// ═══════════════════════════════════════
+function rRep(){
+  const d=D();
+  document.getElementById('t-rep').innerHTML=[
+    ['Unidades receptoras',d.unidades.length,'unidades'],
+    ['Estudiantes',d.estudiantes.length,'estudiantes'],
+    ['Egresados',d.egresados.length,'egresados'],
+    ['Alertas activas',d.alertas.filter(a=>!a.leida).length,'alertas']
+  ].map(([n,c,k])=>`
+    <tr><td>${n}</td><td><b>${c}</b> registros</td>
+    <td><button class="btn btn-s bsm" onclick="exportR('${k}')">Exportar</button></td></tr>`).join('');
+}
+function exportR(tipo){
+  const d=D();
+  const map={
+    semestre:{vinculaciones:d.estudiantes.map(e=>({...e,unidad_nombre:uNom(e.unidad,d)}))},
+    unidades:d.unidades, insercion:d.egresados, expedientes:d.estudiantes.filter(e=>!e.docs.d1||!e.docs.d2),
+    curricular:d.estudiantes, egresados:d.egresados, full:d,
+    alertas:d.alertas
+  };
+  const data=map[tipo]||d;
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`clavijero_${tipo}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();URL.revokeObjectURL(a.href);
+  toast('Reporte exportado: '+tipo+'.json');
+}
+
+// ═══════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════
+function boot(){
+  badges();
+  rPanel();
+}
+initDB();
+</script>
+</body>
+</html>

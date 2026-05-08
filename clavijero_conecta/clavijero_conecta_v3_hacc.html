@@ -738,29 +738,29 @@
                         tipo: 'Servicio Social', descripcion: 'Colaborar en el diseño y seguimiento de programas educativos en escuelas públicas.',
                         duracion: '480 horas', horario: 'Lun-Vie 8:00-14:00', apoyos: 'Transporte, constancia',
                         requisitos: 'Estudiante de Pedagogía o afín', habilidadesDeseadas: 'Organización, empatía, Moodle',
-                        plazas: 4, fechaLimite: '2026-08-31', activo: true, fechaPublicacion: '2026-05-01' },
+                        lugar: 4, fechaLimite: '2026-08-31', activo: true, fechaPublicacion: '2026-05-01' },
                     { id: 'of2', unidadId: 'u_unidad1', titulo: 'Gestión de Datos Educativos',
                         tipo: 'Prácticas Profesionales', descripcion: 'Análisis de indicadores educativos y elaboración de reportes.',
                         duracion: '6 meses', horario: 'Lun-Vie 9:00-15:00', apoyos: 'Beca $2,500 MXN/mes',
                         requisitos: 'Estudiante de Administración o afín, últimos semestres',
-                        habilidadesDeseadas: 'Excel avanzado, Power BI, análisis de datos', plazas: 2, fechaLimite: '2026-07-15',
+                        habilidadesDeseadas: 'Excel avanzado, Power BI, análisis de datos', lugares: 2, fechaLimite: '2026-07-15',
                         activo: true, fechaPublicacion: '2026-05-05' },
                     { id: 'of3', unidadId: 'u_unidad2', titulo: 'Mejora de Procesos Industriales',
                         tipo: 'Prácticas Profesionales', descripcion: 'Participar en proyectos de optimización de procesos productivos.',
                         duracion: '6 meses', horario: 'Lun-Vie 9:00-17:00', apoyos: 'Beca $3,000 MXN/mes, comedor',
                         requisitos: 'Estudiante de Administración o Ingeniería', habilidadesDeseadas: 'Lean, Six Sigma, SAP',
-                        plazas: 2, fechaLimite: '2026-06-30', activo: true, fechaPublicacion: '2026-05-03' },
+                        lugar: 2, fechaLimite: '2026-06-30', activo: true, fechaPublicacion: '2026-05-03' },
                     { id: 'of4', unidadId: 'u_unidad3', titulo: 'Talleres Comunitarios de Desarrollo Social',
                         tipo: 'Servicio Social', descripcion: 'Impartir talleres educativos en comunidades rurales.',
                         duracion: '480 horas', horario: 'Flexible', apoyos: 'Transporte, alimentación, constancia',
                         requisitos: 'Estudiante de Trabajo Social, Pedagogía o afín',
-                        habilidadesDeseadas: 'Facilitación grupal, empatía, creatividad', plazas: 3, fechaLimite: '2026-09-30',
+                        habilidadesDeseadas: 'Facilitación grupal, empatía, creatividad', lugares: 3, fechaLimite: '2026-09-30',
                         activo: true, fechaPublicacion: '2026-05-07' },
                     { id: 'of5', unidadId: 'u_unidad3', titulo: 'Coordinador/a de Proyectos Sociales (Egresados)',
                         tipo: 'Empleo', descripcion: 'Liderar proyectos de desarrollo comunitario en la región de Veracruz.',
                         duracion: 'Indefinido', horario: 'Lun-Vie 9:00-17:00', apoyos: 'Salario $12,000 MXN/mes, prestaciones',
                         requisitos: 'Egresado/a de Trabajo Social, Administración o Pedagogía',
-                        habilidadesDeseadas: 'Liderazgo, gestión de proyectos, trabajo en equipo', plazas: 1,
+                        habilidadesDeseadas: 'Liderazgo, gestión de proyectos, trabajo en equipo', lugares: 1,
                         fechaLimite: '2026-06-30', activo: true, fechaPublicacion: '2026-05-06' },
                 ];
                 saveOffers(offers);
@@ -1030,7 +1030,7 @@
                 <div class="card">
                     <div class="card-header"><i class="fas fa-briefcase"></i> Ofertas Publicadas</div>
                     <div class="table-wrap"><table>
-                        <thead><tr><th>Título</th><th>Tipo</th><th>Unidad</th><th>Plazas</th><th>Estado</th><th>Acción</th></tr></thead>
+                        <thead><tr><th>Título</th><th>Tipo</th><th>Unidad</th><th>Lugares</th><th>Estado</th><th>Acción</th></tr></thead>
                         <tbody>${offers.map(o=>{
                             const uni = users.find(u=>u.id===o.unidadId);
                             return `<tr>
@@ -1190,7 +1190,7 @@
                                 </div>
                             </div>
                             <small style="color:var(--text-secondary);">${o.descripcion}</small><br>
-                            <small>⏱ ${o.duracion} | 📅 Límite: ${o.fechaLimite} | 👥 Plazas: ${o.plazas} | 💰 ${o.apoyos}</small>
+                            <small>⏱ ${o.duracion} | 📅 Límite: ${o.fechaLimite} | 👥 Lugares: ${o.plazas} | 💰 ${o.apoyos}</small>
                         </div>`).join('')}
                 </div>
             </div>
@@ -1276,7 +1276,7 @@
                 const duracion = prompt('Duración:', '480 horas');
                 const horario = prompt('Horario:', 'Lun-Vie 9:00-14:00');
                 const apoyos = prompt('Apoyos (beca, transporte, etc.):', 'Constancia');
-                const plazas = parseInt(prompt('Número de plazas:', '2')) || 1;
+                const plazas = parseInt(prompt('Número de lugares:', '2')) || 1;
                 const fechaLim = prompt('Fecha límite (YYYY-MM-DD):', '2026-12-31');
                 const offs = getOffers();
                 offs.push({

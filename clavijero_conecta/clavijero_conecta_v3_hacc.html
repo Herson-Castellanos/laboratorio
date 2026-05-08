@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Clavijero CONECTA | Vinculación · Servicio Social · Prácticas · Egresados</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --icc-red: #7D1F2E;
+            --icc-red-light: #A33040;
+            --icc-red-dark: #5A1520;
+            --icc-gold: #C49A35;
+            --icc-gold-light: #E8C06A;
+            --icc-dark: #1A0A0D;
+            --icc-cream: #FDF8F0;
+            --bg: #F5F0F1;
+            --surface: #FFFFFF;
+            --text: #1A1A1A;
+            --text-secondary: #5E5E5E;
+            --border: #E0D6D8;
+            --success: #2D7A46;
+            --warning: #B85C1A;
+            --danger: #BC4742;
+            --info: #2A6F8F;
+            --radius-sm: 8px;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-display: 'Poppins', 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ─── HEADER ─────────────────────────── */
+        .app-header {
+            background: linear-gradient(135deg, #0d1f28 0%, #162b35 40%, var(--icc-red-dark) 100%);
+            color: #fff;
+            padding: 0.7rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.15);
+            border-bottom: 2px solid var(--icc-gold);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--icc-cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: var(--font-display);
+            color: var(--icc-red);
+            font-size: 1.3rem;
+            border: 2px solid var(--icc-gold);
+            flex-shrink: 0;
+        }
+        .logo-text h1 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            line-height: 1.1;
+        }
+        .logo-text span {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .user-badge {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .user-badge i {
+            color: var(--icc-gold-light);
+        }
+
+        /* ─── BOTONES ───────────────────────── */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            white-space: nowrap;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            color: #fff;
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #fff;
+        }
+        .btn-primary {
+            background: var(--icc-gold);
+            color: #1A0A0D;
+            box-shadow: 0 2px 8px rgba(196, 154, 53, 0.35);
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background: var(--icc-gold-light);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(196, 154, 53, 0.45);
+        }
+        .btn-red {
+            background: var(--icc-red);
+            color: #fff;
+        }
+        .btn-red:hover {
+            background: var(--icc-red-light);
+            transform: translateY(-1px);
+        }
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.78rem;
+            border-radius: 30px;
+        }
+        .btn-xs {
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            border-radius: 20px;
+        }
+        .btn-outline-dark {
+            background: transparent;
+            border: 1.5px solid var(--icc-red);
+            color: var(--icc-red);
+            font-weight: 500;
+        }
+        .btn-outline-dark:hover {
+            background: #FDF0F2;
+        }
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+        }
+
+        /* ─── CARDS ─────────────────────────── */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.2rem;
+            border: 1px solid var(--border);
+            transition: box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        .card-header {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 2px solid #f0e8e5;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--icc-red-dark);
+        }
+        .card-header i {
+            color: var(--icc-gold);
+        }
+
+        /* ─── GRIDS ─────────────────────────── */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.2rem;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+        }
+
+        /* ─── FORMULARIOS ──────────────────── */
+        .form-group {
+            margin-bottom: 0.9rem;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.2px;
+        }
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            transition: 0.2s;
+            background: #FAFAFA;
+            color: var(--text);
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--icc-red);
+            box-shadow: 0 0 0 3px rgba(125, 31, 46, 0.08);
+            background: #fff;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+        @media (max-width: 600px) {
+            .form-row-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ─── TABLAS ────────────────────────── */
+        .table-wrap {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        th {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 10px 12px;
+            border-bottom: 2px solid var(--border);
+            background: #FAF7F5;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0e8e5;
+            vertical-align: middle;
+        }
+        tr:hover td {
+            background: #FFFBF9;
+        }
+
+        /* ─── TAGS / BADGES ────────────────── */
+        .tag {
+            display: inline-block;
+            padding: 4px 11px;
+            border-radius: 20px;
+            font-size: 0.73rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+        .tag-green {
+            background: #E6F4EA;
+            color: #1B5E2A;
+        }
+        .tag-amber {
+            background: #FFF3E0;
+            color: #B85C1A;
+        }
+        .tag-red {
+            background: #FDECEC;
+            color: #A12B2B;
+        }
+        .tag-blue {
+            background: #E3F0F8;
+            color: #1A4F6E;
+        }
+        .tag-gold {
+            background: #FDF3DC;
+            color: #7A5D1E;
+        }
+
+        /* ─── KPI ───────────────────────────── */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+        .kpi-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 1rem 1.2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .kpi-val {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+            color: var(--icc-red);
+        }
+        .kpi-lbl {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* ─── TABS ──────────────────────────── */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: #F3EDEA;
+            border-radius: 30px;
+            padding: 3px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 80px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.82rem;
+            background: transparent;
+            color: var(--text-secondary);
+            transition: 0.2s;
+            font-family: var(--font-sans);
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: #fff;
+            color: var(--icc-red);
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ─── ALERTS ────────────────────────── */
+        .alert {
+            padding: 14px 18px;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border-left: 4px solid;
+        }
+        .alert-info {
+            background: #E8F4FD;
+            border-color: var(--info);
+            color: #1A4F6E;
+        }
+        .alert-warning {
+            background: #FFF8EC;
+            border-color: var(--warning);
+            color: #7A3E14;
+        }
+        .alert-success {
+            background: #EDF7F0;
+            border-color: var(--success);
+            color: #1B5E2A;
+        }
+        .alert-danger {
+            background: #FEF0F0;
+            border-color: var(--danger);
+            color: #8B1E1E;
+        }
+
+        /* ─── MODAL ─────────────────────────── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .modal h3 {
+            font-family: var(--font-display);
+            margin-bottom: 1rem;
+            color: var(--icc-red-dark);
+        }
+
+        /* ─── STEP FLOW ─────────────────────── */
+        .step-flow {
+            display: flex;
+            gap: 0;
+            margin: 12px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+        .step {
+            flex: 1;
+            min-width: 70px;
+            padding: 10px 6px;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: #F3EDEA;
+            color: #8A7A7A;
+            border-right: 1px solid #E0D6D8;
+            position: relative;
+        }
+        .step:last-child {
+            border-right: none;
+        }
+        .step.done {
+            background: #FDE8E8;
+            color: var(--icc-red);
+        }
+        .step.active-step {
+            background: var(--icc-red);
+            color: #fff;
+            font-weight: 600;
+        }
+        .step-num {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* ─── FOOTER ────────────────────────── */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #8A7A7A;
+            font-size: 0.75rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+            background: #fff;
+        }
+
+        /* ─── UTILIDADES ────────────────────── */
+        .mt-1 {
+            margin-top: 0.5rem;
+        }
+        .mt-2 {
+            margin-top: 1rem;
+        }
+        .mb-1 {
+            margin-bottom: 0.5rem;
+        }
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-red {
+            color: var(--icc-red);
+        }
+        .text-gold {
+            color: var(--icc-gold);
+        }
+        .fw-600 {
+            font-weight: 600;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .chip {
+            display: inline-block;
+            background: #F5F0F1;
+            padding: 3px 10px;
+            border-radius: 16px;
+            font-size: 0.73rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .progress-bar {
+            height: 6px;
+            background: #E8E0DD;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: var(--icc-red);
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════ HEADER ═══════════════ -->
+    <header class="app-header" id="appHeader">
+        <div class="container header-inner">
+            <div class="logo-area">
+                <div class="logo-icon" aria-hidden="true">ICC</div>
+                <div class="logo-text">
+                    <h1>Clavijero <span style="color:var(--icc-gold-light);">CONECTA</span></h1>
+                    <span>Vinculación · Servicio Social · Prácticas · Egresados</span>
+                </div>
+            </div>
+            <nav class="nav-actions" id="navActions">
+                <!-- renderizado dinámico -->
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══════════════ MAIN ═══════════════ -->
+    <main class="container" id="mainApp" style="padding-top:1.5rem; padding-bottom:2rem;">
+        <div id="appRoot"></div>
+    </main>
+
+    <footer>
+        <i class="fas fa-university"></i> Instituto Consorcio Clavijero · CONECTA — Articulación Curricular · Seguimiento de Egresados · Necesidades Sociales de Veracruz y México
+    </footer>
+
+    <!-- ═══════════════ MODAL CONTENEDOR ═══════════════ -->
+    <div id="modalContainer"></div>
+
+    <script>
+        // ──────────────────────────────────────
+        //  STORAGE & DATA LAYER
+        // ──────────────────────────────────────
+        const KEYS = {
+            USERS: 'icc_users',
+            OFFERS: 'icc_offers',
+            APPLICATIONS: 'icc_apps',
+            CONVENIOS: 'icc_convenios',
+        };
+
+        function getData(key) {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : [];
+        }
+
+        function setData(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        function getUsers() { return getData(KEYS.USERS); }
+
+        function saveUsers(u) { setData(KEYS.USERS, u); }
+
+        function getOffers() { return getData(KEYS.OFFERS); }
+
+        function saveOffers(o) { setData(KEYS.OFFERS, o); }
+
+        function getApps() { return getData(KEYS.APPLICATIONS); }
+
+        function saveApps(a) { setData(KEYS.APPLICATIONS, a); }
+
+        function getConvenios() { return getData(KEYS.CONVENIOS); }
+
+        function saveConvenios(c) { setData(KEYS.CONVENIOS, c); }
+
+        // ──────────────────────────────────────
+        //  SEED DATA
+        // ──────────────────────────────────────
+        function seedAll() {
+            let users = getUsers();
+            if (users.length === 0) {
+                users = [
+                    { id: 'u_admin', nombre: 'Administrador del Sistema', email: 'admin@clavijero.edu.mx',
+                        password: 'Admin2026!', rol: 'admin', activo: true, fechaRegistro: '2026-01-10' },
+                    { id: 'u_est1', nombre: 'María González López', email: 'maria.gonzalez@estudiante.clavijero.edu.mx',
+                        password: 'Est2026!', rol: 'estudiante', activo: true, esEgresado: false,
+                        perfil: { telefono: '2281234567', linkedin: 'linkedin.com/in/mariagonzalez',
+                            programa: 'Pedagogía', institucion: 'ICC Clavijero', promedio: '9.1',
+                            avanceAcademico: '75%', habilidadesTecnicas: 'Moodle, Excel, SPSS',
+                            habilidadesActitudes: 'Trabajo en equipo, proactividad, comunicación',
+                            infoAdicional: 'Curso en diseño instruccional', disponibilidad: 'Matutino',
+                            reubicacion: 'No', menciones: 'Mención honorífica 2025' },
+                        fechaRegistro: '2026-02-15' },
+                    { id: 'u_est2', nombre: 'Juan Ramírez Hernández', email: 'juan.ramirez@estudiante.clavijero.edu.mx',
+                        password: 'Est2026!', rol: 'estudiante', activo: true, esEgresado: false,
+                        perfil: { telefono: '2289988776', linkedin: '', programa: 'Administración',
+                            institucion: 'ICC Clavijero', promedio: '8.5', avanceAcademico: '80%',
+                            habilidadesTecnicas: 'Excel avanzado, SAP', habilidadesActitudes: 'Liderazgo, gestión de tiempo',
+                            infoAdicional: '', disponibilidad: 'Vespertino', reubicacion: 'Sí' },
+                        fechaRegistro: '2026-03-01' },
+                    { id: 'u_egr1', nombre: 'Carlos Méndez Ortega', email: 'carlos.mendez@egresado.clavijero.edu.mx',
+                        password: 'Egr2026!', rol: 'estudiante', activo: true, esEgresado: true,
+                        anioGraduacion: '2024',
+                        perfil: { telefono: '2283344556', linkedin: 'linkedin.com/in/carlosmendez',
+                            programa: 'Administración', institucion: 'ICC Clavijero', promedio: '9.4',
+                            habilidadesTecnicas: 'Inglés C1, Power BI, Project Management',
+                            habilidadesActitudes: 'Pensamiento crítico, adaptabilidad, inteligencia emocional',
+                            infoAdicional: 'Certificación PMP, intercambio Canadá 2023', disponibilidad: 'Inmediata',
+                            reubicacion: 'Sí', experiencia: '2 años en sector privado' },
+                        fechaRegistro: '2026-01-20' },
+                    { id: 'u_unidad1', nombre: 'Secretaría de Educación de Veracruz', email: 'vinculacion@sev.gob.mx',
+                        password: 'Uni2026!', rol: 'unidad', activo: true,
+                        unidadData: { sector: 'Público (Gobierno)', direccion: 'Av. Xalapa 123, Col. Centro, Xalapa, Ver.',
+                            representanteLegal: 'Lic. Ana Patricia Reyes López', cargoRepresentante: 'Directora de Vinculación',
+                            telefono: '2288123456', rfc: 'SEV850101XXX', domicilioLegal: 'Av. Xalapa 123, Xalapa, Ver.',
+                            plazasDisponibles: 8, horarioOperacion: 'Lun-Vie 8:00-16:00',
+                            modalidades: 'Ambas', descripcionActividades: 'Apoyo en programas educativos, investigación, gestión escolar.',
+                            documentos: 'Oficio solicitud ✓, Constitución IES ✓, Comprobante domicilio ✓',
+                            estadoValidacion: 'verificada' },
+                        fechaRegistro: '2026-02-01' },
+                    { id: 'u_unidad2', nombre: 'Grupo Industrial Olmeca S.A.', email: 'rrhh@olmeca-industrial.com',
+                        password: 'Uni2026!', rol: 'unidad', activo: true,
+                        unidadData: { sector: 'Privado (Empresa)', direccion: 'Blvd. Costero 456, Coatzacoalcos, Ver.',
+                            representanteLegal: 'Ing. Roberto Fuentes Díaz', cargoRepresentante: 'Gerente de Recursos Humanos',
+                            telefono: '9211234567', rfc: 'GIO890101ABC', domicilioLegal: 'Blvd. Costero 456, Coatzacoalcos, Ver.',
+                            plazasDisponibles: 4, horarioOperacion: 'Lun-Vie 9:00-18:00',
+                            modalidades: 'Práctica Profesional', descripcionActividades: 'Análisis de procesos, mejora continua, reportes administrativos.',
+                            documentos: 'Oficio solicitud ✓, Constitución IES ✓, Comprobante domicilio ✓',
+                            estadoValidacion: 'en_validacion' },
+                        fechaRegistro: '2026-04-10' },
+                    { id: 'u_unidad3', nombre: 'Fundación Por México A.C.', email: 'contacto@fundacionpormexico.org',
+                        password: 'Uni2026!', rol: 'unidad', activo: true,
+                        unidadData: { sector: 'Social (Fundación/Colectivo)', direccion: 'Calle Roble 78, Xalapa, Ver.',
+                            representanteLegal: 'Lic. Daniela Suárez Morales', cargoRepresentante: 'Coordinadora de Proyectos',
+                            telefono: '2287654321', rfc: 'FPM900101DEF', domicilioLegal: 'Calle Roble 78, Xalapa, Ver.',
+                            plazasDisponibles: 5, horarioOperacion: 'Lun-Vie 9:00-17:00',
+                            modalidades: 'Servicio Social', descripcionActividades: 'Proyectos comunitarios, talleres educativos, desarrollo social.',
+                            documentos: 'Oficio solicitud ✓, Constitución IES ✓, Comprobante domicilio ✓',
+                            estadoValidacion: 'verificada' },
+                        fechaRegistro: '2026-03-15' },
+                ];
+                saveUsers(users);
+            }
+
+            let offers = getOffers();
+            if (offers.length === 0) {
+                offers = [
+                    { id: 'of1', unidadId: 'u_unidad1', titulo: 'Apoyo en Programas Educativos Escolares',
+                        tipo: 'Servicio Social', descripcion: 'Colaborar en el diseño y seguimiento de programas educativos en escuelas públicas.',
+                        duracion: '480 horas', horario: 'Lun-Vie 8:00-14:00', apoyos: 'Transporte, constancia',
+                        requisitos: 'Estudiante de Pedagogía o afín', habilidadesDeseadas: 'Organización, empatía, Moodle',
+                        plazas: 4, fechaLimite: '2026-08-31', activo: true, fechaPublicacion: '2026-05-01' },
+                    { id: 'of2', unidadId: 'u_unidad1', titulo: 'Gestión de Datos Educativos',
+                        tipo: 'Prácticas Profesionales', descripcion: 'Análisis de indicadores educativos y elaboración de reportes.',
+                        duracion: '6 meses', horario: 'Lun-Vie 9:00-15:00', apoyos: 'Beca $2,500 MXN/mes',
+                        requisitos: 'Estudiante de Administración o afín, últimos semestres',
+                        habilidadesDeseadas: 'Excel avanzado, Power BI, análisis de datos', plazas: 2, fechaLimite: '2026-07-15',
+                        activo: true, fechaPublicacion: '2026-05-05' },
+                    { id: 'of3', unidadId: 'u_unidad2', titulo: 'Mejora de Procesos Industriales',
+                        tipo: 'Prácticas Profesionales', descripcion: 'Participar en proyectos de optimización de procesos productivos.',
+                        duracion: '6 meses', horario: 'Lun-Vie 9:00-17:00', apoyos: 'Beca $3,000 MXN/mes, comedor',
+                        requisitos: 'Estudiante de Administración o Ingeniería', habilidadesDeseadas: 'Lean, Six Sigma, SAP',
+                        plazas: 2, fechaLimite: '2026-06-30', activo: true, fechaPublicacion: '2026-05-03' },
+                    { id: 'of4', unidadId: 'u_unidad3', titulo: 'Talleres Comunitarios de Desarrollo Social',
+                        tipo: 'Servicio Social', descripcion: 'Impartir talleres educativos en comunidades rurales.',
+                        duracion: '480 horas', horario: 'Flexible', apoyos: 'Transporte, alimentación, constancia',
+                        requisitos: 'Estudiante de Trabajo Social, Pedagogía o afín',
+                        habilidadesDeseadas: 'Facilitación grupal, empatía, creatividad', plazas: 3, fechaLimite: '2026-09-30',
+                        activo: true, fechaPublicacion: '2026-05-07' },
+                    { id: 'of5', unidadId: 'u_unidad3', titulo: 'Coordinador/a de Proyectos Sociales (Egresados)',
+                        tipo: 'Empleo', descripcion: 'Liderar proyectos de desarrollo comunitario en la región de Veracruz.',
+                        duracion: 'Indefinido', horario: 'Lun-Vie 9:00-17:00', apoyos: 'Salario $12,000 MXN/mes, prestaciones',
+                        requisitos: 'Egresado/a de Trabajo Social, Administración o Pedagogía',
+                        habilidadesDeseadas: 'Liderazgo, gestión de proyectos, trabajo en equipo', plazas: 1,
+                        fechaLimite: '2026-06-30', activo: true, fechaPublicacion: '2026-05-06' },
+                ];
+                saveOffers(offers);
+            }
+
+            let apps = getApps();
+            if (apps.length === 0) {
+                apps = [
+                    { id: 'app1', ofertaId: 'of1', estudianteId: 'u_est1', fechaPostulacion: '2026-05-02T10:00:00',
+                        estado: 'aceptado', comentarios: 'Excelente perfil para el programa', programaActividades: 'Plan de trabajo en escuelas',
+                        cartaPresentacion: true, cartaAceptacion: true, reporteParcial: false, reporteFinal: false,
+                        cartaConclusion: false },
+                    { id: 'app2', ofertaId: 'of3', estudianteId: 'u_est2', fechaPostulacion: '2026-05-04T14:00:00',
+                        estado: 'pendiente', comentarios: '', programaActividades: '', cartaPresentacion: false,
+                        cartaAceptacion: false, reporteParcial: false, reporteFinal: false, cartaConclusion: false },
+                    { id: 'app3', ofertaId: 'of5', estudianteId: 'u_egr1', fechaPostulacion: '2026-05-07T09:00:00',
+                        estado: 'revision', comentarios: 'Revisando experiencia previa', programaActividades: '',
+                        cartaPresentacion: true, cartaAceptacion: false, reporteParcial: false, reporteFinal: false,
+                        cartaConclusion: false },
+                ];
+                saveApps(apps);
+            }
+
+            let convenios = getConvenios();
+            if (convenios.length === 0) {
+                convenios = [
+                    { id: 'conv1', unidadId: 'u_unidad1', estudianteId: 'u_est1', ofertaId: 'of1', fechaConvenio: '2026-05-03',
+                        estado: 'activo', tipo: 'Servicio Social' },
+                ];
+                saveConvenios(convenios);
+            }
+        }
+        seedAll();
+
+        // ──────────────────────────────────────
+        //  SESIÓN
+        // ──────────────────────────────────────
+        let currentUser = null;
+
+        function setSession(user) {
+            currentUser = user;
+            sessionStorage.setItem('icc_session', JSON.stringify(user ? { id: user.id, rol: user.rol } : null));
+        }
+
+        function loadSession() {
+            const s = sessionStorage.getItem('icc_session');
+            if (s) {
+                const { id, rol } = JSON.parse(s);
+                const users = getUsers();
+                const found = users.find(u => u.id === id && u.rol === rol && u.activo === true);
+                currentUser = found || null;
+            }
+            renderApp();
+        }
+
+        function logout() {
+            sessionStorage.removeItem('icc_session');
+            currentUser = null;
+            renderApp();
+        }
+
+        // ──────────────────────────────────────
+        //  RENDER PRINCIPAL
+        // ──────────────────────────────────────
+        function renderApp() {
+            const nav = document.getElementById('navActions');
+            const root = document.getElementById('appRoot');
+            if (!currentUser) {
+                nav.innerHTML = `
+                <button class="btn btn-outline" id="btnShowLogin"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</button>
+                <button class="btn btn-primary" id="btnShowRegister"><i class="fas fa-user-plus"></i> Registrarse</button>`;
+                document.getElementById('btnShowLogin').addEventListener('click', () => renderAuth('login'));
+                document.getElementById('btnShowRegister').addEventListener('click', () => renderAuth('register'));
+                renderAuth('login');
+            } else {
+                let badgeContent = '';
+                if (currentUser.rol === 'admin') badgeContent =
+                    `<i class="fas fa-shield-alt"></i> Admin: ${currentUser.nombre}`;
+                else if (currentUser.rol === 'unidad') badgeContent =
+                    `<i class="fas fa-building"></i> Unidad: ${currentUser.nombre}`;
+                else if (currentUser.rol === 'estudiante') badgeContent =
+                    `<i class="fas ${currentUser.esEgresado ? 'fa-user-tie' : 'fa-user-graduate'}"></i> ${currentUser.esEgresado ? 'Egresado/a' : 'Estudiante'}: ${currentUser.nombre}`;
+
+                nav.innerHTML = `
+                <span class="user-badge">${badgeContent}</span>
+                <button class="btn btn-outline" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>`;
+                document.getElementById('btnLogout').addEventListener('click', logout);
+
+                if (currentUser.rol === 'admin') renderAdminDashboard(root);
+                else if (currentUser.rol === 'unidad') renderUnidadDashboard(root);
+                else if (currentUser.rol === 'estudiante') renderEstudianteDashboard(root);
+            }
+        }
+
+        // ──────────────────────────────────────
+        //  AUTENTICACIÓN
+        // ──────────────────────────────────────
+        function renderAuth(tab) {
+            const root = document.getElementById('appRoot');
+            root.innerHTML = `
+            <div class="card" style="max-width:520px;margin:2rem auto;">
+                <div class="tabs">
+                    <button class="tab-btn ${tab==='login'?'active':''}" id="tabLogin">Iniciar sesión</button>
+                    <button class="tab-btn ${tab==='register'?'active':''}" id="tabRegister">Registrarse</button>
+                </div>
+                <div id="authForm"></div>
+            </div>`;
+            document.getElementById('tabLogin').addEventListener('click', () => renderAuth('login'));
+            document.getElementById('tabRegister').addEventListener('click', () => renderAuth('register'));
+            const formDiv = document.getElementById('authForm');
+            if (tab === 'login') {
+                formDiv.innerHTML = `
+                <form id="loginFrm">
+                    <div class="form-group"><label>Correo electrónico</label><input type="email" id="loginEmail" required placeholder="correo@ejemplo.com"></div>
+                    <div class="form-group"><label>Contraseña</label><input type="password" id="loginPass" required></div>
+                    <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-arrow-right"></i> Acceder</button>
+                </form>`;
+                document.getElementById('loginFrm').addEventListener('submit', e => {
+                    e.preventDefault();
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const pass = document.getElementById('loginPass').value;
+                    const users = getUsers();
+                    const user = users.find(u => u.email === email && u.password === pass && u.activo ===
+                        true);
+                    if (user) { setSession(user);
+                        renderApp(); } else alert('Credenciales incorrectas o cuenta inactiva.');
+                });
+            } else {
+                formDiv.innerHTML = `
+                <form id="registerFrm">
+                    <div class="form-group"><label>Nombre completo</label><input id="regName" required placeholder="Nombre(s) Apellidos"></div>
+                    <div class="form-group"><label>Correo electrónico</label><input type="email" id="regEmail" required></div>
+                    <div class="form-group"><label>Contraseña</label><input type="password" id="regPass" required minlength="6"></div>
+                    <div class="form-group"><label>Tipo de cuenta</label>
+                        <select id="regRol"><option value="estudiante">Estudiante / Egresado</option><option value="unidad">Unidad Receptora (Empresa/ONG/Gobierno)</option></select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-check"></i> Registrarse</button>
+                </form>`;
+                document.getElementById('registerFrm').addEventListener('submit', e => {
+                    e.preventDefault();
+                    const nombre = document.getElementById('regName').value.trim();
+                    const email = document.getElementById('regEmail').value.trim();
+                    const pass = document.getElementById('regPass').value;
+                    const rol = document.getElementById('regRol').value;
+                    const users = getUsers();
+                    if (users.some(u => u.email === email)) return alert('El correo ya está registrado.');
+                    const newUser = {
+                        id: 'u_' + Date.now(),
+                        nombre,
+                        email,
+                        password: pass,
+                        rol,
+                        activo: rol === 'estudiante' ? true : false,
+                        esEgresado: false,
+                        perfil: rol === 'estudiante' ? { telefono: '', linkedin: '', programa: '',
+                            institucion: 'ICC Clavijero', promedio: '', habilidadesTecnicas: '',
+                            habilidadesActitudes: '', infoAdicional: '', disponibilidad: '',
+                            reubicacion: 'No' } : undefined,
+                        unidadData: rol === 'unidad' ? { sector: '', direccion: '',
+                            representanteLegal: '', cargoRepresentante: '', telefono: '', rfc: '',
+                            domicilioLegal: '', plazasDisponibles: 0, horarioOperacion: '',
+                            modalidades: 'Ambas', descripcionActividades: '', documentos: 'Pendiente',
+                            estadoValidacion: 'pendiente' } : undefined,
+                        fechaRegistro: new Date().toISOString().split('T')[0],
+                    };
+                    users.push(newUser);
+                    saveUsers(users);
+                    alert(rol === 'unidad' ?
+                        'Registro exitoso. Su cuenta será revisada por un administrador para activación.' :
+                        'Registro exitoso. Ahora puede iniciar sesión.');
+                    renderAuth('login');
+                });
+            }
+        }
+
+        // ──────────────────────────────────────
+        //  DASHBOARD ADMINISTRADOR
+        // ──────────────────────────────────────
+        function renderAdminDashboard(root) {
+            const users = getUsers();
+            const offers = getOffers();
+            const apps = getApps();
+            const convenios = getConvenios();
+            const unidades = users.filter(u => u.rol === 'unidad');
+            const estudiantes = users.filter(u => u.rol === 'estudiante' && !u.esEgresado);
+            const egresados = users.filter(u => u.rol === 'estudiante' && u.esEgresado === true);
+
+            root.innerHTML = `
+            <h2 style="font-family:var(--font-display);color:var(--icc-red-dark);margin-bottom:1rem;">
+                <i class="fas fa-tachometer-alt" style="color:var(--icc-gold);"></i> Panel de Administración · Clavijero CONECTA
+            </h2>
+            <div class="kpi-row">
+                <div class="kpi-card"><div class="kpi-val">${estudiantes.length}</div><div class="kpi-lbl">Estudiantes</div></div>
+                <div class="kpi-card"><div class="kpi-val">${egresados.length}</div><div class="kpi-lbl">Egresados</div></div>
+                <div class="kpi-card"><div class="kpi-val">${unidades.length}</div><div class="kpi-lbl">Unidades Receptoras</div></div>
+                <div class="kpi-card"><div class="kpi-val">${offers.filter(o=>o.activo).length}</div><div class="kpi-lbl">Ofertas Activas</div></div>
+                <div class="kpi-card"><div class="kpi-val">${apps.length}</div><div class="kpi-lbl">Postulaciones</div></div>
+                <div class="kpi-card"><div class="kpi-val">${convenios.filter(c=>c.estado==='activo').length}</div><div class="kpi-lbl">Convenios Activos</div></div>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="tab-unidades">Unidades Receptoras</button>
+                <button class="tab-btn" data-tab="tab-estudiantes">Estudiantes</button>
+                <button class="tab-btn" data-tab="tab-egresados">Egresados</button>
+                <button class="tab-btn" data-tab="tab-ofertas">Ofertas</button>
+                <button class="tab-btn" data-tab="tab-postulaciones">Postulaciones</button>
+                <button class="tab-btn" data-tab="tab-convenios">Convenios</button>
+            </div>
+
+            <div class="tab-panel active" id="tab-unidades">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-building"></i> Gestión de Unidades Receptoras</div>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Organización</th><th>Sector</th><th>Representante</th><th>Estado</th><th>Validación</th><th>Acciones</th></tr></thead>
+                        <tbody>${unidades.map(u=>`
+                            <tr>
+                                <td><strong>${u.nombre}</strong><br><small>${u.unidadData?.direccion||''}</small></td>
+                                <td>${u.unidadData?.sector||'—'}</td>
+                                <td>${u.unidadData?.representanteLegal||'—'}</td>
+                                <td><span class="tag ${u.activo?'tag-green':'tag-red'}">${u.activo?'Activa':'Inactiva'}</span></td>
+                                <td><span class="tag ${u.unidadData?.estadoValidacion==='verificada'?'tag-green':u.unidadData?.estadoValidacion==='en_validacion'?'tag-amber':'tag-red'}">${u.unidadData?.estadoValidacion||'Pendiente'}</span></td>
+                                <td>
+                                    <button class="btn btn-xs btn-outline-dark toggleUnidadBtn" data-id="${u.id}">${u.activo?'Desactivar':'Activar'}</button>
+                                    ${u.unidadData?.estadoValidacion!=='verificada'?`<button class="btn btn-xs btn-success validarUnidadBtn" data-id="${u.id}">Validar</button>`:''}
+                                </td>
+                            </tr>`).join('')}</tbody>
+                    </table></div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="tab-estudiantes">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-user-graduate"></i> Estudiantes Registrados</div>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Estudiante</th><th>Programa</th><th>Promedio</th><th>Avance</th><th>Estado</th></tr></thead>
+                        <tbody>${estudiantes.map(e=>`
+                            <tr>
+                                <td><strong>${e.nombre}</strong><br><small>${e.email}</small></td>
+                                <td>${e.perfil?.programa||'—'}</td>
+                                <td>${e.perfil?.promedio||'—'}</td>
+                                <td>${e.perfil?.avanceAcademico||'—'}</td>
+                                <td><span class="tag ${e.activo?'tag-green':'tag-red'}">${e.activo?'Activo':'Inactivo'}</span></td>
+                            </tr>`).join('')}</tbody>
+                    </table></div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="tab-egresados">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-user-tie"></i> Egresados Registrados</div>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Egresado/a</th><th>Programa</th><th>Generación</th><th>Experiencia</th><th>Estado</th></tr></thead>
+                        <tbody>${egresados.map(e=>`
+                            <tr>
+                                <td><strong>${e.nombre}</strong><br><small>${e.email}</small></td>
+                                <td>${e.perfil?.programa||'—'}</td>
+                                <td>${e.anioGraduacion||'—'}</td>
+                                <td>${e.perfil?.experiencia||'—'}</td>
+                                <td><span class="tag tag-green">Activo</span></td>
+                            </tr>`).join('')}</tbody>
+                    </table></div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="tab-ofertas">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-briefcase"></i> Ofertas Publicadas</div>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Título</th><th>Tipo</th><th>Unidad</th><th>Plazas</th><th>Estado</th><th>Acción</th></tr></thead>
+                        <tbody>${offers.map(o=>{
+                            const uni = users.find(u=>u.id===o.unidadId);
+                            return `<tr>
+                                <td><strong>${o.titulo}</strong></td>
+                                <td><span class="tag tag-gold">${o.tipo}</span></td>
+                                <td>${uni?.nombre||'—'}</td>
+                                <td>${o.plazas}</td>
+                                <td><span class="tag ${o.activo?'tag-green':'tag-red'}">${o.activo?'Activa':'Inactiva'}</span></td>
+                                <td><button class="btn btn-xs btn-outline-dark toggleOfferBtn" data-id="${o.id}">${o.activo?'Pausar':'Activar'}</button></td>
+                            </tr>`;
+                        }).join('')}</tbody>
+                    </table></div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="tab-postulaciones">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-file-signature"></i> Postulaciones</div>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Oferta</th><th>Estudiante/Egresado</th><th>Fecha</th><th>Estado</th><th>Acción</th></tr></thead>
+                        <tbody>${apps.map(a=>{
+                            const of = offers.find(o=>o.id===a.ofertaId);
+                            const est = users.find(u=>u.id===a.estudianteId);
+                            return `<tr>
+                                <td>${of?.titulo||'—'}</td>
+                                <td>${est?.nombre||'—'}</td>
+                                <td>${a.fechaPostulacion?.split('T')[0]||'—'}</td>
+                                <td><span class="tag ${a.estado==='aceptado'?'tag-green':a.estado==='revision'?'tag-amber':a.estado==='rechazado'?'tag-red':'tag-blue'}">${a.estado}</span></td>
+                                <td><select class="cambiarEstadoAppSel" data-app="${a.id}" style="width:auto;padding:4px 8px;font-size:0.75rem;">
+                                    <option ${a.estado==='pendiente'?'selected':''}>pendiente</option>
+                                    <option ${a.estado==='revision'?'selected':''}>revision</option>
+                                    <option ${a.estado==='aceptado'?'selected':''}>aceptado</option>
+                                    <option ${a.estado==='rechazado'?'selected':''}>rechazado</option>
+                                </select></td>
+                            </tr>`;
+                        }).join('')}</tbody>
+                    </table></div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="tab-convenios">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-handshake"></i> Convenios de Colaboración</div>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>ID Convenio</th><th>Unidad</th><th>Estudiante</th><th>Tipo</th><th>Fecha</th><th>Estado</th></tr></thead>
+                        <tbody>${convenios.map(c=>{
+                            const uni = users.find(u=>u.id===c.unidadId);
+                            const est = users.find(u=>u.id===c.estudianteId);
+                            return `<tr>
+                                <td>${c.id}</td><td>${uni?.nombre||'—'}</td><td>${est?.nombre||'—'}</td>
+                                <td>${c.tipo}</td><td>${c.fechaConvenio}</td>
+                                <td><span class="tag ${c.estado==='activo'?'tag-green':'tag-amber'}">${c.estado}</span></td>
+                            </tr>`;
+                        }).join('')}</tbody>
+                    </table></div>
+                </div>
+            </div>
+            `;
+
+            // Tab switching
+            root.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    root.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    root.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    const target = root.querySelector('#' + btn.dataset.tab);
+                    if (target) target.classList.add('active');
+                });
+            });
+
+            // Toggle unidad
+            root.querySelectorAll('.toggleUnidadBtn').forEach(b => {
+                b.addEventListener('click', () => {
+                    const usersUp = getUsers();
+                    const idx = usersUp.findIndex(u => u.id === b.dataset.id);
+                    if (idx !== -1) { usersUp[idx].activo = !usersUp[idx].activo;
+                        saveUsers(usersUp);
+                        renderAdminDashboard(root); }
+                });
+            });
+            // Validar unidad
+            root.querySelectorAll('.validarUnidadBtn').forEach(b => {
+                b.addEventListener('click', () => {
+                    const usersUp = getUsers();
+                    const idx = usersUp.findIndex(u => u.id === b.dataset.id);
+                    if (idx !== -1 && usersUp[idx].unidadData) {
+                        usersUp[idx].unidadData.estadoValidacion = 'verificada';
+                        usersUp[idx].activo = true;
+                        saveUsers(usersUp);
+                        renderAdminDashboard(root);
+                    }
+                });
+            });
+            // Toggle oferta
+            root.querySelectorAll('.toggleOfferBtn').forEach(b => {
+                b.addEventListener('click', () => {
+                    const offs = getOffers();
+                    const o = offs.find(o => o.id === b.dataset.id);
+                    if (o) { o.activo = !o.activo;
+                        saveOffers(offs);
+                        renderAdminDashboard(root); }
+                });
+            });
+            // Cambiar estado app
+            root.querySelectorAll('.cambiarEstadoAppSel').forEach(sel => {
+                sel.addEventListener('change', () => {
+                    const appsUp = getApps();
+                    const a = appsUp.find(a => a.id === sel.dataset.app);
+                    if (a) { a.estado = sel.value;
+                        saveApps(appsUp);
+                        renderAdminDashboard(root); }
+                });
+            });
+        }
+
+        // ──────────────────────────────────────
+        //  DASHBOARD UNIDAD RECEPTORA
+        // ──────────────────────────────────────
+        function renderUnidadDashboard(root) {
+            const offers = getOffers().filter(o => o.unidadId === currentUser.id);
+            const apps = getApps();
+            const users = getUsers();
+            const misApps = apps.filter(a => offers.some(o => o.id === a.ofertaId));
+            const convenios = getConvenios().filter(c => c.unidadId === currentUser.id);
+
+            root.innerHTML = `
+            <h2 style="font-family:var(--font-display);color:var(--icc-red-dark);margin-bottom:1rem;">
+                <i class="fas fa-building" style="color:var(--icc-gold);"></i> Panel de Unidad Receptora · ${currentUser.nombre}
+            </h2>
+            ${currentUser.unidadData?.estadoValidacion!=='verificada'?`
+                <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> Su cuenta está en proceso de validación. Un administrador revisará su documentación pronto.</div>`:''}
+            <div class="grid-3 mb-2">
+                <div class="kpi-card"><div class="kpi-val">${offers.filter(o=>o.activo).length}</div><div class="kpi-lbl">Ofertas Activas</div></div>
+                <div class="kpi-card"><div class="kpi-val">${misApps.length}</div><div class="kpi-lbl">Postulaciones Recibidas</div></div>
+                <div class="kpi-card"><div class="kpi-val">${convenios.filter(c=>c.estado==='activo').length}</div><div class="kpi-lbl">Convenios Activos</div></div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="u-ofertas">Mis Ofertas</button>
+                <button class="tab-btn" data-tab="u-postulantes">Postulantes</button>
+                <button class="tab-btn" data-tab="u-convenios">Convenios</button>
+                <button class="tab-btn" data-tab="u-perfil">Perfil de la Unidad</button>
+            </div>
+
+            <div class="tab-panel active" id="u-ofertas">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-bullhorn"></i> Ofertas Publicadas
+                        <button class="btn btn-primary btn-sm" id="btnNuevaOferta" style="margin-left:auto;"><i class="fas fa-plus"></i> Nueva Oferta</button>
+                    </div>
+                    ${offers.length===0?'<p>No hay ofertas registradas aún.</p>':offers.map(o=>`
+                        <div style="border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin-bottom:0.8rem;background:#FAFAFA;">
+                            <div class="flex-between">
+                                <div><strong>${o.titulo}</strong> <span class="tag tag-gold">${o.tipo}</span></div>
+                                <div>
+                                    <button class="btn btn-xs btn-outline-dark editarOfertaBtn" data-id="${o.id}"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-xs btn-danger eliminarOfertaBtn" data-id="${o.id}"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <small style="color:var(--text-secondary);">${o.descripcion}</small><br>
+                            <small>⏱ ${o.duracion} | 📅 Límite: ${o.fechaLimite} | 👥 Plazas: ${o.plazas} | 💰 ${o.apoyos}</small>
+                        </div>`).join('')}
+                </div>
+            </div>
+
+            <div class="tab-panel" id="u-postulantes">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-users"></i> Postulantes a mis ofertas</div>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Oferta</th><th>Postulante</th><th>Perfil</th><th>Estado</th><th>Acciones</th></tr></thead>
+                        <tbody>${misApps.map(a=>{
+                            const of = offers.find(o=>o.id===a.ofertaId);
+                            const est = users.find(u=>u.id===a.estudianteId);
+                            return `<tr>
+                                <td>${of?.titulo||'—'}</td>
+                                <td><strong>${est?.nombre||'—'}</strong><br><small>${est?.perfil?.programa||''}</small></td>
+                                <td>${est?.perfil?.habilidadesTecnicas||'—'}</td>
+                                <td><span class="tag ${a.estado==='aceptado'?'tag-green':a.estado==='revision'?'tag-amber':'tag-blue'}">${a.estado}</span></td>
+                                <td>
+                                    <select class="cambiarEstadoAppSelU" data-app="${a.id}" style="width:auto;padding:4px 8px;font-size:0.7rem;">
+                                        <option ${a.estado==='pendiente'?'selected':''}>pendiente</option>
+                                        <option ${a.estado==='revision'?'selected':''}>revision</option>
+                                        <option ${a.estado==='aceptado'?'selected':''}>aceptado</option>
+                                        <option ${a.estado==='rechazado'?'selected':''}>rechazado</option>
+                                    </select>
+                                    ${a.estado==='aceptado'?`<button class="btn btn-xs btn-success generarConvenioBtn" data-app="${a.id}" data-est="${a.estudianteId}" data-of="${a.ofertaId}">Generar Convenio</button>`:''}
+                                </td>
+                            </tr>`;
+                        }).join('')}</tbody>
+                    </table></div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="u-convenios">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-handshake"></i> Convenios de Colaboración</div>
+                    ${convenios.length===0?'<p>Sin convenios aún.</p>':convenios.map(c=>{
+                        const est = users.find(u=>u.id===c.estudianteId);
+                        return `<div style="border-left:4px solid var(--success);padding:10px 14px;background:#F9FAFB;border-radius:8px;margin-bottom:8px;">
+                            <strong>${c.id}</strong> — ${est?.nombre||'—'} | ${c.tipo} | ${c.fechaConvenio} | <span class="tag tag-green">${c.estado}</span>
+                        </div>`;
+                    }).join('')}
+                </div>
+            </div>
+
+            <div class="tab-panel" id="u-perfil">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-cog"></i> Perfil de la Unidad Receptora</div>
+                    <div class="form-row-2">
+                        <div class="form-group"><label>Sector</label><input id="upSector" value="${currentUser.unidadData?.sector||''}"></div>
+                        <div class="form-group"><label>Dirección</label><input id="upDir" value="${currentUser.unidadData?.direccion||''}"></div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="form-group"><label>Representante Legal</label><input id="upRep" value="${currentUser.unidadData?.representanteLegal||''}"></div>
+                        <div class="form-group"><label>Cargo</label><input id="upCargo" value="${currentUser.unidadData?.cargoRepresentante||''}"></div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="form-group"><label>Teléfono</label><input id="upTel" value="${currentUser.unidadData?.telefono||''}"></div>
+                        <div class="form-group"><label>RFC</label><input id="upRfc" value="${currentUser.unidadData?.rfc||''}"></div>
+                    </div>
+                    <div class="form-group"><label>Descripción de actividades ofrecidas</label><textarea id="upDesc">${currentUser.unidadData?.descripcionActividades||''}</textarea></div>
+                    <button class="btn btn-primary" id="btnGuardarPerfilUnidad"><i class="fas fa-save"></i> Guardar cambios</button>
+                </div>
+            </div>
+            `;
+
+            // Tabs
+            root.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    root.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    root.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    const target = root.querySelector('#' + btn.dataset.tab);
+                    if (target) target.classList.add('active');
+                });
+            });
+
+            // Nueva oferta
+            document.getElementById('btnNuevaOferta')?.addEventListener('click', () => {
+                const titulo = prompt('Título de la oferta:');
+                if (!titulo) return;
+                const tipo = prompt('Tipo (Servicio Social, Prácticas Profesionales, Empleo):', 'Servicio Social');
+                const desc = prompt('Descripción:');
+                const duracion = prompt('Duración:', '480 horas');
+                const horario = prompt('Horario:', 'Lun-Vie 9:00-14:00');
+                const apoyos = prompt('Apoyos (beca, transporte, etc.):', 'Constancia');
+                const plazas = parseInt(prompt('Número de plazas:', '2')) || 1;
+                const fechaLim = prompt('Fecha límite (YYYY-MM-DD):', '2026-12-31');
+                const offs = getOffers();
+                offs.push({
+                    id: 'of_' + Date.now(),
+                    unidadId: currentUser.id,
+                    titulo,
+                    tipo,
+                    descripcion: desc,
+                    duracion,
+                    horario,
+                    apoyos,
+                    requisitos: '',
+                    habilidadesDeseadas: '',
+                    plazas,
+                    fechaLimite: fechaLim,
+                    activo: true,
+                    fechaPublicacion: new Date().toISOString().split('T')[0]
+                });
+                saveOffers(offs);
+                renderUnidadDashboard(root);
+            });
+
+            // Eliminar oferta
+            root.querySelectorAll('.eliminarOfertaBtn').forEach(b => {
+                b.addEventListener('click', () => {
+                    if (confirm('¿Eliminar esta oferta?')) {
+                        let offs = getOffers();
+                        offs = offs.filter(o => o.id !== b.dataset.id);
+                        saveOffers(offs);
+                        renderUnidadDashboard(root);
+                    }
+                });
+            });
+
+            // Cambiar estado postulación
+            root.querySelectorAll('.cambiarEstadoAppSelU').forEach(sel => {
+                sel.addEventListener('change', () => {
+                    const appsUp = getApps();
+                    const a = appsUp.find(a => a.id === sel.dataset.app);
+                    if (a) { a.estado = sel.value;
+                        saveApps(appsUp);
+                        renderUnidadDashboard(root); }
+                });
+            });
+
+            // Generar convenio
+            root.querySelectorAll('.generarConvenioBtn').forEach(b => {
+                b.addEventListener('click', () => {
+                    const convenios = getConvenios();
+                    convenios.push({
+                        id: 'conv_' + Date.now(),
+                        unidadId: currentUser.id,
+                        estudianteId: b.dataset.est,
+                        ofertaId: b.dataset.of,
+                        fechaConvenio: new Date().toISOString().split('T')[0],
+                        estado: 'activo',
+                        tipo: getOffers().find(o => o.id === b.dataset.of)?.tipo || 'Servicio Social'
+                    });
+                    saveConvenios(convenios);
+                    alert(
+                        '✅ Convenio de colaboración generado. Se procede con Carta de Aceptación y registro del Programa de Actividades.'
+                        );
+                    renderUnidadDashboard(root);
+                });
+            });
+
+            // Guardar perfil unidad
+            document.getElementById('btnGuardarPerfilUnidad')?.addEventListener('click', () => {
+                const usersUp = getUsers();
+                const idx = usersUp.findIndex(u => u.id === currentUser.id);
+                if (idx !== -1 && usersUp[idx].unidadData) {
+                    usersUp[idx].unidadData.sector = document.getElementById('upSector').value;
+                    usersUp[idx].unidadData.direccion = document.getElementById('upDir').value;
+                    usersUp[idx].unidadData.representanteLegal = document.getElementById('upRep').value;
+                    usersUp[idx].unidadData.cargoRepresentante = document.getElementById('upCargo').value;
+                    usersUp[idx].unidadData.telefono = document.getElementById('upTel').value;
+                    usersUp[idx].unidadData.rfc = document.getElementById('upRfc').value;
+                    usersUp[idx].unidadData.descripcionActividades = document.getElementById('upDesc').value;
+                    saveUsers(usersUp);
+                    currentUser = usersUp[idx];
+                    alert('Perfil actualizado.');
+                }
+            });
+        }
+
+        // ──────────────────────────────────────
+        //  DASHBOARD ESTUDIANTE / EGRESADO
+        // ──────────────────────────────────────
+        function renderEstudianteDashboard(root) {
+            const offers = getOffers().filter(o => o.activo === true);
+            const apps = getApps();
+            const users = getUsers();
+            const myApps = apps.filter(a => a.estudianteId === currentUser.id);
+            const convenios = getConvenios().filter(c => c.estudianteId === currentUser.id);
+            const esEgresado = currentUser.esEgresado === true;
+
+            root.innerHTML = `
+            <h2 style="font-family:var(--font-display);color:var(--icc-red-dark);margin-bottom:1rem;">
+                <i class="fas ${esEgresado?'fa-user-tie':'fa-user-graduate'}" style="color:var(--icc-gold);"></i>
+                ${esEgresado?'Panel de Egresado/a':'Panel de Estudiante'} · ${currentUser.nombre}
+            </h2>
+            <div class="grid-3 mb-2">
+                <div class="kpi-card"><div class="kpi-val">${myApps.length}</div><div class="kpi-lbl">Postulaciones</div></div>
+                <div class="kpi-card"><div class="kpi-val">${myApps.filter(a=>a.estado==='aceptado').length}</div><div class="kpi-lbl">Aceptadas</div></div>
+                <div class="kpi-card"><div class="kpi-val">${convenios.length}</div><div class="kpi-lbl">Convenios</div></div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="e-ofertas">Oportunidades</button>
+                <button class="tab-btn" data-tab="e-mis-post">Mis Postulaciones</button>
+                <button class="tab-btn" data-tab="e-perfil">Mi Perfil</button>
+                <button class="tab-btn" data-tab="e-seguimiento">Seguimiento</button>
+            </div>
+
+            <div class="tab-panel active" id="e-ofertas">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-search"></i> Oportunidades de ${esEgresado?'Bolsa de Trabajo':'Servicio Social y Prácticas'}</div>
+                    <div class="grid-2">
+                        ${offers.filter(o=>esEgresado?o.tipo==='Empleo':o.tipo!=='Empleo').map(o=>{
+                            const uni = users.find(u=>u.id===o.unidadId);
+                            const yaPostule = myApps.some(a=>a.ofertaId===o.id);
+                            return `<div style="border:1px solid var(--border);border-radius:var(--radius);padding:1rem;background:#FFF;">
+                                <strong>${o.titulo}</strong> <span class="tag tag-gold">${o.tipo}</span>
+                                <p style="font-size:0.82rem;color:var(--text-secondary);">${o.descripcion}</p>
+                                <small>🏢 ${uni?.nombre||'—'} | ⏱ ${o.duracion} | 💰 ${o.apoyos} | 📅 ${o.fechaLimite}</small><br>
+                                ${yaPostule?'<span class="tag tag-green">✅ Ya postulaste</span>':`<button class="btn btn-primary btn-sm mt-1 postularBtn" data-id="${o.id}">Postularme</button>`}
+                            </div>`;
+                        }).join('')}
+                        ${offers.filter(o=>esEgresado?o.tipo==='Empleo':o.tipo!=='Empleo').length===0?'<p>No hay oportunidades disponibles en este momento.</p>':''}
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="e-mis-post">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-clipboard-list"></i> Mis Postulaciones</div>
+                    <div class="table-wrap"><table>
+                        <thead><tr><th>Oferta</th><th>Unidad</th><th>Estado</th><th>Documentos</th></tr></thead>
+                        <tbody>${myApps.map(a=>{
+                            const of = offers.find(o=>o.id===a.ofertaId);
+                            const uni = users.find(u=>u.id===of?.unidadId);
+                            return `<tr>
+                                <td><strong>${of?.titulo||'—'}</strong></td>
+                                <td>${uni?.nombre||'—'}</td>
+                                <td><span class="tag ${a.estado==='aceptado'?'tag-green':a.estado==='revision'?'tag-amber':a.estado==='rechazado'?'tag-red':'tag-blue'}">${a.estado}</span></td>
+                                <td>
+                                    ${a.cartaPresentacion?'<span class="chip">Carta Presentación ✓</span>':''}
+                                    ${a.cartaAceptacion?'<span class="chip">Carta Aceptación ✓</span>':''}
+                                    ${a.reporteParcial?'<span class="chip">Reporte Parcial ✓</span>':''}
+                                    ${a.reporteFinal?'<span class="chip">Reporte Final ✓</span>':''}
+                                    ${a.cartaConclusion?'<span class="chip">Carta Conclusión ✓</span>':''}
+                                </td>
+                            </tr>`;
+                        }).join('')}</tbody>
+                    </table></div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="e-perfil">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-id-card"></i> Mi Perfil Profesional</div>
+                    <div class="form-row-2">
+                        <div class="form-group"><label>Teléfono</label><input id="epTel" value="${currentUser.perfil?.telefono||''}"></div>
+                        <div class="form-group"><label>LinkedIn</label><input id="epLink" value="${currentUser.perfil?.linkedin||''}"></div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="form-group"><label>Programa educativo</label><input id="epProg" value="${currentUser.perfil?.programa||''}"></div>
+                        <div class="form-group"><label>Promedio</label><input id="epProm" value="${currentUser.perfil?.promedio||''}"></div>
+                    </div>
+                    ${!esEgresado?`<div class="form-group"><label>Avance académico</label><input id="epAvance" value="${currentUser.perfil?.avanceAcademico||''}"></div>`:''}
+                    ${esEgresado?`<div class="form-group"><label>Experiencia profesional</label><textarea id="epExp">${currentUser.perfil?.experiencia||''}</textarea></div>`:''}
+                    <div class="form-group"><label>Habilidades técnicas (software, idiomas, herramientas)</label><input id="epHabTec" value="${currentUser.perfil?.habilidadesTecnicas||''}"></div>
+                    <div class="form-group"><label>Habilidades blandas / actitudes</label><input id="epHabAct" value="${currentUser.perfil?.habilidadesActitudes||''}"></div>
+                    <div class="form-group"><label>Información adicional (cursos, certificaciones)</label><textarea id="epInfo">${currentUser.perfil?.infoAdicional||''}</textarea></div>
+                    <div class="form-row-2">
+                        <div class="form-group"><label>Disponibilidad</label><input id="epDisp" value="${currentUser.perfil?.disponibilidad||''}"></div>
+                        <div class="form-group"><label>¿Requiere reubicación?</label><select id="epReub"><option ${currentUser.perfil?.reubicacion==='Sí'?'selected':''}>No</option><option ${currentUser.perfil?.reubicacion==='Sí'?'selected':''}>Sí</option></select></div>
+                    </div>
+                    <button class="btn btn-primary" id="btnGuardarPerfilEst"><i class="fas fa-save"></i> Guardar perfil</button>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="e-seguimiento">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-route"></i> Seguimiento de mi proceso</div>
+                    ${convenios.length===0?'<p>No tienes convenios activos aún.</p>':convenios.map(c=>{
+                        const of = offers.find(o=>o.id===c.ofertaId);
+                        const uni = users.find(u=>u.id===c.unidadId);
+                        return `<div style="border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin-bottom:0.8rem;">
+                            <strong>${c.tipo}</strong> en <em>${uni?.nombre||'—'}</em><br>
+                            <small>Convenio: ${c.id} | Fecha: ${c.fechaConvenio} | Estado: <span class="tag tag-green">${c.estado}</span></small>
+                            <div class="step-flow mt-1">
+                                <div class="step done"><span class="step-num">1</span>Registro</div>
+                                <div class="step done"><span class="step-num">2</span>Carta Presentación</div>
+                                <div class="step done"><span class="step-num">3</span>Convenio</div>
+                                <div class="step active-step"><span class="step-num">4</span>Ejecución</div>
+                                <div class="step"><span class="step-num">5</span>Reportes</div>
+                                <div class="step"><span class="step-num">6</span>Cierre</div>
+                            </div>
+                            <small style="color:var(--text-secondary);">📌 Próximo paso: Entrega de reportes parciales y seguimiento con tutor/mentor.</small>
+                        </div>`;
+                    }).join('')}
+                </div>
+            </div>
+            `;
+
+            // Tabs
+            root.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    root.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    root.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    const target = root.querySelector('#' + btn.dataset.tab);
+                    if (target) target.classList.add('active');
+                });
+            });
+
+            // Postular
+            root.querySelectorAll('.postularBtn').forEach(b => {
+                b.addEventListener('click', () => {
+                    const appsUp = getApps();
+                    if (appsUp.some(a => a.ofertaId === b.dataset.id && a.estudianteId === currentUser
+                            .id)) return alert('Ya has postulado a esta oferta.');
+                    appsUp.push({
+                        id: 'app_' + Date.now(),
+                        ofertaId: b.dataset.id,
+                        estudianteId: currentUser.id,
+                        fechaPostulacion: new Date().toISOString(),
+                        estado: 'pendiente',
+                        comentarios: '',
+                        programaActividades: '',
+                        cartaPresentacion: false,
+                        cartaAceptacion: false,
+                        reporteParcial: false,
+                        reporteFinal: false,
+                        cartaConclusion: false
+                    });
+                    saveApps(appsUp);
+                    alert('✅ Postulación realizada con éxito.');
+                    renderEstudianteDashboard(root);
+                });
+            });
+
+            // Guardar perfil
+            document.getElementById('btnGuardarPerfilEst')?.addEventListener('click', () => {
+                const usersUp = getUsers();
+                const idx = usersUp.findIndex(u => u.id === currentUser.id);
+                if (idx !== -1) {
+                    usersUp[idx].perfil = {
+                        ...usersUp[idx].perfil,
+                        telefono: document.getElementById('epTel').value,
+                        linkedin: document.getElementById('epLink').value,
+                        programa: document.getElementById('epProg').value,
+                        promedio: document.getElementById('epProm').value,
+                        avanceAcademico: !esEgresado ? document.getElementById('epAvance')?.value || '' : '',
+                        experiencia: esEgresado ? document.getElementById('epExp')?.value || '' : '',
+                        habilidadesTecnicas: document.getElementById('epHabTec').value,
+                        habilidadesActitudes: document.getElementById('epHabAct').value,
+                        infoAdicional: document.getElementById('epInfo').value,
+                        disponibilidad: document.getElementById('epDisp').value,
+                        reubicacion: document.getElementById('epReub').value,
+                    };
+                    saveUsers(usersUp);
+                    currentUser = usersUp[idx];
+                    alert('Perfil actualizado correctamente.');
+                }
+            });
+        }
+
+        // ──────────────────────────────────────
+        //  INICIALIZAR
+        // ──────────────────────────────────────
+        loadSession();
+    </script>
+</body>
+</html>

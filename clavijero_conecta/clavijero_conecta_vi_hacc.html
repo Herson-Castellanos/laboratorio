@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clavijero CONECTA — Sistema de Vinculación Profesional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/tabler-icons.min.css">
+    <style>
+        :root {
+            --icc-red: #7D1F2E;
+            --icc-red-light: #A33040;
+            --icc-gold: #C49A35;
+            --icc-gold-light: #E8C06A;
+            --icc-dark: #1A0A0D;
+            --bg: #F8F6F7;
+            --surface: #FFFFFF;
+            --border: #E4DFE0;
+            --text: #1A0A0D;
+            --text-secondary: #6B5E62;
+            --success: #2D7D4F;
+            --warning: #B85C1A;
+            --danger: #B5303A;
+            --info: #3A6090;
+            --radius: 10px;
+            --radius-sm: 6px;
+            --shadow: 0 1px 3px rgba(26, 10, 13, 0.06), 0 1px 2px rgba(26, 10, 13, 0.04);
+            --shadow-md: 0 4px 16px rgba(26, 10, 13, 0.1);
+            --font: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: var(--font);
+            font-size: 13.5px;
+            color: var(--text);
+            background: #F0ECEE;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .app-shell {
+            display: grid;
+            grid-template-columns: 230px 1fr;
+            width: 100%;
+            max-width: 1400px;
+            min-height: 880px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            background: var(--bg);
+            border: 1px solid var(--border);
+        }
+        /* SIDEBAR */
+        .sidebar {
+            background: linear-gradient(180deg, var(--icc-dark) 0%, #2D0F16 100%);
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            color: #fff;
+            user-select: none;
+        }
+        .logo-block {
+            padding: 20px 16px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .logo-title {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: #fff;
+        }
+        .logo-sub {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 3px;
+        }
+        .nav-section {
+            padding: 10px 0 2px;
+            margin: 0 8px;
+        }
+        .nav-label {
+            font-size: 9.5px;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0 10px 6px;
+            font-weight: 600;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            transition: all 0.15s;
+            margin: 1px 0;
+            position: relative;
+            font-weight: 500;
+        }
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-weight: 600;
+            box-shadow: inset 3px 0 0 var(--icc-gold);
+        }
+        .nav-item i {
+            font-size: 17px;
+            width: 20px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .badge {
+            margin-left: auto;
+            background: var(--icc-gold);
+            color: #3A1A00;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 12px;
+            line-height: 17px;
+            min-width: 22px;
+            text-align: center;
+        }
+        .badge-dot {
+            margin-left: auto;
+            width: 7px;
+            height: 7px;
+            background: var(--icc-gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        /* CONTENT */
+        .content {
+            overflow-y: auto;
+            background: var(--bg);
+            position: relative;
+        }
+        .page {
+            padding: 26px 28px;
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .page.active {
+            display: block;
+        }
+        .page-header {
+            margin-bottom: 20px;
+        }
+        .page-title {
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.4px;
+        }
+        .page-sub {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 3px;
+        }
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        /* KPI ROW */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .kpi-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.15s;
+        }
+        .kpi-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+        .kpi-n {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        .kpi-l {
+            font-size: 11.5px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 500;
+        }
+        .kpi-bar {
+            height: 3px;
+            background: #E8E3E5;
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .kpi-fill {
+            height: 3px;
+            border-radius: 2px;
+            transition: width 0.6s ease;
+        }
+        /* GRID */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        /* CARD */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            box-shadow: var(--shadow);
+        }
+        .card-sm {
+            padding: 14px 16px;
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: -0.2px;
+            text-transform: uppercase;
+            font-size: 11.5px;
+            letter-spacing: 0.4px;
+        }
+        /* TAG */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            padding: 3px 9px;
+            border-radius: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .tag-green {
+            background: #E6F4EC;
+            color: var(--success);
+        }
+        .tag-amber {
+            background: #FFF3E8;
+            color: var(--warning);
+        }
+        .tag-red {
+            background: #FDECEE;
+            color: var(--danger);
+        }
+        .tag-blue {
+            background: #E8F0FA;
+            color: var(--info);
+        }
+        /* TABLE */
+        .table-wrap {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        table th {
+            text-align: left;
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 9px 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 2px solid var(--border);
+            background: #FAF8F9;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: middle;
+        }
+        table tr:last-child td {
+            border-bottom: none;
+        }
+        table tbody tr:hover td {
+            background: #FDFBFC;
+        }
+        .avatar-sm {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            flex-shrink: 0;
+            color: #fff;
+        }
+        .av-red {
+            background: var(--icc-red);
+        }
+        .av-blue {
+            background: var(--info);
+        }
+        .av-green {
+            background: var(--success);
+        }
+        .av-amber {
+            background: var(--warning);
+        }
+        /* PILL TABS */
+        .pill-tabs {
+            display: flex;
+            gap: 4px;
+            background: #EBE6E8;
+            border-radius: var(--radius-sm);
+            padding: 3px;
+            margin-bottom: 16px;
+            width: fit-content;
+        }
+        .ptab {
+            padding: 7px 14px;
+            font-size: 12.5px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.12s;
+            white-space: nowrap;
+            user-select: none;
+        }
+        .ptab.active {
+            background: var(--surface);
+            color: var(--text);
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+        .ptab:hover:not(.active) {
+            color: var(--text);
+        }
+        .sub-panel {
+            display: none;
+        }
+        .sub-panel.active {
+            display: block;
+        }
+        /* FORM */
+        .form-row {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .form-row-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+        label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 9px 11px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            background: var(--surface);
+            color: var(--text);
+            font-family: var(--font);
+            transition: border 0.15s, box-shadow 0.15s;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--icc-red);
+            box-shadow: 0 0 0 3px rgba(125, 31, 46, 0.08);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 65px;
+        }
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            transition: all 0.15s;
+            font-family: var(--font);
+            white-space: nowrap;
+        }
+        .btn:hover {
+            background: #F5F2F3;
+        }
+        .btn-primary {
+            background: var(--icc-red);
+            border-color: var(--icc-red);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--icc-red-light);
+            border-color: var(--icc-red-light);
+        }
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 12px;
+        }
+        .btn-xs {
+            padding: 3px 8px;
+            font-size: 11px;
+            border-radius: 4px;
+        }
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        /* STEP FLOW */
+        .step-flow {
+            display: flex;
+            gap: 0;
+            margin: 10px 0;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .step {
+            flex: 1;
+            padding: 10px 6px;
+            text-align: center;
+            font-size: 10.5px;
+            font-weight: 500;
+            background: #F9F7F8;
+            color: var(--text-secondary);
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+        .step:last-child {
+            border-right: none;
+        }
+        .step.done {
+            background: #FDE8EC;
+            color: var(--icc-red);
+        }
+        .step.active-step {
+            background: var(--icc-red);
+            color: #fff;
+            font-weight: 600;
+        }
+        .step-num {
+            font-size: 15px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
+        }
+        /* ACTOR BOX */
+        .actor-box {
+            border-left: 3px solid var(--icc-red);
+            padding: 10px 14px;
+            background: #FDFBFC;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin-bottom: 8px;
+            transition: background 0.12s;
+        }
+        .actor-box:hover {
+            background: #F9F5F6;
+        }
+        .actor-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .actor-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        /* CHIPS */
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .chip {
+            background: #F4F0F1;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            font-size: 11.5px;
+            padding: 4px 10px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 22px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 4px;
+            bottom: 4px;
+            width: 1.5px;
+            background: var(--border);
+        }
+        .tl-item {
+            position: relative;
+            margin-bottom: 13px;
+        }
+        .tl-dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: var(--icc-red);
+            position: absolute;
+            left: -22px;
+            top: 2px;
+            border: 2px solid var(--surface);
+            box-shadow: 0 0 0 2px var(--border);
+        }
+        .tl-dot.pending {
+            background: #C5BFC1;
+        }
+        .tl-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .tl-meta {
+            font-size: 11.5px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        /* TOAST */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+        .toast {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 18px;
+            box-shadow: var(--shadow-md);
+            font-size: 13px;
+            font-weight: 500;
+            pointer-events: auto;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 380px;
+        }
+        .toast-success {
+            border-left: 3px solid var(--success);
+        }
+        .toast-info {
+            border-left: 3px solid var(--info);
+        }
+        .toast-warning {
+            border-left: 3px solid var(--warning);
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 10, 13, 0.45);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+        .modal {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow-md);
+            animation: fadeIn 0.25s ease;
+        }
+        .modal h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .modal p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        /* MISC */
+        .highlight-box {
+            background: #FFFBF5;
+            border: 1px solid #F0E0C0;
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            font-size: 12px;
+            color: #6B4E1A;
+            margin-top: 8px;
+        }
+        .progress-bar {
+            height: 5px;
+            background: #E8E3E5;
+            border-radius: 3px;
+            overflow: hidden;
+            width: 80px;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: var(--icc-red);
+            transition: width 0.4s ease;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+        .empty-state i {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.4;
+        }
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .app-shell {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .sidebar {
+                display: none;
+            }
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .form-row-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-shell">
+        <!-- SIDEBAR -->
+        <nav class="sidebar">
+            <div class="logo-block">
+                <div class="logo-title">Clavijero CONECTA</div>
+                <div class="logo-sub">Sistema de Vinculación</div>
+            </div>
+            <div class="nav-section">
+                <div class="nav-label">Principal</div>
+                <div class="nav-item active" data-page="dashboard"><i class="ti ti-layout-dashboard"></i> Panel general</div>
+            </div>
+            <div class="nav-section">
+                <div class="nav-label">Actores</div>
+                <div class="nav-item" data-page="receptoras"><i class="ti ti-building-community"></i> Unidades receptoras <span class="badge">12</span></div>
+                <div class="nav-item" data-page="estudiantes"><i class="ti ti-school"></i> Estudiantes <span class="badge">84</span></div>
+                <div class="nav-item" data-page="egresados"><i class="ti ti-user-check"></i> Egresados <span class="badge">31</span></div>
+            </div>
+            <div class="nav-section">
+                <div class="nav-label">Procesos</div>
+                <div class="nav-item" data-page="vinculacion"><i class="ti ti-link"></i> Vinculación activa <span class="badge-dot"></span></div>
+                <div class="nav-item" data-page="seguimiento"><i class="ti ti-checklist"></i> Seguimiento</div>
+            </div>
+            <div class="nav-section">
+                <div class="nav-label">Administración</div>
+                <div class="nav-item" data-page="admin"><i class="ti ti-shield-check"></i> Control y validación <span class="badge" style="background:#E8C06A;">9</span></div>
+                <div class="nav-item" data-page="reportes"><i class="ti ti-chart-bar"></i> Reportes</div>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main class="content" id="mainContent">
+
+            <!-- ==================== DASHBOARD ==================== -->
+            <div class="page active" id="page-dashboard">
+                <div class="page-header">
+                    <div class="page-title">Panel general</div>
+                    <div class="page-sub">Resumen del ecosistema de vinculación · Semestre 2026-1</div>
+                </div>
+                <div class="kpi-row">
+                    <div class="kpi-card"><div class="kpi-n" style="color:var(--icc-red)">84</div><div class="kpi-l">Estudiantes activos</div><div class="kpi-bar"><div class="kpi-fill" style="width:72%;background:var(--icc-red)"></div></div></div>
+                    <div class="kpi-card"><div class="kpi-n" style="color:var(--info)">12</div><div class="kpi-l">Unidades receptoras</div><div class="kpi-bar"><div class="kpi-fill" style="width:45%;background:var(--info)"></div></div></div>
+                    <div class="kpi-card"><div class="kpi-n" style="color:var(--success)">31</div><div class="kpi-l">Egresados registrados</div><div class="kpi-bar"><div class="kpi-fill" style="width:60%;background:var(--success)"></div></div></div>
+                    <div class="kpi-card"><div class="kpi-n" style="color:var(--warning)">9</div><div class="kpi-l">Pendientes de validar</div><div class="kpi-bar"><div class="kpi-fill" style="width:25%;background:var(--warning)"></div></div></div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="section-title">Solicitudes recientes</div>
+                        <div class="table-wrap"><table><thead><tr><th>Estudiante</th><th>Modalidad</th><th>Unidad</th><th>Estado</th></tr></thead><tbody>
+                            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-red">MG</div>María González</div></td><td>Servicio Social</td><td>SEV</td><td><span class="tag tag-green">Activo</span></td></tr>
+                            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-blue">JR</div>Juan Ramírez</div></td><td>Práctica Prof.</td><td>Olmeca S.A.</td><td><span class="tag tag-amber">En revisión</span></td></tr>
+                            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-green">LS</div>Laura Santos</div></td><td>Servicio Social</td><td>Fund. Por México</td><td><span class="tag tag-green">Activo</span></td></tr>
+                            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-amber">AC</div>Aldo Castro</div></td><td>Práctica Prof.</td><td>DigitalMX</td><td><span class="tag tag-red">Pendiente</span></td></tr>
+                        </tbody></table></div>
+                    </div>
+                    <div class="card">
+                        <div class="section-title">Unidades receptoras destacadas</div>
+                        <div class="actor-box"><div class="actor-name"><i class="ti ti-building-bank" style="color:var(--warning);font-size:15px"></i> Secretaría de Educación Veracruz</div><div class="actor-meta">Sector Público · 6 plazas · <span class="tag tag-green" style="font-size:10px">Verificada</span></div></div>
+                        <div class="actor-box"><div class="actor-name"><i class="ti ti-building-factory" style="color:var(--info);font-size:15px"></i> Grupo Industrial Olmeca S.A.</div><div class="actor-meta">Sector Privado · 3 plazas · <span class="tag tag-amber" style="font-size:10px">En validación</span></div></div>
+                        <div class="actor-box"><div class="actor-name"><i class="ti ti-heart-handshake" style="color:var(--success);font-size:15px"></i> Fundación Por México A.C.</div><div class="actor-meta">Sector Social · 4 plazas · <span class="tag tag-green" style="font-size:10px">Verificada</span></div></div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top:14px">
+                    <div class="section-title">Flujo del proceso de vinculación</div>
+                    <div class="step-flow">
+                        <div class="step done"><span class="step-num">1</span>Registro</div>
+                        <div class="step done"><span class="step-num">2</span>Validación</div>
+                        <div class="step active-step"><span class="step-num">3</span>Vinculación</div>
+                        <div class="step"><span class="step-num">4</span>Formalización</div>
+                        <div class="step"><span class="step-num">5</span>Seguimiento</div>
+                        <div class="step"><span class="step-num">6</span>Cierre</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== UNIDADES RECEPTORAS ==================== -->
+            <div class="page" id="page-receptoras">
+                <div class="page-header header-row">
+                    <div><div class="page-title">Unidades receptoras</div><div class="page-sub">Registro y gestión de organizaciones vinculadas</div></div>
+                    <button class="btn btn-primary btn-sm" onclick="showTab('ur','ur-form')"><i class="ti ti-plus"></i> Nueva unidad</button>
+                </div>
+                <div class="pill-tabs" id="ur-tabs">
+                    <div class="ptab active" data-panel="ur-list">Directorio</div>
+                    <div class="ptab" data-panel="ur-form">Registro</div>
+                    <div class="ptab" data-panel="ur-req">Requisitos</div>
+                </div>
+                <div class="sub-panel active" id="ur-list">
+                    <div class="card card-sm table-wrap"><table><thead><tr><th>Organización</th><th>Sector</th><th>Plazas</th><th>Modalidad</th><th>Estado</th></tr></thead><tbody>
+                        <tr><td><strong>Secretaría de Educación Veracruz</strong><br><span style="font-size:11px;color:var(--text-secondary)">Xalapa, Ver.</span></td><td>Público</td><td style="text-align:center">6</td><td>Ambas</td><td><span class="tag tag-green">Activa</span></td></tr>
+                        <tr><td><strong>Grupo Industrial Olmeca S.A.</strong><br><span style="font-size:11px;color:var(--text-secondary)">Coatzacoalcos, Ver.</span></td><td>Privado</td><td style="text-align:center">3</td><td>Práctica</td><td><span class="tag tag-amber">Validando</span></td></tr>
+                        <tr><td><strong>Fundación Por México A.C.</strong><br><span style="font-size:11px;color:var(--text-secondary)">Xalapa, Ver.</span></td><td>Social</td><td style="text-align:center">4</td><td>Serv. Social</td><td><span class="tag tag-green">Activa</span></td></tr>
+                        <tr><td><strong>H. Ayuntamiento de Veracruz</strong><br><span style="font-size:11px;color:var(--text-secondary)">Veracruz, Ver.</span></td><td>Público</td><td style="text-align:center">8</td><td>Ambas</td><td><span class="tag tag-green">Activa</span></td></tr>
+                        <tr><td><strong>Consultora DigitalMX</strong><br><span style="font-size:11px;color:var(--text-secondary)">Xalapa, Ver.</span></td><td>Privado</td><td style="text-align:center">2</td><td>Práctica</td><td><span class="tag tag-red">Inactiva</span></td></tr>
+                    </tbody></table></div>
+                </div>
+                <div class="sub-panel" id="ur-form">
+                    <div class="card">
+                        <div class="section-title">Registro de unidad receptora</div>
+                        <div class="form-row form-row-2"><div><label>Nombre de la organización</label><input type="text" id="urName" placeholder="Ej. Secretaría de Salud Veracruz"></div><div><label>RFC</label><input type="text" id="urRfc" placeholder="Ej. SSV850101XXX"></div></div>
+                        <div class="form-row form-row-2"><div><label>Sector</label><select id="urSector"><option>Sector Público — Gobierno</option><option>Sector Privado — Empresa</option><option>Sector Social — Fundación / Colectivo</option></select></div><div><label>Modalidad que ofrece</label><select id="urModalidad"><option>Servicio Social y Práctica Profesional</option><option>Solo Servicio Social</option><option>Solo Práctica para la Profesionalización</option></select></div></div>
+                        <div class="form-row form-row-2"><div><label>Nombre del representante legal</label><input type="text" id="urRep" placeholder="Nombre completo"></div><div><label>Cargo</label><input type="text" id="urCargo" placeholder="Ej. Director General"></div></div>
+                        <div class="form-row form-row-2"><div><label>Correo electrónico institucional</label><input type="email" id="urEmail" placeholder="contacto@org.gob.mx"></div><div><label>Teléfono</label><input type="text" id="urTel" placeholder="228 000 0000"></div></div>
+                        <div class="form-row"><div><label>Domicilio</label><input type="text" id="urDom" placeholder="Calle, número, colonia, municipio, estado"></div></div>
+                        <div class="form-row form-row-2"><div><label>Plazas disponibles</label><input type="number" id="urPlazas" placeholder="Ej. 4" min="1"></div><div><label>Horario de operación</label><input type="text" id="urHorario" placeholder="Ej. Lun–Vie 9:00–17:00"></div></div>
+                        <div class="form-row"><div><label>Descripción de actividades ofrecidas</label><textarea id="urDesc" placeholder="Describa brevemente las actividades que realizarán los estudiantes o egresados…"></textarea></div></div>
+                        <div class="highlight-box"><i class="ti ti-paperclip"></i> <strong>Documentos requeridos:</strong> Oficio de solicitud · Constitución de la IES · Datos del representante legal · Comprobante de domicilio</div>
+                        <div class="btn-row"><button class="btn btn-primary" onclick="registrarUR()"><i class="ti ti-send"></i> Enviar registro</button><button class="btn" onclick="showTab('ur','ur-list')">Cancelar</button></div>
+                    </div>
+                </div>
+                <div class="sub-panel" id="ur-req">
+                    <div class="card">
+                        <div class="section-title">Documentación legal y administrativa</div>
+                        <div class="chip-row"><div class="chip">Oficio de solicitud</div><div class="chip">Constitución de la IES</div><div class="chip">Datos del representante legal</div><div class="chip">Comprobante de domicilio</div></div>
+                        <div class="section-title" style="margin-top:16px">Formalización (Convenio de colaboración)</div>
+                        <div class="chip-row"><div class="chip">Instrumento legal-administrativo</div><div class="chip">Registro del Programa de Servicio Social</div><div class="chip">Acuerdo de Práctica Prof.</div></div>
+                        <div class="section-title" style="margin-top:16px">Condiciones operativas</div>
+                        <div class="chip-row"><div class="chip">Espacio físico/remoto</div><div class="chip">Herramientas de trabajo</div><div class="chip">Horario y condiciones</div><div class="chip">Garantía de trato digno</div><div class="chip">Tutor/mentor asignado</div></div>
+                        <div class="section-title" style="margin-top:16px">Obligaciones de la unidad</div>
+                        <div class="chip-row"><div class="chip">Carta de aceptación</div><div class="chip">Reportes periódicos</div><div class="chip">Evaluación final</div><div class="chip">Carta de conclusión</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== ESTUDIANTES ==================== -->
+            <div class="page" id="page-estudiantes">
+                <div class="page-header header-row">
+                    <div><div class="page-title">Estudiantes</div><div class="page-sub">Registro, perfil y seguimiento de procesos activos</div></div>
+                    <button class="btn btn-primary btn-sm" onclick="showTab('est','est-form')"><i class="ti ti-plus"></i> Nuevo registro</button>
+                </div>
+                <div class="pill-tabs" id="est-tabs">
+                    <div class="ptab active" data-panel="est-list">Activos</div>
+                    <div class="ptab" data-panel="est-form">Perfil / Registro</div>
+                    <div class="ptab" data-panel="est-flujo">Flujo del proceso</div>
+                </div>
+                <div class="sub-panel active" id="est-list">
+                    <div class="card card-sm table-wrap"><table><thead><tr><th>Estudiante</th><th>Programa</th><th>Modalidad</th><th>Unidad</th><th>Avance</th><th>Estado</th></tr></thead><tbody>
+                        <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-red">MG</div><div>María González<br><span style="font-size:11px;color:var(--text-secondary)">8.7 prom.</span></div></div></td><td>Pedagogía</td><td>Serv. Social</td><td>SEV</td><td><div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div></td><td><span class="tag tag-green">Activo</span></td></tr>
+                        <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-blue">JR</div><div>Juan Ramírez<br><span style="font-size:11px;color:var(--text-secondary)">9.1 prom.</span></div></div></td><td>Administración</td><td>Práctica Prof.</td><td>Olmeca S.A.</td><td><div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div></td><td><span class="tag tag-amber">Revisión</span></td></tr>
+                        <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-green">LS</div><div>Laura Santos<br><span style="font-size:11px;color:var(--text-secondary)">8.2 prom.</span></div></div></td><td>Trabajo Social</td><td>Serv. Social</td><td>Fund. Por México</td><td><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></td><td><span class="tag tag-green">Activo</span></td></tr>
+                        <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-amber">AC</div><div>Aldo Castro<br><span style="font-size:11px;color:var(--text-secondary)">7.8 prom.</span></div></div></td><td>Comunicación</td><td>Práctica Prof.</td><td>DigitalMX</td><td><div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div></td><td><span class="tag tag-red">Pendiente</span></td></tr>
+                    </tbody></table></div>
+                </div>
+                <div class="sub-panel" id="est-form">
+                    <div class="card">
+                        <div class="section-title">Datos de contacto y perfil académico</div>
+                        <div class="form-row form-row-2"><div><label>Nombre completo</label><input type="text" id="estName" placeholder="Nombre(s) Apellido Apellido"></div><div><label>Matrícula</label><input type="text" id="estMat" placeholder="Ej. 20230001"></div></div>
+                        <div class="form-row form-row-2"><div><label>Correo institucional</label><input type="email" id="estEmail" placeholder="matricula@clavijero.edu.mx"></div><div><label>Teléfono</label><input type="text" id="estTel" placeholder="228 000 0000"></div></div>
+                        <div class="form-row form-row-2"><div><label>Programa educativo</label><select id="estProg"><option>Pedagogía</option><option>Administración</option><option>Trabajo Social</option><option>Comunicación</option><option>Psicología</option><option>Derecho</option></select></div><div><label>Avance curricular</label><input type="text" id="estAvance" placeholder="Ej. 8.° semestre"></div></div>
+                        <div class="form-row form-row-2"><div><label>Promedio general</label><input type="number" id="estProm" placeholder="Ej. 8.7" step="0.1" min="6" max="10"></div><div><label>Modalidad solicitada</label><select id="estMod"><option>Servicio Social</option><option>Práctica para la Profesionalización</option></select></div></div>
+                        <div class="section-title" style="margin-top:14px">Habilidades y perfil</div>
+                        <div class="form-row"><label>Habilidades técnicas (software, idiomas, herramientas)</label><input type="text" id="estHT" placeholder="Ej. Excel avanzado, inglés B2, Photoshop"></div>
+                        <div class="form-row"><label>Habilidades blandas</label><input type="text" id="estHB" placeholder="Ej. Trabajo en equipo, comunicación, adaptabilidad"></div>
+                        <div class="form-row"><label>Cursos y certificaciones adicionales</label><textarea id="estCursos" placeholder="Liste cursos, talleres, intercambios académicos, distinciones…" style="min-height:50px"></textarea></div>
+                        <div class="form-row form-row-2"><div><label>Disponibilidad horaria</label><input type="text" id="estDisp" placeholder="Ej. Mañanas, Lun–Vie"></div><div><label>¿Requiere reubicación?</label><select id="estReub"><option>No</option><option>Sí</option></select></div></div>
+                        <div class="btn-row"><button class="btn btn-primary" onclick="registrarEst()"><i class="ti ti-send"></i> Guardar perfil</button><button class="btn" onclick="showTab('est','est-list')">Cancelar</button></div>
+                    </div>
+                </div>
+                <div class="sub-panel" id="est-flujo">
+                    <div class="card">
+                        <div class="section-title">Proceso: Servicio Social y Práctica para la Profesionalización</div>
+                        <div class="grid-2">
+                            <div>
+                                <div style="font-size:11px;font-weight:600;color:var(--icc-red);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">Reinscripción</div>
+                                <div class="actor-box"><div class="actor-name">Persona estudiante</div><div class="actor-meta">Recupera «Carta de Presentación» · Elabora «Programa de Actividades»</div></div>
+                                <div style="font-size:11px;font-weight:600;color:var(--icc-red);margin-bottom:6px;margin-top:12px;text-transform:uppercase;letter-spacing:0.5px">S1 — Exp. de Aprendizaje</div>
+                                <div class="actor-box"><div class="actor-name">Persona estudiante</div><div class="actor-meta">Entrega «Programa de Actividades»</div></div>
+                                <div class="actor-box" style="border-left-color:var(--info)"><div class="actor-name">Docente Digital</div><div class="actor-meta">Valora el «Programa de Actividades»</div></div>
+                            </div>
+                            <div>
+                                <div style="font-size:11px;font-weight:600;color:var(--icc-red);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">Formalización</div>
+                                <div class="actor-box"><div class="actor-name">Persona estudiante</div><div class="actor-meta">Entrega documentos a la Unidad Receptora</div></div>
+                                <div class="actor-box" style="border-left-color:var(--success)"><div class="actor-name">Unidad receptora</div><div class="actor-meta">Cancela Programa · Entrega «Carta de Aceptación»</div></div>
+                                <div style="font-size:11px;font-weight:600;color:var(--icc-red);margin-bottom:6px;margin-top:12px;text-transform:uppercase;letter-spacing:0.5px">S2 → Cierre</div>
+                                <div class="actor-box"><div class="actor-name">Persona estudiante</div><div class="actor-meta">Reportes de Actividades · Reporte Final · Carta de Conclusión · Foro de Cierre</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== EGRESADOS ==================== -->
+            <div class="page" id="page-egresados">
+                <div class="page-header">
+                    <div class="page-title">Egresados</div>
+                    <div class="page-sub">Seguimiento, bolsa de trabajo y red de vinculación profesional</div>
+                </div>
+                <div class="pill-tabs" id="eg-tabs">
+                    <div class="ptab active" data-panel="eg-list">Directorio</div>
+                    <div class="ptab" data-panel="eg-form">Perfil profesional</div>
+                    <div class="ptab" data-panel="eg-bolsa">Bolsa de trabajo</div>
+                </div>
+                <div class="sub-panel active" id="eg-list">
+                    <div class="card card-sm table-wrap"><table><thead><tr><th>Egresado/a</th><th>Programa</th><th>Generación</th><th>Sector actual</th><th>Situación</th></tr></thead><tbody>
+                        <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-red">CR</div>C. Ruiz</div></td><td>Pedagogía</td><td>2022</td><td>Público</td><td><span class="tag tag-green">Empleado</span></td></tr>
+                        <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-blue">PM</div>P. Morales</div></td><td>Administración</td><td>2023</td><td>Privado</td><td><span class="tag tag-green">Empleado</span></td></tr>
+                        <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-amber">TO</div>T. Ortega</div></td><td>Comunicación</td><td>2024</td><td>—</td><td><span class="tag tag-amber">Búsqueda activa</span></td></tr>
+                        <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm av-green">EV</div>E. Vargas</div></td><td>Trabajo Social</td><td>2023</td><td>Social</td><td><span class="tag tag-blue">Posgrado</span></td></tr>
+                    </tbody></table></div>
+                </div>
+                <div class="sub-panel" id="eg-form">
+                    <div class="card">
+                        <div class="section-title">Articulación del currículo — Perfil profesional</div>
+                        <div class="form-row form-row-2"><div><label>Nombre completo</label><input type="text" id="egName" placeholder="Nombre(s) Apellido Apellido"></div><div><label>Correo electrónico</label><input type="email" id="egEmail" placeholder="nombre@correo.com"></div></div>
+                        <div class="form-row form-row-2"><div><label>Teléfono</label><input type="text" id="egTel" placeholder="228 000 0000"></div><div><label>Enlace LinkedIn</label><input type="url" id="egLinkedin" placeholder="https://linkedin.com/in/usuario"></div></div>
+                        <div class="form-row"><label>Perfil profesional breve</label><textarea id="egPerfil" placeholder="Descripción de trayectoria, licenciatura, habilidades principales, posibles aportaciones y enfoque…"></textarea></div>
+                        <div class="form-row form-row-2"><div><label>Licenciatura</label><select id="egLic"><option>Pedagogía</option><option>Administración</option><option>Trabajo Social</option><option>Comunicación</option></select></div><div><label>Año de graduación</label><input type="number" id="egAnio" placeholder="Ej. 2023" min="2000" max="2030"></div></div>
+                        <div class="form-row form-row-2"><div><label>Promedio (constancia)</label><input type="number" id="egProm" placeholder="Ej. 8.9" step="0.1"></div><div><label>Menciones honoríficas</label><select id="egMencion"><option>No</option><option>Sí — Cum Laude</option><option>Sí — Magna Cum Laude</option></select></div></div>
+                        <div class="form-row"><label>Experiencia académica y profesional</label><textarea id="egExp" placeholder="Prácticas, Servicio Social, proyectos universitarios, voluntariados, empleos…" style="min-height:50px"></textarea></div>
+                        <div class="form-row"><label>Información adicional (cursos, certificaciones, intercambios)</label><textarea id="egInfo" placeholder="Presenciales, en línea, reconocimientos, disponibilidad de horario, reubicación…" style="min-height:50px"></textarea></div>
+                        <div class="btn-row"><button class="btn btn-primary" onclick="registrarEg()"><i class="ti ti-send"></i> Guardar perfil</button><button class="btn" onclick="showTab('eg','eg-list')">Cancelar</button></div>
+                    </div>
+                </div>
+                <div class="sub-panel" id="eg-bolsa">
+                    <div class="card">
+                        <div class="section-title">Bolsa de trabajo — Perfil técnico y de competencias</div>
+                        <div class="form-row form-row-2"><div><label>Formación académica</label><input type="text" id="bolsaFormacion" placeholder="Ej. Lic. en Pedagogía"></div><div><label>Experiencia (años)</label><input type="number" id="bolsaExp" placeholder="Ej. 2" min="0"></div></div>
+                        <div class="form-row"><label>Habilidades técnicas</label><input type="text" id="bolsaHT" placeholder="Manejo de software, idiomas, herramientas especiales…"></div>
+                        <div class="form-row"><label>Habilidades blandas</label><div class="chip-row"><div class="chip">Adaptabilidad</div><div class="chip">Trabajo en equipo</div><div class="chip">Productividad</div><div class="chip">Gestión de tiempo</div><div class="chip">Solución de problemas</div><div class="chip">Pensamiento crítico</div><div class="chip">Inteligencia emocional</div></div></div>
+                        <div class="form-row form-row-2"><div><label>Sector de interés</label><select id="bolsaSector"><option>Público</option><option>Privado</option><option>Social</option><option>Educativo</option><option>Cualquiera</option></select></div><div><label>Disponibilidad</label><select id="bolsaDisp"><option>Inmediata</option><option>1 mes</option><option>3 meses</option></select></div></div>
+                        <div class="form-row"><label>Requisitos administrativos adicionales</label><textarea id="bolsaReq" placeholder="Cumplimiento normativo, documentación, fiscalidad…" style="min-height:45px"></textarea></div>
+                        <div class="btn-row"><button class="btn btn-primary" onclick="publicarBolsa()"><i class="ti ti-send"></i> Publicar en bolsa</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== VINCULACIÓN ==================== -->
+            <div class="page" id="page-vinculacion">
+                <div class="page-header"><div class="page-title">Vinculación activa</div><div class="page-sub">Proceso de matching entre estudiantes/egresados y unidades receptoras</div></div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="section-title">Solicitudes de vinculación</div>
+                        <div style="background:#FDFBFC;border-radius:8px;padding:12px;margin-bottom:10px;border:1px solid var(--border)">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><div style="font-size:13px;font-weight:600">J. Ramírez → Olmeca S.A.</div><span class="tag tag-amber">Pendiente</span></div>
+                            <div style="font-size:12px;color:var(--text-secondary)">Práctica Prof. · Administración · 6 meses</div>
+                            <div class="btn-row" style="margin-top:8px"><button class="btn btn-primary btn-sm" onclick="toast('Vinculación aprobada','success')"><i class="ti ti-check"></i> Aprobar</button><button class="btn btn-sm"><i class="ti ti-x"></i> Rechazar</button></div>
+                        </div>
+                        <div style="background:#FDFBFC;border-radius:8px;padding:12px;border:1px solid var(--border)">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><div style="font-size:13px;font-weight:600">A. Castro → DigitalMX</div><span class="tag tag-red">Incompleto</span></div>
+                            <div style="font-size:12px;color:var(--text-secondary)">Práctica Prof. · Comunicación · 4 meses</div>
+                            <div class="btn-row" style="margin-top:8px"><button class="btn btn-sm"><i class="ti ti-edit"></i> Revisar documentos</button></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="section-title">Vinculaciones confirmadas</div>
+                        <div class="timeline">
+                            <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">M. González ↔ SEV</div><div class="tl-meta">Serv. Social · Iniciado 10 feb 2026 · 60% avance</div></div>
+                            <div class="tl-item"><div class="tl-dot"></div><div class="tl-label">L. Santos ↔ Fund. Por México</div><div class="tl-meta">Serv. Social · Iniciado 15 feb 2026 · 85% avance</div></div>
+                            <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-label">E. Vargas (egresado) ↔ H. Ayuntamiento</div><div class="tl-meta">Bolsa de trabajo · En proceso de contratación</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== SEGUIMIENTO ==================== -->
+            <div class="page" id="page-seguimiento">
+                <div class="page-header"><div class="page-title">Seguimiento</div><div class="page-sub">Monitoreo continuo del proceso formativo y de inserción laboral</div></div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="section-title">Seguimiento de egresados</div>
+                        <div class="kpi-row" style="grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+                            <div class="kpi-card"><div class="kpi-n" style="font-size:20px;color:var(--success)">68%</div><div class="kpi-l">Empleados</div></div>
+                            <div class="kpi-card"><div class="kpi-n" style="font-size:20px;color:var(--info)">19%</div><div class="kpi-l">Posgrado</div></div>
+                        </div>
+                        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Modalidades de egreso (últimas 3 generaciones)</div>
+                        <div style="background:#F9F7F8;border-radius:6px;padding:10px">
+                            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div style="width:8px;height:8px;border-radius:2px;background:var(--icc-red)"></div><span style="font-size:12px">Educación continua</span><span style="margin-left:auto;font-size:12px;font-weight:600">42%</span></div>
+                            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div style="width:8px;height:8px;border-radius:2px;background:var(--info)"></div><span style="font-size:12px">Capacitación para el trabajo</span><span style="margin-left:auto;font-size:12px;font-weight:600">28%</span></div>
+                            <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:2px;background:var(--success)"></div><span style="font-size:12px">Posgrado</span><span style="margin-left:auto;font-size:12px;font-weight:600">19%</span></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="section-title">Alertas y notificaciones</div>
+                        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:#FFFBF5;border-radius:6px;margin-bottom:8px;border-left:3px solid var(--warning)">
+                            <i class="ti ti-alert-triangle" style="color:var(--warning);font-size:17px;flex-shrink:0;margin-top:2px"></i>
+                            <div><div style="font-size:13px;font-weight:600">A. Castro — documentación incompleta</div><div style="font-size:12px;color:var(--text-secondary)">Faltan: Carta de Presentación · Programa de Actividades</div></div>
+                        </div>
+                        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:#F9F7F8;border-radius:6px;margin-bottom:8px;border-left:3px solid var(--border)">
+                            <i class="ti ti-clock" style="font-size:17px;flex-shrink:0;margin-top:2px;color:var(--text-secondary)"></i>
+                            <div><div style="font-size:13px;font-weight:600">L. Santos — Reporte S2 vence en 5 días</div><div style="font-size:12px;color:var(--text-secondary)">Práctica Prof. · Fund. Por México</div></div>
+                        </div>
+                        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px;background:#F0FFF4;border-radius:6px;border-left:3px solid var(--success)">
+                            <i class="ti ti-check" style="color:var(--success);font-size:17px;flex-shrink:0;margin-top:2px"></i>
+                            <div><div style="font-size:13px;font-weight:600">M. González — Carta de Conclusión recibida</div><div style="font-size:12px;color:var(--text-secondary)">Serv. Social · SEV · Proceso finalizado</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== ADMIN ==================== -->
+            <div class="page" id="page-admin">
+                <div class="page-header"><div class="page-title">Control y validación</div><div class="page-sub">Panel de administración académica — Subdirección Académica</div></div>
+                <div class="grid-3" style="gap:12px;margin-bottom:16px">
+                    <div class="card card-sm"><div style="font-size:12px;color:var(--text-secondary)">Pendientes de validar</div><div style="font-size:26px;font-weight:700;color:var(--warning)">9</div><div style="font-size:11px;color:var(--warning);margin-top:2px">↑ 3 nuevas esta semana</div></div>
+                    <div class="card card-sm"><div style="font-size:12px;color:var(--text-secondary)">Convenios activos</div><div style="font-size:26px;font-weight:700;color:var(--success)">28</div><div style="font-size:11px;color:var(--success);margin-top:2px">↑ 4 vs. semestre anterior</div></div>
+                    <div class="card card-sm"><div style="font-size:12px;color:var(--text-secondary)">Programas aprobados</div><div style="font-size:26px;font-weight:700">71</div><div style="font-size:11px;color:var(--success);margin-top:2px">↑ 12%</div></div>
+                </div>
+                <div class="card">
+                    <div class="section-title">Cola de validación</div>
+                    <div class="table-wrap"><table><thead><tr><th>Actor</th><th>Tipo</th><th>Documento</th><th>Fecha</th><th>Acción</th></tr></thead><tbody>
+                        <tr><td>Olmeca S.A.</td><td>Unidad receptora</td><td>Solicitud de registro</td><td>02 may 2026</td><td><div style="display:flex;gap:6px"><button class="btn btn-primary btn-xs" onclick="toast('Documento validado','success')"><i class="ti ti-check"></i> Validar</button><button class="btn btn-xs"><i class="ti ti-x"></i></button></div></td></tr>
+                        <tr><td>J. Ramírez</td><td>Estudiante</td><td>Programa de Actividades</td><td>03 may 2026</td><td><div style="display:flex;gap:6px"><button class="btn btn-primary btn-xs" onclick="toast('Documento validado','success')"><i class="ti ti-check"></i> Validar</button><button class="btn btn-xs"><i class="ti ti-x"></i></button></div></td></tr>
+                        <tr><td>A. Castro</td><td>Estudiante</td><td>Carta de Presentación</td><td>04 may 2026</td><td><div style="display:flex;gap:6px"><button class="btn btn-xs"><i class="ti ti-edit"></i> Solicitar corrección</button></div></td></tr>
+                        <tr><td>T. Ortega</td><td>Egresado</td><td>Perfil bolsa de trabajo</td><td>05 may 2026</td><td><div style="display:flex;gap:6px"><button class="btn btn-primary btn-xs" onclick="toast('Perfil validado','success')"><i class="ti ti-check"></i> Validar</button><button class="btn btn-xs"><i class="ti ti-x"></i></button></div></td></tr>
+                    </tbody></table></div>
+                </div>
+            </div>
+
+            <!-- ==================== REPORTES ==================== -->
+            <div class="page" id="page-reportes">
+                <div class="page-header"><div class="page-title">Reportes y analítica</div><div class="page-sub">Indicadores de desempeño del sistema de vinculación</div></div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="section-title">Indicadores por programa educativo</div>
+                        <div class="table-wrap"><table><thead><tr><th>Programa</th><th>Estudiantes</th><th>Egresados</th><th>Tasa inserción</th></tr></thead><tbody>
+                            <tr><td>Pedagogía</td><td>24</td><td>9</td><td><span class="tag tag-green">72%</span></td></tr>
+                            <tr><td>Administración</td><td>31</td><td>12</td><td><span class="tag tag-green">68%</span></td></tr>
+                            <tr><td>Trabajo Social</td><td>18</td><td>6</td><td><span class="tag tag-amber">55%</span></td></tr>
+                            <tr><td>Comunicación</td><td>11</td><td>4</td><td><span class="tag tag-amber">50%</span></td></tr>
+                        </tbody></table></div>
+                    </div>
+                    <div class="card">
+                        <div class="section-title">Distribución por sector</div>
+                        <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>Sector Público</span><span>45%</span></div><div class="progress-bar" style="width:100%"><div class="progress-fill" style="width:45%"></div></div></div>
+                        <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>Sector Privado</span><span>35%</span></div><div class="progress-bar" style="width:100%"><div class="progress-fill" style="width:35%;background:var(--info)"></div></div></div>
+                        <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>Sector Social</span><span>20%</span></div><div class="progress-bar" style="width:100%"><div class="progress-fill" style="width:20%;background:var(--success)"></div></div></div>
+                        <div class="section-title" style="margin-top:14px">Satisfacción reportada</div>
+                        <div style="display:flex;gap:10px;margin-top:4px">
+                            <div class="kpi-card" style="flex:1;text-align:center;padding:12px"><div class="kpi-n" style="font-size:18px;color:var(--icc-red)">4.3/5</div><div class="kpi-l">Unidades</div></div>
+                            <div class="kpi-card" style="flex:1;text-align:center;padding:12px"><div class="kpi-n" style="font-size:18px;color:var(--icc-red)">4.6/5</div><div class="kpi-l">Estudiantes</div></div>
+                            <div class="kpi-card" style="flex:1;text-align:center;padding:12px"><div class="kpi-n" style="font-size:18px;color:var(--icc-red)">4.1/5</div><div class="kpi-l">Egresados</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // === NAVEGACIÓN PRINCIPAL ===
+        document.querySelectorAll('.nav-item[data-page]').forEach(item => {
+            item.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                const targetPage = document.getElementById('page-' + pageId);
+                if (targetPage) targetPage.classList.add('active');
+                this.classList.add('active');
+                document.getElementById('mainContent').scrollTop = 0;
+            });
+        });
+
+        // === PESTAÑAS INTERNAS (Unidades, Estudiantes, Egresados) ===
+        function showTab(group, panelId) {
+            const pageMap = { ur: 'receptoras', est: 'estudiantes', eg: 'egresados' };
+            const pageId = pageMap[group];
+            const page = document.getElementById('page-' + pageId);
+            if (!page) return;
+            page.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+            page.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+            const panel = document.getElementById(panelId);
+            if (panel) panel.classList.add('active');
+            const tab = page.querySelector(`[data-panel="${panelId}"]`);
+            if (tab) tab.classList.add('active');
+        }
+
+        // Delegación de clics en pestañas
+        document.querySelectorAll('.pill-tabs').forEach(tabGroup => {
+            tabGroup.addEventListener('click', function(e) {
+                const ptab = e.target.closest('.ptab');
+                if (!ptab) return;
+                const panelId = ptab.getAttribute('data-panel');
+                if (!panelId) return;
+                const page = tabGroup.closest('.page');
+                if (!page) return;
+                page.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+                page.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+                const panel = document.getElementById(panelId);
+                if (panel) panel.classList.add('active');
+                ptab.classList.add('active');
+            });
+        });
+
+        // === TOAST ===
+        function toast(msg, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = 'toast toast-' + type;
+            const icons = { success: 'ti-check', info: 'ti-info-circle', warning: 'ti-alert-triangle' };
+            t.innerHTML = `<i class="ti ${icons[type] || 'ti-info-circle'}" style="font-size:16px"></i> ${msg}`;
+            container.appendChild(t);
+            setTimeout(() => { if (t.parentNode) t.remove(); }, 3200);
+        }
+
+        // === REGISTRO UNIDAD RECEPTORA ===
+        function registrarUR() {
+            const nombre = document.getElementById('urName').value.trim();
+            if (!nombre) { toast('Ingrese el nombre de la organización', 'warning'); return; }
+            toast('Unidad receptora registrada exitosamente. Pendiente de validación.', 'success');
+            showTab('ur', 'ur-list');
+            document.getElementById('urName').value = '';
+        }
+
+        // === REGISTRO ESTUDIANTE ===
+        function registrarEst() {
+            const nombre = document.getElementById('estName').value.trim();
+            if (!nombre) { toast('Ingrese el nombre del estudiante', 'warning'); return; }
+            toast('Perfil de estudiante guardado correctamente.', 'success');
+            showTab('est', 'est-list');
+            document.getElementById('estName').value = '';
+        }
+
+        // === REGISTRO EGRESADO ===
+        function registrarEg() {
+            const nombre = document.getElementById('egName').value.trim();
+            if (!nombre) { toast('Ingrese el nombre del egresado', 'warning'); return; }
+            toast('Perfil profesional registrado. Disponible para bolsa de trabajo.', 'success');
+            showTab('eg', 'eg-list');
+            document.getElementById('egName').value = '';
+        }
+
+        // === PUBLICAR EN BOLSA ===
+        function publicarBolsa() {
+            const formacion = document.getElementById('bolsaFormacion').value.trim();
+            if (!formacion) { toast('Ingrese la formación académica', 'warning'); return; }
+            toast('Perfil publicado en la bolsa de trabajo.', 'success');
+            showTab('eg', 'eg-list');
+            document.getElementById('bolsaFormacion').value = '';
+        }
+
+        console.log('✅ Clavijero CONECTA — Sistema de Vinculación Profesional inicializado.');
+        console.log('📋 Módulos: Dashboard | Unidades Receptoras | Estudiantes | Egresados | Vinculación | Seguimiento | Admin | Reportes');
+    </script>
+</body>
+</html>

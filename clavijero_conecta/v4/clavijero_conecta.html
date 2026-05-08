@@ -423,7 +423,7 @@ textarea{resize:vertical;min-height:60px}
       <button class="btn btn-p" onclick="openU(null)">+ Nueva unidad</button>
     </div>
     <div class="card">
-      <table><thead><tr><th>Organización</th><th>Sector</th><th>Modalidad</th><th>Plazas</th><th>Convenio</th><th>Estado</th><th></th></tr></thead>
+      <table><thead><tr><th>Organización</th><th>Sector</th><th>Modalidad</th><th>Lugares</th><th>Convenio</th><th>Estado</th><th></th></tr></thead>
       <tbody id="t-u"></tbody></table>
     </div>
     <p id="u-ct" style="margin-top:9px;font-size:12px;color:var(--g400)"></p>
@@ -570,7 +570,7 @@ textarea{resize:vertical;min-height:60px}
       </div>
       <div class="rc" onclick="exportR('unidades')">
         <div class="ricon"><svg width="18" height="18" fill="none" stroke="var(--r)" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-        <h3>Unidades receptoras</h3><p>Participación por sector, plazas y convenios.</p>
+        <h3>Unidades receptoras</h3><p>Participación por sector, lugares y convenios.</p>
         <button class="btn btn-p" style="margin-top:12px;width:100%;justify-content:center">Exportar JSON</button>
       </div>
       <div class="rc" onclick="exportR('insercion')">
@@ -625,7 +625,7 @@ textarea{resize:vertical;min-height:60px}
             <option>Gobierno</option><option>Empresa</option><option>Fundación</option><option>Colectivo</option><option>Institución de salud</option><option>Organismo educativo</option>
           </select>
         </div>
-        <div><label>Plazas disponibles</label><input type="number" id="mu-plazas" min="0" value="1"></div>
+        <div><label>Lugares disponibles</label><input type="number" id="mu-plazas" min="0" value="1"></div>
       </div>
       <div class="frow">
         <div><label>Modalidad que ofrece</label>
@@ -1121,7 +1121,7 @@ function rPanelUnidad(){
   pb.innerHTML=`
     <div class="krow">
       <div class="kc"><div class="num">${misEst.length}</div><div class="lbl">Estudiantes asignados</div></div>
-      <div class="kc"><div class="num">${uni.plazas}</div><div class="lbl">Plazas disponibles</div></div>
+      <div class="kc"><div class="num">${uni.plazas}</div><div class="lbl">Lugares disponibles</div></div>
       <div class="kc"><div class="num">${misEst.filter(e=>e.estado==='Activo').length}</div><div class="lbl">En proceso activo</div></div>
       <div class="kc"><div class="num">${misEst.filter(e=>e.estado==='Concluido').length}</div><div class="lbl">Concluidos</div></div>
     </div>
@@ -1532,7 +1532,7 @@ function rEgrPersonal(){
               <div class="av av-lg" style="border-radius:8px;font-size:10px;line-height:1.3">${u.sector.slice(0,3).toUpperCase()}</div>
               <div class="pi"><h3>${u.nombre}</h3><p>${u.sector} · ${u.subtipo}</p></div>
             </div>
-            <div class="ptags"><span class="tag">${u.modal}</span><span class="tag">${u.plazas} plazas</span></div>
+            <div class="ptags"><span class="tag">${u.modal}</span><span class="tag">${u.plazas} lugares</span></div>
             <div style="font-size:12px;color:var(--g600)">${u.notas||''}</div>
           </div>`).join('')||'<p style="color:var(--g400)">Sin ofertas disponibles</p>'
       }</div>
@@ -1745,7 +1745,7 @@ function rSegEgresado(){
         <div style="padding:14px 16px">
           <div class="fbox" style="margin-bottom:10px"><h4>Educación continua</h4><p>Diplomados, cursos y talleres disponibles en ICC Clavijero para egresados.</p></div>
           <div class="fbox" style="margin-bottom:10px"><h4>Posgrados</h4><p>Opciones de maestría y especialización vinculadas con tu perfil profesional.</p></div>
-          <div class="fbox hl"><h4>Bolsa de trabajo</h4><p>Revisa las unidades receptoras con plazas disponibles compatibles con tu carrera.</p>
+          <div class="fbox hl"><h4>Bolsa de trabajo</h4><p>Revisa las unidades receptoras con lugares disponibles compatibles con tu carrera.</p>
             <button class="btn btn-p bsm" style="margin-top:8px" onclick="nav('egresados')">Ver bolsa de trabajo</button>
           </div>
         </div>

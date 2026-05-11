@@ -4,17 +4,17 @@
 <userPreferences>
   <userPreference>
     <key>theme</key>
-    <value>base</value>
+    <value>universal</value>
   </userPreference>
 </userPreferences>
 <odeResources>
   <odeResource>
     <key>odeId</key>
-    <value>20260510211431KTQKVT</value>
+    <value>20260510211807QISQUB</value>
   </odeResource>
   <odeResource>
     <key>odeVersionId</key>
-    <value>20260510211431B1PZ07</value>
+    <value>20260510211807EUZTW2</value>
   </odeResource>
   <odeResource>
     <key>exe_version</key>
@@ -48,7 +48,7 @@
   </odeProperty>
   <odeProperty>
     <key>pp_theme</key>
-    <value>base</value>
+    <value>universal</value>
   </odeProperty>
   <odeProperty>
     <key>pp_exelearning_version</key>
@@ -56,7 +56,7 @@
   </odeProperty>
   <odeProperty>
     <key>pp_modified</key>
-    <value>1778467563713</value>
+    <value>1778469459627</value>
   </odeProperty>
   <odeProperty>
     <key>pp_addExeLink</key>

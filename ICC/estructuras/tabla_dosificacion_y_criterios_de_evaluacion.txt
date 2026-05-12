@@ -3,7 +3,7 @@
 <tbody>
 <tr valign="center" style="border-top: 1.5pt solid #000000; border-bottom: 1pt solid #000000;">
 <td width="20%" style="text-align: center;"><strong>Unidad</strong></td>
-<td width="20%" style="text-align: center;"><strong>Estrategia</strong></td>
+<td width="30%" style="text-align: center;"><strong>Estrategia</strong></td>
 <td width="20%" style="text-align: center;"><strong>Evidencias</strong></td>
 <td width="20%" style="text-align: center;"><strong>Programación</strong></td>
 <td width="10%" style="text-align: center;"><strong>Ponderación</strong></td>

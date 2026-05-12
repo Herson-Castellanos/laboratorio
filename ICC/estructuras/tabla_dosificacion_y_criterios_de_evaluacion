@@ -1,8 +1,7 @@
-<html>
-<p><strong>Tabla N (número consecutivo de la tabla)</strong><br /><em>Dosificación y criterios de evaluación..</em></p>
+<p><strong>Tabla N (número consecutivo de la tabla)</strong><br /><em>Dosificación y criterios de evaluación.</em></p>
 <table border="0" cellspacing="10" cellpadding="10" width="100%" style="border-collapse: collapse;">
 <tbody>
-<tr valign="top" style="text-align: center; border-top: 1.5pt solid #000000; border-bottom: 1pt solid #000000;">
+<tr valign="center" style="border-top: 1.5pt solid #000000; border-bottom: 1pt solid #000000;">
 <td width="20%" style="text-align: center;"><strong>Unidad de aprendizaje curricular</strong></td>
 <td width="10%" style="text-align: center;"><strong>Dosificación temporal</strong></td>
 <td width="20%" style="text-align: center;"><strong>Estrategia didáctica</strong></td>
@@ -86,17 +85,17 @@
 <td>N. Nombre de la unidad de aprendizaje.</td>
 <td style="text-align: center;">N</td>
 <td>Foro de cierre. Retrospectiva de la Experiencia de Aprendizaje, narrativa de lo apropiado y su relación con las expectativas y compromisos descritos en el Foro de presentación.</td>
-<td>Participación en el Foro de presentación.</td>
+<td>Participación en el Foro de cierre.</td>
 <td>Viernes de la semana 8.</td>
 <td style="text-align: center;">10%</td>
 </tr>
-<tr align="left" valign="top" style="border-bottom: 1.5pt solid #000000; border-top: 1pt solid #000000;">
+<tr valign="center" style="border-bottom: 1.5pt solid #000000; border-top: 1pt solid #000000;">
 <td></td>
-<td style="text-align: center;"></td>
+<td></td>
+<td></td>
 <td></td>
 <td style="text-align: right;">Total:</td>
 <td style="text-align: center;">100%</td>
 </tr>
 </tbody>
 </table>
-</html>

@@ -1,13 +1,13 @@
-<p><strong>Tabla N (número consecutivo de la tabla)</strong><br /><em>Dosificación y criterios de evaluación.</em></p>
+<p><strong>Tabla N (número consecutivo de la tabla)</strong><br /><em>Dosificación del aprendizaje y criterios de evaluación.</em></p>
 <table border="0" cellspacing="10" cellpadding="10" width="100%" style="border-collapse: collapse;">
 <tbody>
 <tr valign="center" style="border-top: 1.5pt solid #000000; border-bottom: 1pt solid #000000;">
-<td width="20%" style="text-align: center;"><strong>Unidad de aprendizaje curricular</strong></td>
-<td width="10%" style="text-align: center;"><strong>Dosificación temporal</strong></td>
-<td width="20%" style="text-align: center;"><strong>Estrategia didáctica</strong></td>
-<td width="20%" style="text-align: center;"><strong>Evidencias de aprendizaje</strong></td>
-<td width="20%" style="text-align: center;"><strong>Dosificación programática</strong></td>
-<td width="10%" style="text-align: center;"><strong>Ponderación del criterio de evaluación</strong></td>
+<td width="20%" style="text-align: center;"><strong>Unidad</strong></td>
+<td width="10%" style="text-align: center;"><strong>Dosificación</strong></td>
+<td width="20%" style="text-align: center;"><strong>Estrategia</strong></td>
+<td width="20%" style="text-align: center;"><strong>Evidencias</strong></td>
+<td width="20%" style="text-align: center;"><strong>Programación</strong></td>
+<td width="10%" style="text-align: center;"><strong>Ponderación</strong></td>
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>

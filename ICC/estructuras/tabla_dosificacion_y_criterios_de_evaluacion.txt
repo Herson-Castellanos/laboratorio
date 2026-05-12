@@ -3,7 +3,6 @@
 <tbody>
 <tr valign="center" style="border-top: 1.5pt solid #000000; border-bottom: 1pt solid #000000;">
 <td width="20%" style="text-align: center;"><strong>Unidad</strong></td>
-<td width="10%" style="text-align: center;"><strong>Dosificación</strong></td>
 <td width="20%" style="text-align: center;"><strong>Estrategia</strong></td>
 <td width="20%" style="text-align: center;"><strong>Evidencias</strong></td>
 <td width="20%" style="text-align: center;"><strong>Programación</strong></td>
@@ -11,7 +10,6 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">Semana 1</td>
 <td>Foro de presentación. Presentación personal, expectativas, compromisos y entrega del Programa de la Experiencia de Aprendizaje firmada.</td>
 <td>Participación en el Foro de presentación.</td>
 <td>Domingo de la semana XX.</td>
@@ -19,7 +17,6 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">N</td>
 <td>Nombre de la estrategia. Descripción sintética de la estrategia.</td>
 <td>Evidencia.</td>
 <td>Domingo de la semana XX.</td>
@@ -27,7 +24,6 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">N</td>
 <td>Nombre de la estrategia. Descripción sintética de la estrategia.</td>
 <td>Evidencia.</td>
 <td>Domingo de la semana XX.</td>
@@ -35,7 +31,6 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">N</td>
 <td>Nombre de la estrategia. Descripción sintética de la estrategia.</td>
 <td>Evidencia.</td>
 <td>Domingo de la semana XX.</td>
@@ -43,7 +38,6 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">N</td>
 <td>Nombre de la estrategia. Descripción sintética de la estrategia.</td>
 <td>Evidencia.</td>
 <td>Domingo de la semana XX.</td>
@@ -51,7 +45,6 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">N</td>
 <td>Nombre de la estrategia. Descripción sintética de la estrategia.</td>
 <td>Evidencia.</td>
 <td>Domingo de la semana XX.</td>
@@ -59,7 +52,6 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">N</td>
 <td>Nombre de la estrategia. Descripción sintética de la estrategia.</td>
 <td>Evidencia.</td>
 <td>Domingo de la semana XX.</td>
@@ -67,7 +59,6 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">N</td>
 <td>Nombre de la estrategia. Descripción sintética de la estrategia.</td>
 <td>Evidencia.</td>
 <td>Domingo de la semana XX.</td>
@@ -75,7 +66,6 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">N</td>
 <td>Nombre de la estrategia. Descripción sintética de la estrategia.</td>
 <td>Evidencia.</td>
 <td>Domingo de la semana XX.</td>
@@ -83,14 +73,12 @@
 </tr>
 <tr align="left" valign="top">
 <td>N. Nombre de la unidad de aprendizaje.</td>
-<td style="text-align: center;">N</td>
 <td>Foro de cierre. Retrospectiva de la Experiencia de Aprendizaje, narrativa de lo apropiado y su relación con las expectativas y compromisos descritos en el Foro de presentación.</td>
 <td>Participación en el Foro de cierre.</td>
 <td>Viernes de la semana 8.</td>
 <td style="text-align: center;">10%</td>
 </tr>
 <tr valign="center" style="border-bottom: 1.5pt solid #000000; border-top: 1pt solid #000000;">
-<td></td>
 <td></td>
 <td></td>
 <td></td>

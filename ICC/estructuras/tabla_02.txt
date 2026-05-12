@@ -2,9 +2,9 @@
 <table border="0" cellspacing="10" cellpadding="10" width="100%" style="border-collapse: collapse;">
 <tbody>
 <tr valign="center" style="border-top: 1.5pt solid #000000; border-bottom: 1pt solid #000000;">
-<td width="10%" style="text-align: center;"><strong>Dosificación<br>[Dosificación temporal]</strong></td>
-<td width="20%" style="text-align: center;"><strong>Unidad<br>[Unidad de aprendizaje curricular]</strong></td>
-<td width="10%" style="text-align: center;"><strong>Progresiones<br>[Progresiones de aprendizaje]</strong></td>
+<td width="20%" style="text-align: center;"><strong>Dosificación<br>[Dosificación temporal]</strong></td>
+<td width="40%" style="text-align: center;"><strong>Unidad<br>[Unidad de aprendizaje curricular]</strong></td>
+<td width="40%" style="text-align: center;"><strong>Progresiones<br>[Progresiones de aprendizaje]</strong></td>
 </tr>
 <tr align="left" valign="top">
 <td>Semana N</td>

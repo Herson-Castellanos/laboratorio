@@ -1,0 +1,41 @@
+<p><strong>Tabla N (número consecutivo de la tabla)</strong><br /><em>Datos generales de la Experiencia de Aprendizaje.</em></p>
+<table border="0" cellspacing="10" cellpadding="10" width="100%" style="border-collapse: collapse;">
+<tbody>
+<tr valign="center" style="border-top: 1.5pt solid #000000; border-bottom: 1pt solid #000000;">
+<td width="30%" style="text-align: center;"><strong>Elemento</strong></td>
+<td width="70%" style="text-align: center;"><strong>Descripción</strong></td>
+</tr>
+<tr align="left" valign="top">
+<td><strong>Nombre</strong></td>
+<td>Nombre de la Experienica de Aprendizaje.</td>
+</tr>
+<tr align="left" valign="top">
+<td><strong>Clave</strong></td>
+<td>XXXNNN</td>
+</tr>
+<tr align="left" valign="top">
+<td><strong>Créditos</strong></td>
+<td>NN créditos.</td>
+</tr>
+<tr align="left" valign="top">
+<td><strong>Duración</strong></td>
+<td>8 semanas.</td>
+</tr>
+<tr align="left" valign="top">
+<td><strong>Oportunidades de evaluación y acreditación</strong></td>
+<td>Por las características de la Experiencia de Aprendizaje, donde la evaluación sumativa y formativa de las actividades de aprendizaje permiten medir el grado en el que se logran los fines de formación, en caso de no acreditarla entregando todas las actividades de aprendizaje y logrando por lo menos el 70% de logro en cada una de ellas, las personas inscritas deberán cursarla nuevamente.</td>
+</tr>
+<tr align="left" valign="top">
+<td><strong>Consejería escolar</strong></td>
+<td>Correo electrónico: apoyotecnico@icc.clavijero.edu.mx</br>Teléfono: +52 (228) 841 7700 Ext. 7677</td>
+</tr>
+<tr align="left" valign="top">
+<td><strong>Apoyo técnico</strong></td>
+<td>Correo electrónico: escolares@icc.clavijero.edu.mx</td></br>Teléfono: +52 (228) 841 7700 Ext. 7681 / 7695</td>
+</tr>
+<tr valign="center" style="border-bottom: 1.5pt solid #000000;">
+<td><strong>Dirigida a:</strong></td>
+<td>Las personas inscritas en el Programa Educativo: Nombre del Programa Educativo.</td>
+</tr>
+</tbody>
+</table>

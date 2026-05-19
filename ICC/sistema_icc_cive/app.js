@@ -4,7 +4,7 @@
 const DIMS = [
   {
     nombre: "Gobernanza institucional, gestión y transparencia",
-    desc: "Evalúa las estructuras organizacionales y la toma de decisiones, identificando el grado en que los procesos de liderazgo, planeación estratégica y gestión normativa operan bajo lógicas democráticas, participativas y éticas orientadas al soporte de las funciones sustantivas.",
+    desc: "Evalúa la similitud de las estructuras organizacionales y la toma de decisiones, identificando el grado en que los procesos de liderazgo, la planeación estratégica y la gestión normativa operan bajo lógicas democráticas, participativas, éticas y orientadas —fundamentalmente— al soporte de las funciones sustantivas: docencia, investigación y vinculación. De acuerdo al Programa Nacional de Educación Superior, los «procesos administrativos» deben facilitar los «procesos académicos», con transparencia, rendición de cuentas y participación colegiada de toda la comunidad institucional.",
     items: [
       "Los procesos burocráticos y administrativos de la institución están diseñados específicamente para agilizar el desarrollo de las funciones académicas.",
       "La planeación estratégica institucional integra de manera efectiva las propuestas emanadas de los diversos sectores de la comunidad educativa.",
@@ -15,7 +15,7 @@ const DIMS = [
   },
   {
     nombre: "Desarrollo académico, formación profesional y excelencia",
-    desc: "Evalúa cómo el modelo educativo, la arquitectura de los planes de estudio y las trayectorias curriculares garantizan el mejoramiento integral constante, el bienestar del estudiante y el máximo logro de los aprendizajes.",
+    desc: "Evalúa cómo el modelo educativo, la arquitectura de los planes de estudio y las trayectorias curriculares garantizan el mejoramiento integral constante, el bienestar del estudiante y el máximo logro de los aprendizajes; indagando si las estrategias didácticas y la estructura curricular están centradas en el estudiantado, promueven el análisis riguroso de la realidad y se orientan a la formación de profesionales críticos, éticos y resolutivos.",
     items: [
       "Los programas educativos se estructuran explícitamente para garantizar el bienestar, el desarrollo integral y el máximo logro de aprendizaje del estudiantado.",
       "Las estrategias pedagógicas implementadas por la plantilla docente estimulan el análisis riguroso y el pensamiento crítico frente a la realidad social.",
@@ -26,7 +26,7 @@ const DIMS = [
   },
   {
     nombre: "Investigación, generación de conocimiento e innovación social",
-    desc: "Evalúa las políticas, el financiamiento y la infraestructura dispuestos para impulsar la investigación científica, el desarrollo tecnológico y las humanidades, midiendo el fomento a la productividad académica y la apropiación social del conocimiento.",
+    desc: "Evalúa las políticas, el financiamiento y la infraestructura dispuestos para impulsar la investigación científica, el desarrollo tecnológico y las humanidades, a partir de la integración y operacionalización del criterio PNEAES de «Innovación Social» permitiendo medir el fomento a la productividad del personal académico, el apoyo institucional al perfil investigador y la apropiación social del conocimiento científico en beneficio de la comunidad.",
     items: [
       "La institución otorga los recursos logísticos y financieros suficientes para garantizar la viabilidad y sostenimiento de los proyectos de investigación.",
       "Las Líneas de Generación y Aplicación del Conocimiento (LGAC) de la institución —Cuerpos Académicos o Grupos de Investigación— se orientan prioritariamente hacia la resolución de problemáticas locales y regionales.",
@@ -37,7 +37,7 @@ const DIMS = [
   },
   {
     nombre: "Vinculación, extensión y compromiso con la responsabilidad social",
-    desc: "Evalúa la densidad, pertinencia y calidad de las redes de colaboración que la IES establece con los sectores público, privado, productivo y con la sociedad civil, en apego al criterio CRS definido en la PNEAES.",
+    desc: "Evalúa la densidad, pertinencia y calidad de las redes de colaboración que la IES establece con los sectores público, privado, productivo y con la sociedad civil, con la valoración de las actividades de extensión institucional, el Servicio Social y las Prácticas Profesionales —o Prácticas para la Profesionalización— como mecanismos de retribución, aprendizaje vivencial y beneficio mutuo entre la comunidad académica y la sociedad; como se indica en el criterio de  «Compromiso con la Responsabilidad Social» (CRS) definido en la PNEAES.",
     items: [
       "La institución mantiene convenios activos, vigentes y funcionales de colaboración con los sectores productivos, gubernamentales y de la sociedad civil.",
       "Los trayectos formativos exigen el involucramiento práctico del estudiantado en el diagnóstico participativo y atención de las necesidades de la comunidad.",
@@ -48,7 +48,7 @@ const DIMS = [
   },
   {
     nombre: "Inclusión, equidad de género e interculturalidad",
-    desc: "Evalúa el grado en que la IES ha desmantelado las barreras estructurales de discriminación, en apego al ACUERDO SECRETARIAL SEV/DEN/1AC/2024 y los criterios ESG, INC e INT de la PNEAES.",
+    desc: "Evalúa el grado en que la IES ha desmantelado las barreras —estructurales— de discriminación, con la  indagación de las estructuras normativas (protocolos), la cultura organizacional y las acciones dispuestas para erradicar cualquier tipo de violencia, acoso o barrera de aprendizaje; en apego al ACUERDO SECRETARIAL SEV/DEN/1AC/2024 y los criterios de la PNEAES: Equidad Social y de Género (ESG), Inclusión (INC) e Interculturalidad (INT).",
     items: [
       "La institución implementa acciones afirmativas concretas para garantizar el ingreso, la permanencia y el egreso oportuno de estudiantes provenientes de grupos históricamente vulnerados.",
       "Las políticas institucionales aseguran que la infraestructura física, tecnológica y los materiales didácticos sean totalmente accesibles para la comunidad con discapacidad.",
@@ -60,7 +60,7 @@ const DIMS = [
   },
   {
     nombre: "Evaluación institucional, gestión de datos y mejora continua",
-    desc: "Evalúa si la IES logra cambios culturales respecto a la autoevaluación y su relación con la toma de decisiones estratégicas, en cuanto a autorregulación, reflexión colectiva y perfeccionamiento constante.",
+    desc: "Evalúa si la IES logra cambios culturales respecto a la evaluación —frente a los sistemas de autoevaluación interna y su relación con la toma de decisiones estratégicas—, en cuanto a la autorregulación, reflexión colectiva y perfeccionamiento constante —como lo visualiza ANUIES en el Marco General del Sistema de Evaluación y Acreditación de la Educación Superior, en https://n9.cl/5vjr6— a partir de la existencia de sistemas de información estadística y analítica de datos, la elaboración participativa de Planes de Mejora, el seguimiento de metas y el grado de participación de la comunidad educativos en los diagnósticos que fundamentan el rumbo directivo e institucional.",
     items: [
       "La institución cuenta con un sistema —articulado— de autoevaluación que monitorea sistemáticamente el desempeño cualitativo y cuantitativo de sus procesos académicos.",
       "Las decisiones de planeación estratégica y la asignación de presupuestos se fundamentan en el análisis de datos e indicadores de desempeño institucional.",
@@ -71,7 +71,7 @@ const DIMS = [
   },
   {
     nombre: "Innovación educativa, multimodalidad y desarrollo tecnológico",
-    desc: "Evalúa la habilidad y resiliencia de la institución para trascender los modelos tradicionales e integrar ecosistemas digitales, modalidades no escolarizadas y entornos híbridos de aprendizaje. (Propuesta original COEPES, criterio Vanguardia de la PNEAES)",
+    desc: "Evalúa la habilidad y resiliencia de la institución para trascender los modelos tradicionales presenciales e integrar ecosistemas digitales, modalidades no escolarizadas (en línea, a distancia) y entornos híbridos de aprendizaje, a partir de la identificación del grado de apropiación sociotécnica, el desarrollo de competencias digitales en el cuerpo académico y estudiantil, y la modernización de los acervos bibliográficos y plataformas instruccionales. (Propuesta original de la COEPES, incorporando el criterio de «Vanguardia» estipulado obligatoriamente por la PNEAES).",
     items: [
       "El modelo educativo —pedagógico o académico— de la institución incorpora esquemas de innovación educativa fundamentados en la apropiación estratégica, ética y crítica de tecnologías digitales.",
       "La institución prioriza la inversión de recursos financieros en el mantenimiento, seguridad y actualización constante de sus plataformas tecnológicas y entornos virtuales de aprendizaje.",

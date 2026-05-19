@@ -97,9 +97,13 @@
 
 <!-- ───────── VIEW: THANK YOU ───────── -->
 <div id="view-thankyou" class="view">
-  <div class="card ty-card">
-    <h2>¡Gracias por tu participación!</h2>
-    <p>Tus respuestas han sido registradas exitosamente. Tu aportación contribuye a la mejora continua de la educación superior en Veracruz.</p>
+  <div class="ty-outer">
+    <div class="card ty-card">
+
+      <h2>¡Gracias por tu participación!</h2>
+      <p>Tus respuestas han sido registradas. A continuación puedes ver tu perfil institucional y descargar tu informe.</p>
+    </div>
+    <div id="ty-results"></div>
   </div>
 </div>
 
@@ -108,11 +112,14 @@
   <div class="admin-wrap">
     <div class="admin-head">
       <h2>Panel Administrativo</h2>
-      <!--<button class="btn btn-success btn-sm" onclick="exportCSV()">⬇ Exportar CSV</button>-->
+      <div style="display:flex;gap:.6rem">
+        <button class="btn btn-success btn-sm" onclick="generateAdminPDF()">⬇ Informe PDF</button>
+      </div>
     </div>
     <div class="admin-tabs">
       <button class="adm-tab-btn active" onclick="switchAdmTab('adm-users', this)">Instituciones registradas</button>
       <button class="adm-tab-btn"        onclick="switchAdmTab('adm-stats', this)">Estadísticas</button>
+      <button class="adm-tab-btn"        onclick="switchAdmTab('adm-comp',  this)">Comparativo</button>
     </div>
 
     <div id="adm-users" class="adm-section active">
@@ -136,6 +143,10 @@
     <div id="adm-stats" class="adm-section">
       <div id="stats-content"></div>
     </div>
+
+    <div id="adm-comp" class="adm-section">
+      <div id="comp-content"></div>
+    </div>
   </div>
 </div>
 
@@ -150,6 +161,10 @@
   </div>
 </div>
 
+<!-- CDN: Chart.js + jsPDF + autotable (requieren internet) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

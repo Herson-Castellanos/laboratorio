@@ -227,4 +227,55 @@ tr:hover td { background: var(--brand-light); }
   .tab-btn  { padding: .35rem .5rem; font-size: .67rem; }
   .lik-lbl  { min-width: 80px; font-size: .67rem; }
   .bar-lbl  { width: 100px; }
+  .ty-results-inner { flex-direction: column; }
+  .ty-radar-wrap, .ty-dim-table { min-width: unset; }
+}
+
+/* ── Thank-you results section ── */
+.ty-outer { max-width: 960px; margin: 0 auto; padding: 0 1rem 2rem; }
+.ty-card  { max-width: none; text-align: center; }
+.ty-icon  { font-size: 3.5rem; margin-bottom: .7rem; }
+
+.ty-results-inner {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  background: white; border-radius: 12px;
+  box-shadow: 0 2px 14px rgba(139,21,56,.1);
+  padding: 1.8rem; margin-top: 1rem;
+}
+.ty-radar-wrap {
+  flex: 0 0 auto; min-width: 280px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.ty-dim-table { flex: 1; min-width: 280px; }
+
+/* ── Comparative / ranking ── */
+.sortable-th { cursor: pointer; user-select: none; }
+.sortable-th:hover { background: rgba(255,255,255,.15); }
+
+/* ── Comparative filter panel ── */
+.comp-filter-panel {
+  background: white; border-radius: 10px; padding: 1rem 1.2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 1.2rem;
+}
+.comp-filter-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: .75rem; font-weight: 600; color: var(--brand); font-size: .88rem;
+}
+.comp-filter-list {
+  display: flex; flex-wrap: wrap; gap: .4rem .55rem;
+  max-height: 175px; overflow-y: auto;
+}
+.comp-inst-chk {
+  display: flex; align-items: center; gap: .35rem;
+  padding: .28rem .65rem; border-radius: 20px; border: 1.5px solid #e2e8f0;
+  cursor: pointer; font-size: .79rem; color: #374151;
+  transition: border-color .15s, background .15s; user-select: none;
+}
+.comp-inst-chk:hover { border-color: var(--brand); background: var(--brand-light); }
+.comp-inst-chk.chk-on { border-color: var(--brand); background: var(--brand-light); color: var(--brand); font-weight: 600; }
+.comp-inst-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.chk-mark { font-size: .7rem; color: var(--brand); margin-left: .1rem; }
+.comp-chart-card {
+  background: white; border-radius: 10px; padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 1.5rem; text-align: center;
 }

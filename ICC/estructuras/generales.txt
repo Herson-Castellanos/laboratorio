@@ -31,7 +31,7 @@
 </tr>
 <tr align="left" valign="top">
 <td><strong>Apoyo técnico</strong></td>
-<td>Correo electrónico: escolares@icc.clavijero.edu.mx</td></br>Teléfono: +52 (228) 841 7700 Ext. 7681 / 7695</td>
+<td>Correo electrónico: escolares@icc.clavijero.edu.mx</br>Teléfono: +52 (228) 841 7700 Ext. 7681 / 7695</td>
 </tr>
 <tr valign="center" style="border-bottom: 1.5pt solid #000000;">
 <td><strong>Dirigida a:</strong></td>
